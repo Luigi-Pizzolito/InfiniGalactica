@@ -1,12 +1,12 @@
 PNAME=Space_Invaders
-SRCD=$(PNAME)/src/**/*
+SRCD=$(PNAME)/src/**/*.cpp
 ODIR=bin/Darwin-Release-x86
 
 CC=g++
 IDIR =Dependencies/include
 LDIR =Dependencies/lib-darwin
 LIBS=-l sfml-system -l sfml-window -l sfml-graphics -l sfml-audio -l sfml-network -Wl,-rpath $(LDIR)
-CFLAGS=-std=c++14 -I $(IDIR)
+CFLAGS=-std=c++14 -I $(IDIR) -I $(PNAME)/src/
 
 run: $(ODIR)/$(PNAME)
 	@echo "\033[0;34mRunning Project..........................\033[0m\033[2m"
