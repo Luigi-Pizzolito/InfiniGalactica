@@ -85,7 +85,7 @@ void ShooterGame::pollEvents()
 void ShooterGame::update()
 {
 	pollEvents();
-	player.updatePhysics();
+	player.updatePhysics();		// Also need to update the player physics every frame
 }
 
 void ShooterGame::render()

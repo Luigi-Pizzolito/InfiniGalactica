@@ -7,11 +7,11 @@ class Enemy ;
 class Item_;
 class EnemyBullet;
 //class
-class Player :public PhysicsEntity {
+class Player :public PhysicsEntity {     // Player class is now an extension of the Physics entity class
 
 public:
 
-	Player(int health, float speed, float fric);
+	Player(int health, float speed, float fric); // Player initialiser also includes a friction parameter now
 	~Player();
 	void move(DIRECTIONS dir) override;
 	void shoot();

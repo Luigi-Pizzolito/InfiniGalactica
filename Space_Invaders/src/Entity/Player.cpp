@@ -19,7 +19,7 @@ void Player::move(DIRECTIONS dir)
 	switch (dir)
 	{
 	case DIRECTIONS::LEFT:
-		applyForce(sf::Vector2f(-m_Speed, 0.0f), 50.0f);
+		applyForce(sf::Vector2f(-m_Speed, 0.0f), 50.0f);		// movement is done by applyForce with a sf::Vector2f and a force divisor float
 		break;
 	case DIRECTIONS::RIGHT:
 		applyForce(sf::Vector2f(m_Speed, 0.0f), 50.0f);
