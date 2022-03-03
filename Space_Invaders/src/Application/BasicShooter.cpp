@@ -1,24 +1,17 @@
 #include "BasicShooter.h"
 
-#include <iostream>
-#include <string>
-#include <filesystem>
-#include <unistd.h>
-
-
 
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
 	// Initializer List
 	: Application(screen_dimensions, app_name),
 	  player(100, 25, 500.0f)
 {
-	std::cout << "Current working directory: " << std::__fs::filesystem::current_path() << std::endl;
+
 	// Load Textures for Entities and Projectiles
 	player_texture.loadFromFile("res/Sprites/player.png");
 	enemy_texture.loadFromFile("res/Sprites/enemy.png");
 	projectile_texture.loadFromFile("res/Sprites/bullet.png");
 	// Setting the textures
-
 	player.setTexture(player_texture);
 	#ifdef __APPLE__
 	key_u = false;
