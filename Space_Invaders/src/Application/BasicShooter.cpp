@@ -10,7 +10,7 @@
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
 	// Initializer List
 	: Application(screen_dimensions, app_name),
-	  player(100, 25)
+	  player(100, 25, 500.0f)
 {
 	std::cout << "Current working directory: " << std::__fs::filesystem::current_path() << std::endl;
 	// Load Textures for Entities and Projectiles
@@ -41,7 +41,6 @@ void ShooterGame::pollEvents()
 	if (key_l) {player.move(DIRECTIONS::LEFT);}
 	if (key_r) {player.move(DIRECTIONS::RIGHT);}
 	#endif
-	player.physics();
 	while (m_window->pollEvent(m_events))
 	{
 		
@@ -86,6 +85,7 @@ void ShooterGame::pollEvents()
 void ShooterGame::update()
 {
 	pollEvents();
+	player.updatePhysics();
 }
 
 void ShooterGame::render()

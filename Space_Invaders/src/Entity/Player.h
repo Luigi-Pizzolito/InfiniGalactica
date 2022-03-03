@@ -1,26 +1,21 @@
 #pragma once
-#include "Entity.h"
+#include "PhysicsEntity.h"
+// #include "Physics.h"
 
 //forward Declaration
 class Enemy ;
 class Item_;
 class EnemyBullet;
 //class
-class Player :public Entity {
-
-private:
-	float accel_x;
-	float speed_x;
-	float accel_y;
-	float speed_y;
+class Player :public PhysicsEntity {
 
 public:
 
-	Player(int health, float speed);
+	Player(int health, float speed, float fric);
 	~Player();
 	void move(DIRECTIONS dir) override;
 	void shoot();
-	void physics();
+
 	//Overloads of Collisions
 	void setTexture(const sf::Texture& texture)override;
 	bool collidesWith(const Enemy& enemy);
