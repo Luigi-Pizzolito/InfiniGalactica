@@ -1,10 +1,12 @@
 #include "BasicShooter.h"
 
+#include "CameraFollowScroll.h"
 
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
 	// Initializer List
 	: Application(screen_dimensions, app_name),
-	  player(100, 25, 500.0f)
+	  player(100, 25, 500.0f),
+	  starfield(m_window, &player.getSprite(), 500)
 {
 
 	// Load Textures for Entities and Projectiles
@@ -30,9 +32,9 @@ void ShooterGame::pollEvents()
 {
 	#ifdef __APPLE__
 	if (key_u) {player.move(DIRECTIONS::UP);}
-	if (key_d) {player.move(DIRECTIONS::DOWN);}
+	else if (key_d) {player.move(DIRECTIONS::DOWN);}
 	if (key_l) {player.move(DIRECTIONS::LEFT);}
-	if (key_r) {player.move(DIRECTIONS::RIGHT);}
+	else if (key_r) {player.move(DIRECTIONS::RIGHT);}
 	#endif
 	while (m_window->pollEvent(m_events))
 	{
@@ -84,6 +86,11 @@ void ShooterGame::update()
 void ShooterGame::render()
 {
 	m_window->clear();
+	// scroll camera
+	CameraFollowHorzScroll(m_window, m_view, &player.getSprite());
+	// render background
+	starfield.draw();
+	
 	// renders objects
 	m_window->draw(player.getSprite());
 	// displays objects on the screen

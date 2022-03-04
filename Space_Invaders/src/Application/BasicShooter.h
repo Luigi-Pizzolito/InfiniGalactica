@@ -4,6 +4,7 @@
 #include "Entity/Player.h"
 #include "Entity/Enemy.h"
 #include "Projectiles/Projectile.h"
+#include "Algorithms/StarField.h"
 
 //Example for Conways Game of Life
 class ShooterGame :public Application {
@@ -21,6 +22,8 @@ private:
 	//Projectiles
 	std::vector<PlayerBullet> player_bullets;
 	std::vector<EnemyBullet> world_enemy_bullets;
+	//Background
+	StarField starfield;
 
 	#ifdef __APPLE__
 	bool key_u;
