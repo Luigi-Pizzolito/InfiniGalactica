@@ -1,18 +1,34 @@
 #include "StarField.h"
 #include <random>
 
-StarField::StarField(sf::RenderWindow* window, const sf::Sprite* sprite, int star_num):m_window(window),p_sprite(sprite) {
+StarField::StarField(sf::RenderWindow* window, const sf::Sprite* sprite, int star_num):m_window(window),p_sprite(sprite),star_num(star_num) {
     // set star texture
     star_texture.loadFromFile("res/Sprites/stars.png");
     star_rstate.texture = &star_texture;
     // populate vertex arrays with vertices
     for (int i = 0; i < star_layc; i++) {
-        star_layers[i] = new sf::VertexArray(sf::Quads, star_num*4);
+        star_layers[i] = new sf::VertexArray(  sf::Quads,  star_num*4 * std::pow(1+parallax_c[i], 4)  );  // slowly moving layers need more stars as they are further streched out
         genStars(star_layers[i]);
     }
 }
 
 StarField::~StarField() {}
+
+void StarField::addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset) {
+    // generate position and texture coordinates for each vertex
+
+    // set position coordinates of each vertex
+    (*varray)[oarray*4   ].position  =  position                                                    ;
+    (*varray)[oarray*4 +1].position  =  (*varray)[oarray*4].position  +  sf::Vector2f(size.x, 0.0f) ;
+    (*varray)[oarray*4 +2].position  =  (*varray)[oarray*4].position  +  size                       ;
+    (*varray)[oarray*4 +3].position  =  (*varray)[oarray*4].position  +  sf::Vector2f(0.0f, size.y) ;
+    // set texture coordinates of each vertex
+    sf::Vector2f spritesheet_offset   =  sf::Vector2f(tex_size.x*tex_ioffset.x, tex_size.y*tex_ioffset.y );
+    (*varray)[oarray*4   ].texCoords  =  spritesheet_offset                                               ;
+    (*varray)[oarray*4 +1].texCoords  =  spritesheet_offset  +  sf::Vector2f(  tex_size.x,  0.0f        ) ;
+    (*varray)[oarray*4 +2].texCoords  =  spritesheet_offset  +  sf::Vector2f(  tex_size.x,  tex_size.y  ) ;
+    (*varray)[oarray*4 +3].texCoords  =  spritesheet_offset  +  sf::Vector2f(  0.0f      ,  tex_size.y  ) ;
+}
 
 void StarField::genStars(sf::VertexArray* stars) {
     // randomly generate and set the star positions
@@ -20,38 +36,15 @@ void StarField::genStars(sf::VertexArray* stars) {
     // setup random generation
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int> rx(-0.25f*m_window->getSize().x,m_window->getSize().x*4); // generation bounds for star field
-	std::uniform_int_distribution<int> ry(-0.25f*m_window->getSize().y,m_window->getSize().y*4); // 
-    std::uniform_real_distribution<float> rs(0.5f,4.0f);    // generation bounds for star size
-    std::uniform_int_distribution<int> rt(0, 4);            // random texture
+	std::uniform_int_distribution<int>      rx(-0.25f*m_window->getSize().x,m_window->getSize().x*4); // generation bounds for star field
+	std::uniform_int_distribution<int>      ry(-0.25f*m_window->getSize().y,m_window->getSize().y*4); // 
+    std::uniform_real_distribution<float>   rs(0.5f,4.0f);    // generation bounds for star size
+    std::uniform_int_distribution<int>      rt(0, 4);            // random texture
 
     // randomly distribute star positions
-    float star_size;
-    float star_tex;
-    sf::Vector2f texture_size = sf::Vector2f(8.0f, 8.0f);
-    for (int i = 0; i < stars->getVertexCount();i++) {
-        switch (i%4) {
-            case 0:     //quad vertex 1
-                (*stars)[i].position = sf::Vector2f(rx(rng), ry(rng));
-                star_size = rs(rng);
-                star_tex = rt(rng);
-                (*stars)[i].texCoords = sf::Vector2f(texture_size.x*star_tex + 0.0f,0.0f);
-                break;
-            case 1:     //quad vertex 2
-                (*stars)[i].position = (*stars)[i-1].position + sf::Vector2f(star_size, 0.0f);
-                (*stars)[i].texCoords = sf::Vector2f(texture_size.x*star_tex + texture_size.x,0.0f);
-                break;
-            case 2:     //quad vertex 3
-                (*stars)[i].position = (*stars)[i-2].position + sf::Vector2f(star_size, star_size);
-                (*stars)[i].texCoords = sf::Vector2f(texture_size.x*star_tex + texture_size.x,texture_size.y);
-                break;
-            case 3:     //quad vertex 4
-                (*stars)[i].position = (*stars)[i-3].position + sf::Vector2f(0.0f, star_size);
-                (*stars)[i].texCoords = sf::Vector2f(texture_size.x*star_tex + 0.0f,texture_size.y);
-                break;
-            default:
-                break;
-        }
+    for (int i = 0; i < stars->getVertexCount()/4;i++) {
+        float r_size = rs(rng);
+        addElemtoVertexArray(stars, i, sf::Vector2f(rx(rng), ry(rng)), sf::Vector2f(r_size, r_size), sf::Vector2i(8, 8), sf::Vector2i(rt(rng), 0));
     }
 }
 
