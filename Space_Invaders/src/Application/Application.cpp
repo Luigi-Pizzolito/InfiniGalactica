@@ -7,6 +7,11 @@ Application::Application(const sf::Vector2i& screen_dimensions,const char* app_n
 	//Creates window in the Heap
 	m_window=new sf::RenderWindow(m_videoMode, app_name, sf::Style::Default);
 	m_window->setFramerateLimit(60);
+
+	// Luigi: Added sf:View because that has a .move() function for scrolling
+	m_view =new sf::View();
+	m_view->reset(sf::FloatRect(0, 0, screen_dimensions.x, screen_dimensions.y));
+	m_window->setView(*m_view);
 }
 
 Application::~Application()
