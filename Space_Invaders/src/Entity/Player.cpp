@@ -36,6 +36,11 @@ void Player::move(DIRECTIONS dir)
 
 }
 
+void Player::applyExtForce(sf::Vector2f force) {
+	// m_sprite.move(force);
+	applyForce(force);
+}
+
 
 void Player::shoot()
 {

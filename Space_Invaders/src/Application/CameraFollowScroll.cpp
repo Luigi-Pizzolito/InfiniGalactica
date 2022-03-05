@@ -3,8 +3,8 @@
 #include <iostream>
 
 
-CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, const Player* player, sf::Vector2f c_speed):window(window),view(view),player(player),c_speed(c_speed) {
-    const sf::Sprite* sprite = &(*player).getSprite();
+CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed):window(window),view(view),player(player),c_speed(c_speed) {
+    const sf::Sprite* sprite = &player->getSprite();
     // get the player sprite position
     sf::Vector2f s_pos = sprite->getScale();                //first get the sprite texture center, starting by getting the scale
     s_pos.x*=(float)sprite->getTextureRect().width/2.0f;    //then multiply by the texture size
@@ -25,22 +25,33 @@ float CameraFollowHorzScroll::mapF(float value, float istart, float istop, float
 }
 
 void CameraFollowHorzScroll::follow() {
-    // view->rotate(0.6f);
-    // const sf::Vector2f c_pos = view->getCenter() - (view->getSize() / 2.0f); // get camera move offset
-    
-
-    // get player movement
-    // sf::Vector2f delta_p = sprite->getPosition() - last_p; // get the vector of player movement since last frame
-    // float max_player_x_speed = std::sqrt(player->player_speed*player->player_friction);
-    // std::cout << std::pow(delta_p.x, 0.5f) << "/" << std::pow(max_player_x_speed, 0.5f) <<"\n";
-    
-    // float x_offset = mapF(std::pow(delta_p.x, 0.5f), 0.0f, std::pow(max_player_x_speed, 0.5f), -sprite_width, -view->getSize().x+2*sprite_width);
-    
-    // update last position
-    // last_p = sprite->getPosition();
-
     // check if player is going out of bounds
-
+    float border_width = 2.0f;
+    float repulse_force = 0.5f;
+    sf::FloatRect player_bounds = player->getSprite().getGlobalBounds();
+    sf::FloatRect view_bounds( view->getCenter()-(view->getSize()/2.0f) + sf::Vector2f(border_width, border_width) , view->getSize() + sf::Vector2f(-border_width, -border_width) );
+    // std::cout << player_bounds.left << "," << player_bounds.top << "," << player_bounds.width << "," << player_bounds.height << "\n";
+    // std::cout << view_bounds.left   << "," << view_bounds.top   << "," << view_bounds.width   << "," << view_bounds.height   << "\n\n";
+    //out of bounds top
+    if ( player_bounds.top <= view_bounds.top ) {
+        if ((player->getAccel())->y < 0) {*(player->getAccel()) = sf::Vector2f((player->getAccel())->x, 0.0f);}
+        player->applyExtForce(sf::Vector2f(0.0f, 1.5f*repulse_force));
+    }
+    //out of bounds bottom
+    else if ( player_bounds.top + player_bounds.height >= view_bounds.top + view_bounds.height) {
+        if ((player->getAccel())->y > 0) {*(player->getAccel()) = sf::Vector2f((player->getAccel())->x, 0.0f);}
+        player->applyExtForce(sf::Vector2f(0.0f, -1.5f*repulse_force));
+    }
+    //out of bounds left
+    if ( player_bounds.left <= view_bounds.left ) {
+        if ((player->getAccel())->x < 0) {*(player->getAccel()) = sf::Vector2f(0.0f, (player->getAccel())->y);}
+        player->applyExtForce(sf::Vector2f(1.5f*repulse_force, 0.0f));
+    }
+    //out of bounds right
+    else if ( player_bounds.left + player_bounds.width >= view_bounds.left + view_bounds.width) {
+        if ((player->getAccel())->x > 0) {*(player->getAccel()) = sf::Vector2f(0.0f, (player->getAccel())->y);}
+        player->applyExtForce(sf::Vector2f(-repulse_force, 0.0f));
+    }
 
     sf::Vector2f move = last_p + c_speed/60.0f;
     view->setCenter(move + (view->getSize() / 2.0f)); //compensate for setCenter instead of setOffset func.

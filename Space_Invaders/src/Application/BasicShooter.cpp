@@ -81,19 +81,34 @@ void ShooterGame::pollEvents()
 void ShooterGame::update()
 {
 	pollEvents();
-	player.updatePhysics();		// Also need to update the player physics every frame
+
+	player.updatePhysics();
+	// scroll camera
+	camera.follow();
+
+	// float border_width = 5.0f;
+	// sf::FloatRect player_bounds = player.getSprite().getGlobalBounds();
+    // sf::FloatRect view_bounds( m_view->getCenter()-(m_view->getSize()/2.0f) + sf::Vector2f(border_width, border_width) , m_view->getSize() + sf::Vector2f(-border_width, -border_width) );
+
+	// if (view_bounds.contains(sf::Vector2f(player_bounds.top,player_bounds.left)) &&
+	// 	view_bounds.contains(sf::Vector2f(player_bounds.top,player_bounds.left+player_bounds.width)) &&
+	// 	view_bounds.contains(sf::Vector2f(player_bounds.top-player_bounds.height,player_bounds.left)) &&
+	// 	view_bounds.contains(sf::Vector2f(player_bounds.top-player_bounds.height,player_bounds.left+player_bounds.width))
+	//  ) {} else {std::cout<<"no physics\n";}		// Also need to update the player physics every frame
+
+	
 }
 
 void ShooterGame::render()
 {
 	m_window->clear();
-	// scroll camera
-	camera.follow();
+	
 	// render background
 	starfield.draw();
 	
 	// renders objects
 	m_window->draw(player.getSprite());
+
 	// displays objects on the screen
 	m_window->display();
 }

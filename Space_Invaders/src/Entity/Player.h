@@ -17,6 +17,7 @@ public:
 	float player_friction;
 	void move(DIRECTIONS dir) override;
 	void shoot();
+	void applyExtForce(sf::Vector2f force);
 
 	//Overloads of Collisions
 	void setTexture(const sf::Texture& texture)override;
