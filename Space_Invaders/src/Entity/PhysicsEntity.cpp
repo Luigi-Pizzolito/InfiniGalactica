@@ -12,17 +12,20 @@ PhysicsEntity::~PhysicsEntity() {
 
 
 void PhysicsEntity::updatePhysics() {
-    // add friction proportional to speed absolute vector ^2 weighted by fric_divisor
-	float fric = base_speed * std::sqrt( veloc.x*veloc.x + veloc.y*veloc.y ) / fric_divisor;
-	if (veloc.x > 0) {veloc.x-=fric;}
-	else if (veloc.x < 0) {veloc.x+=fric;}
-	if (veloc.y > 0) {veloc.y-=fric*1.25f;}
-	else if (veloc.y < 0) {veloc.y+=fric*1.25f;} //? compensate y vel asymetry by adding more y fric
-	// propagate accel to vel
-	accel.y*=1.25f; //? y vel asymetry in order to add better player manauverability in y-axis
+	// propagate accel to vel, and reset accell
 	veloc+=accel;
-	//reset accel
 	accel = sf::Vector2f();
+
+    // add friction proportional to speed vector  weighted by fric_divisor
+	sf::Vector2f friction = sf::Vector2f(veloc.x*veloc.x, veloc.y*veloc.y)/fric_divisor;
+	if (veloc.x > 0) {veloc.x-=friction.x;}
+	else if (veloc.x < 0) {veloc.x+=friction.x;}
+	if (veloc.y > 0) {veloc.y-=friction.y;}
+	else if (veloc.y < 0) {veloc.y+=friction.y;}
+
+	// add repulsion if near screen edges
+	// sf::Vector2f
+	
 	//move vel
 	m_sprite.move(veloc);
 }

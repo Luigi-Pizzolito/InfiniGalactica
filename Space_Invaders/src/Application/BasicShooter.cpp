@@ -5,7 +5,7 @@
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
 	// Initializer List
 	: Application(screen_dimensions, app_name),
-	  player(100, 25, 500.0f),
+	  player(100, 25, 100.0f),
 	  starfield(m_window, &player.getSprite(), 100)
 {
 
@@ -30,12 +30,6 @@ ShooterGame::~ShooterGame()
 
 void ShooterGame::pollEvents()
 {
-	#ifdef __APPLE__
-	if (key_u) {player.move(DIRECTIONS::UP);}
-	else if (key_d) {player.move(DIRECTIONS::DOWN);}
-	if (key_l) {player.move(DIRECTIONS::LEFT);}
-	else if (key_r) {player.move(DIRECTIONS::RIGHT);}
-	#endif
 	while (m_window->pollEvent(m_events))
 	{
 		
@@ -75,6 +69,12 @@ void ShooterGame::pollEvents()
 			break;
 		}
 	}
+	#ifdef __APPLE__
+	if (key_u) {player.move(DIRECTIONS::UP);}
+	else if (key_d) {player.move(DIRECTIONS::DOWN);}
+	if (key_l) {player.move(DIRECTIONS::LEFT);}
+	else if (key_r) {player.move(DIRECTIONS::RIGHT);}
+	#endif
 }
 
 void ShooterGame::update()

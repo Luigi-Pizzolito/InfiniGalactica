@@ -16,6 +16,6 @@ void CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, const sf::
 
     move.y=0.0f;
     view->setCenter(move + (view->getSize() / 2.0f)); //compensate for setCenter instead of setOffset func.
-    //!uncoment this to make efective
+    
     window->setView(*view);
 }
