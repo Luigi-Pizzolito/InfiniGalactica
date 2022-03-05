@@ -6,11 +6,12 @@ CC=g++
 IDIR =Dependencies/include
 LDIR =Dependencies/lib-darwin
 LIBS=-l sfml-system -l sfml-window -l sfml-graphics -l sfml-audio -l sfml-network -Wl,-rpath $(LDIR)
-CFLAGS= -std=c++14 -I $(IDIR) -I $(PNAME)/src/
+CFLAGS=-std=c++14 -I $(IDIR) -I $(PNAME)/src/
+# add -g to add debug symbols, add -c to statically link
 
 run: $(ODIR)/$(PNAME)
 	@echo "\033[0;34mRunning Project..........................\033[0m\033[2m"
-	cd Space_Invaders; ../$(ODIR)/*
+	cd Space_Invaders; ../$(ODIR)/Space_Invaders
 	@echo "\033[0m\033[1;34mFinished.\033[0m"
 
 $(ODIR)/$(PNAME): $(SRCD)
@@ -24,3 +25,11 @@ clean:
 	@echo "\033[0;33mCleaning Project..........................\033[0m\033[2m"
 	rm -vf $(ODIR)/*
 	@echo "\033[0m\033[0;33mCleaned Project.\033[0m\033[2m"
+
+novel:
+	@echo "\033[0m\033[0;32mBuilding Novel Project..........................\033[0m\033[2m"	
+	$(CC) Space_Invaders/src/Scenes/BasicTest.cpp Space_Invaders/src/Application/Application.cpp Space_Invaders/src/Application/BasicNovel.cpp -o $(ODIR)/$(PNAME)_Novel $(CFLAGS) $(LIBS)
+	@echo "\033[0m\033[1;32mProject Compiled Successfully.\033[0m"
+	@echo "\033[0;34mRunning Novel Project..........................\033[0m\033[2m"
+	cd Space_Invaders; ../$(ODIR)/Space_Invaders_Novel
+	@echo "\033[0m\033[1;34mFinished.\033[0m"
