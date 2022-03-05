@@ -5,7 +5,7 @@
 #include "Entity/Enemy.h"
 #include "Projectiles/Projectile.h"
 #include "Algorithms/StarField.h"
-#include "CameraFollowScroll.h"
+#include "Algorithms/CameraFollowScroll.h"
 
 //Example for Conways Game of Life
 class ShooterGame :public Application {
