@@ -1,12 +1,13 @@
 #include "BasicShooter.h"
 
-#include "CameraFollowScroll.h"
+// Physics parameters also needed for camera follow calculations
 
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
 	// Initializer List
 	: Application(screen_dimensions, app_name),
-	  player(100, 25, 100.0f),
-	  starfield(m_window, &player.getSprite(), 100)
+	  player(100, 0.5f, 100.0f),
+	  starfield(m_window, &player.getSprite(), 100),
+	  camera(m_window, m_view, &player)
 {
 
 	// Load Textures for Entities and Projectiles
@@ -87,7 +88,7 @@ void ShooterGame::render()
 {
 	m_window->clear();
 	// scroll camera
-	CameraFollowHorzScroll(m_window, m_view, &player.getSprite());
+	camera.follow();
 	// render background
 	starfield.draw();
 	

@@ -2,7 +2,7 @@
 #include "Enemy.h"
 #include "Projectiles/Projectile.h"
 
-Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed, fric)
+Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
 
 }
@@ -19,16 +19,16 @@ void Player::move(DIRECTIONS dir)
 	switch (dir)
 	{
 	case DIRECTIONS::LEFT:
-		applyForce(sf::Vector2f(-m_Speed, 0.0f), 50.0f);		// movement is done by applyForce with a sf::Vector2f and a force divisor float
+		applyForce(sf::Vector2f(-m_Speed, 0.0f));		// movement is done by applyForce with a sf::Vector2f and a force divisor float
 		break;
 	case DIRECTIONS::RIGHT:
-		applyForce(sf::Vector2f(m_Speed, 0.0f), 50.0f);
+		applyForce(sf::Vector2f(m_Speed, 0.0f));
 		break;
 	case DIRECTIONS::UP:
-		applyForce(sf::Vector2f(0.0f, -m_Speed), 50.0f);
+		applyForce(sf::Vector2f(0.0f, -m_Speed));
 		break;
 	case DIRECTIONS::DOWN:
-		applyForce(sf::Vector2f(0.0f, m_Speed), 50.0f);
+		applyForce(sf::Vector2f(0.0f, m_Speed));
 		break;
 	default:
 		break;

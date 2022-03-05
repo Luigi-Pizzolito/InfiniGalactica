@@ -14,5 +14,5 @@ class PhysicsEntity:public Entity {
 
         // add this to the Entity class
         void updatePhysics();
-        void applyForce(sf::Vector2f force, float force_divisor);
+        void applyForce(sf::Vector2f force);
 };

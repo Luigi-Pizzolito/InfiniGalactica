@@ -1,5 +1,18 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "Entity/Player.h"
 
-void CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, const sf::Sprite* sprite);
+class CameraFollowHorzScroll {
+    private:
+        sf::RenderWindow* window;
+        sf::View* view;
+        const Player* player;
+        sf::Vector2f last_p;
+        // float max_player_speed;
+        float mapF(float value, float istart, float istop, float ostart, float ostop);
+    public:
+        CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, const Player* player);
+        ~CameraFollowHorzScroll();
+        void follow();
+};

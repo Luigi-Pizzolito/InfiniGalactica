@@ -30,8 +30,8 @@ void PhysicsEntity::updatePhysics() {
 	m_sprite.move(veloc);
 }
 
-void PhysicsEntity::applyForce(sf::Vector2f force, float force_divisor) {
+void PhysicsEntity::applyForce(sf::Vector2f force) {
     // Add force to acceleration, force_divisor is basically mass as F=ma aka. a=F/m
-	force/=force_divisor;
+	// force/=force_divisor;
 	accel+=force;
 }

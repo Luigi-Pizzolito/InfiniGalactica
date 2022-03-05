@@ -13,6 +13,8 @@ public:
 
 	Player(int health, float speed, float fric); // Player initialiser also includes a friction parameter now
 	~Player();
+	float player_speed;
+	float player_friction;
 	void move(DIRECTIONS dir) override;
 	void shoot();
 

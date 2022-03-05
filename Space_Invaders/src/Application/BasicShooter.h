@@ -5,6 +5,7 @@
 #include "Entity/Enemy.h"
 #include "Projectiles/Projectile.h"
 #include "Algorithms/StarField.h"
+#include "CameraFollowScroll.h"
 
 //Example for Conways Game of Life
 class ShooterGame :public Application {
@@ -24,6 +25,8 @@ private:
 	std::vector<EnemyBullet> world_enemy_bullets;
 	//Background
 	StarField starfield;
+	//Camera
+	CameraFollowHorzScroll camera;
 
 	#ifdef __APPLE__
 	bool key_u;
