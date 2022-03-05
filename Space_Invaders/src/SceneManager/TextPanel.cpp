@@ -4,7 +4,7 @@
 TextPanel::TextPanel(sf::String string, unsigned width, const sf::Font &font, unsigned charicterSize, bool bold) {
 	// Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
 	unsigned currentOffset = 0;
-	unsigned elip = font.getGlyph(' ', charicterSize, bold).advance + font.getGlyph(L'', charicterSize, bold).advance;
+	unsigned elip = font.getGlyph(' ', charicterSize, bold).advance + font.getGlyph(L'…', charicterSize, bold).advance;
 	bool firstWord = true;
 	std::size_t wordBegining = 0;
 	std::size_t line = 0;
@@ -43,7 +43,7 @@ TextPanel::TextPanel(sf::String string, unsigned width, const sf::Font &font, un
 	size_t ep = 0;
 	while (string.find(sf::String("\31")) != sf::String::InvalidPos) {
 		ep = string.find(sf::String("\31"));
-		panel_gen.push_back(string.substring(sp, ep)+sf::String(L" ")); //add elipsis string if not on the last element
+		panel_gen.push_back(string.substring(sp, ep)+sf::String(L" …")); //add elipsis string if not on the last element
 		string.erase(sp, (ep-sp)+1);
 		sp = 0;
 	}
