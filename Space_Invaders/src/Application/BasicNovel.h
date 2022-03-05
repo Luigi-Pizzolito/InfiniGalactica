@@ -1,7 +1,8 @@
 #pragma once
 #include "Application.h"
-#include <vector>
-#include <string>
+#include "SceneManager/TextPanel.h"
+// #include <vector>
+// #include <string>
 
 class NovelGame :public Application {
 
@@ -20,11 +21,7 @@ private:
     bool key_space = false;
 
     // Internal functions
-    size_t panel_i = 0;
-    std::vector<sf::String>* panel_p;
-    static std::vector<sf::String> wrapTextPanelise(sf::String string, unsigned width, const sf::Font &font, unsigned charicterSize, bool bold = false);
-    bool next();
-    std::string ToUTF8(const sf::String &original);
+    TextPanel* text_panel;
 
 public:
 	//Constructors and Destructors
