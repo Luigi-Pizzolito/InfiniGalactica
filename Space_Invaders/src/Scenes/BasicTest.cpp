@@ -4,12 +4,14 @@
 #include <ctime>
 //Group-Libs
 #include "Application/BasicShooter.h"
+#include "Application/BasicNovel.h"
 ///variables
 
 int main() {
 
 	//Client Side Application
-	ShooterGame application(sf::Vector2i(320*2, 240*2), "Shooter Test");
+	// ShooterGame application(sf::Vector2i(320*2, 240*2), "Shooter Test");
+	NovelGame application(sf::Vector2i(320*2, 240*2), "Novel Test");
 
 	//Game Loop
 	while (application.isRunning()) {
