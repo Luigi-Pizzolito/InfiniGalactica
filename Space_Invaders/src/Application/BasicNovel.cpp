@@ -8,11 +8,11 @@ NovelGame::NovelGame(const sf::Vector2i &screen_dimensions, const char *app_name
 	// Load fonts
 	font.loadFromFile("res/Novel/LanaPixel.ttf");
 	// Load Textures
-	dialog_overlay.loadFromFile("res/Novel/dialog_overlay.png");
+	// dialog_overlay.loadFromFile("res/Novel/dialog_overlay.png");
 	// Setting the textures
 	// player.setTexture(player_texture);
 	text_panel = new TextPanel(sf::String(L"你好，看起来玩玩儿在这个game! Hello, are you ready to play InfiniGalactica? If not you should hold on to your socks!  You really should play this otherwise imma whoops your lil' ass straight outta here you lil' who you think you are"),
-		m_view->getSize().x - 50, font, 11 * 4, false);
+							   font, 11 * 4, m_window, m_view);
 }
 
 NovelGame::~NovelGame()
@@ -58,6 +58,7 @@ void NovelGame::pollEvents()
 void NovelGame::update()
 {
 	pollEvents();
+	text_panel->tick();
 }
 
 void NovelGame::render()
@@ -68,25 +69,9 @@ void NovelGame::render()
 
 	// renders objects
 	// m_window->draw(player.getSprite());
-	drawText();
+	text_panel->draw();
 
 	// displays objects on the screen
 	m_window->display();
 }
 
-void NovelGame::drawText()
-{
-	// Draw dialog box
-	sf::RectangleShape dialog_box = sf::RectangleShape(sf::Vector2f(0.0f, 0.0f));
-	dialog_box.setSize(m_view->getSize());
-	dialog_box.setTexture(&dialog_overlay);
-	m_window->draw(dialog_box);
-
-	// Create a text
-	sf::Text text(text_panel->text(), font, 11 * 4);
-	text.setOrigin(sf::Vector2f(-25.0f, -m_view->getSize().y + 20 + 44 * 2 + 10));
-	text.setFillColor(sf::Color::White);
-	text.setLineSpacing(0.8f);
-	// Draw it
-	m_window->draw(text);
-}

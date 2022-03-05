@@ -11,7 +11,7 @@ private:
     sf::Font font;
 
 	//Textures
-	sf::Texture dialog_overlay;
+	// sf::Texture dialog_overlay;
 
 	//Background
 
@@ -30,6 +30,4 @@ public:
 	void pollEvents()override;
 	void update()override;
 	void render()override;
-
-    void drawText();
 };

@@ -6,12 +6,28 @@
 
 class TextPanel {
     private:
+        sf::RenderWindow* m_window;
+        sf::View* m_view;
+        const sf::Font font;
+        const unsigned fontSize;
+        const float margin = 20;
+        const float border = 5;
+        const float padding = 10;
+        const float line_spacing = 0.8f;
+        const float line_padding = 5;
+        const float rate_b = 0.5;
+        size_t tick_b = 0; 
+        bool blink_b = false;
+
         size_t panel_i = 0;
         std::vector<sf::String>* panel_p;
         static std::string ToUTF8(const sf::String &original);
     public:
-        TextPanel(sf::String string, unsigned width, const sf::Font &font, unsigned charicterSize, bool bold = false);
+        TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool bold = false);
         ~TextPanel();
         sf::String text();
         bool next();
+
+        void tick();
+        void draw();
 };
