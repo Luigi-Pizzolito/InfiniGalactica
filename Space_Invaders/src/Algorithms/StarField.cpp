@@ -1,7 +1,7 @@
 #include "StarField.h"
 #include <random>
 
-StarField::StarField(sf::RenderWindow* window, const sf::Sprite* sprite, int star_num):m_window(window),p_sprite(sprite),star_num(star_num) {
+StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_num):m_window(window),c_view(view),star_num(star_num) {
     // set star texture
     star_texture.loadFromFile("res/Sprites/stars.png");
     star_rstate.texture = &star_texture;
@@ -51,7 +51,7 @@ void StarField::genStars(sf::VertexArray* stars) {
 void StarField::parallax() {
     // shift stars compensating for player position
 
-    sf::Vector2f delta_p = p_sprite->getPosition() - last_p; // get the vector of player movement since last frame
+    sf::Vector2f delta_p = (c_view->getCenter()-(c_view->getSize()/2.0f)) - last_p; // get the vector of player movement since last frame
     delta_p.y = 0.0f;       // do not compensate for y
 
     // for each layer
@@ -62,7 +62,7 @@ void StarField::parallax() {
     }
 
     // update last position
-    last_p = p_sprite->getPosition();
+    last_p = c_view->getCenter()-(c_view->getSize()/2.0f);
 }
 
 void StarField::draw() {

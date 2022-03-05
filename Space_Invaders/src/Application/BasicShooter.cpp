@@ -6,8 +6,8 @@ ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_
 	// Initializer List
 	: Application(screen_dimensions, app_name),
 	  player(100, 0.5f, 100.0f),
-	  starfield(m_window, &player.getSprite(), 100),
-	  camera(m_window, m_view, &player)
+	  starfield(m_window, m_view, 100),
+	  camera(m_window, m_view, &player, sf::Vector2f(100.0f, 0.0f))
 {
 
 	// Load Textures for Entities and Projectiles

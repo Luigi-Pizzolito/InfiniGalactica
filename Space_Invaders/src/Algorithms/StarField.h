@@ -5,7 +5,7 @@
 class StarField {
     private:
         sf::RenderWindow* m_window;
-        const sf::Sprite* p_sprite;
+        const sf::View* c_view;
         sf::Texture star_texture;
         sf::RenderStates star_rstate;
         int star_layc = 8;
@@ -18,7 +18,7 @@ class StarField {
         void parallax();
         sf::Vector2f last_p;
     public:
-        StarField(sf::RenderWindow* window, const sf::Sprite* sprite, int star_num);
+        StarField(sf::RenderWindow* window, const sf::View* view, int star_num);
         ~StarField();
         void draw();
 };
