@@ -153,14 +153,16 @@ void ShooterGame::playerInputState(STATES state)
 		if (m_events.key.code == sf::Keyboard::A) { key_l = true; }
 		else if (m_events.key.code == sf::Keyboard::D) { key_r = true; }
 		if (m_events.key.code == sf::Keyboard::W) { key_u = true; }
-		if (m_events.key.code == sf::Keyboard::S) { key_d = true; }
+		else if (m_events.key.code == sf::Keyboard::S) { key_d = true; }
+
 		if (m_events.key.code == sf::Keyboard::G) { key_s = true; }
 		break;
 	case STATES::RELEASED:
 		if (m_events.key.code == sf::Keyboard::A) { key_l = false; }
-		else if (m_events.key.code == sf::Keyboard::D) { key_r = false; }
+		if (m_events.key.code == sf::Keyboard::D) { key_r = false; }
 		if (m_events.key.code == sf::Keyboard::W) { key_u = false; }
 		if (m_events.key.code == sf::Keyboard::S) { key_d = false; }
+		
 		if (m_events.key.code == sf::Keyboard::G) { key_s = false; }
 		break;
 	default:

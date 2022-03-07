@@ -4,6 +4,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 
+enum class STATES {
+	PRESSED = 0, RELEASED
+};
+
 class Application {
 	//members for SFML
 	//can be accessed by the Game

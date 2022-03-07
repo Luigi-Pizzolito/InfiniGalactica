@@ -7,9 +7,6 @@
 #include "Algorithms/StarField.h"
 #include "Algorithms/CameraFollowScroll.h"
 #include "Algorithms/Utilities.h"
-enum class STATES {
-	PRESSED = 0, RELEASED
-};
 
 
 class ShooterGame :public Application {

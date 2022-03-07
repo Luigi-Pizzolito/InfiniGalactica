@@ -3,6 +3,7 @@
 #include "Projectiles/Projectile.h"
 
 
+
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
 
