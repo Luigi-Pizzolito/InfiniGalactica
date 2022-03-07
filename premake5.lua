@@ -32,7 +32,8 @@ project "Space_Invaders"
 	includedirs{
 		"%{prj.name}/src/vendor",
 		"Dependencies/include",
-		"%{prj.name}"
+		"%{prj.name}",
+		"%{prj.name}/src"
 	}
 
 	libdirs{

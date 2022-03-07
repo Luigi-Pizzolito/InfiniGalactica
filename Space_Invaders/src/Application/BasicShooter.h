@@ -6,8 +6,12 @@
 #include "Projectiles/Projectile.h"
 #include "Algorithms/StarField.h"
 #include "Algorithms/CameraFollowScroll.h"
+#include "Algorithms/Utilities.h"
+enum class STATES {
+	PRESSED = 0, RELEASED
+};
 
-//Example for Conways Game of Life
+
 class ShooterGame :public Application {
 
 private:
@@ -19,21 +23,29 @@ private:
 	sf::Texture projectile_texture;
 	//Entities
 	Player player;
-	std::vector<Enemy> world_enemies;
+
+	//In the future subdivide this into enemy type1 type2
+	std::vector<Enemy*> world_enemies;
 	//Projectiles
-	std::vector<PlayerBullet> player_bullets;
-	std::vector<EnemyBullet> world_enemy_bullets;
+	std::vector<PlayerBullet*> player_bullets;
+	std::vector<EnemyBullet*> world_enemy_bullets;
+
 	//Background
 	StarField starfield;
+
 	//Camera
 	CameraFollowHorzScroll camera;
 
-	#ifdef __APPLE__
+	//Key states
 	bool key_u;
 	bool key_d;
 	bool key_l;
 	bool key_r;
-	#endif
+	bool key_s;
+
+	//timers and spawners
+	Control::GameTimer player_bullet_timer;
+	Control::GameTimer enemy_spawner;
 
 public:
 	//Constructors and Destructors
@@ -43,7 +55,8 @@ public:
 	void update()override;
 	void render()override;
 private:
-	void SpawnEnemy();
+	void playerInputState(STATES state);
+	void SpawnEnemy(const sf::Vector2f& position);
 	void SpawnPlayerBullet();
 	void SpawnEnemyBullet();
 

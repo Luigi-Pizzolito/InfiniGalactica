@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Projectiles/Projectile.h"
 
+
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
 
@@ -42,10 +43,7 @@ void Player::applyExtForce(sf::Vector2f force) {
 }
 
 
-void Player::shoot()
-{
 
-}
 
 void Player::setTexture(const sf::Texture& texture)
 {
@@ -53,17 +51,17 @@ void Player::setTexture(const sf::Texture& texture)
 	m_sprite.setScale(0.5f, 0.5f);
 }
 
-bool Player::collidesWith(const Enemy& enemy)
+bool Player::collidesWith(Enemy* enemy)
 {
-	return m_sprite.getGlobalBounds().intersects(enemy.getSprite().getGlobalBounds());
+	return m_sprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds());
 }
 
-bool Player::collidesWith(const EnemyBullet& enemybullet)
+bool Player::collidesWith(EnemyBullet* enemybullet)
 {
-	return m_sprite.getGlobalBounds().intersects(enemybullet.getSprite().getGlobalBounds());
+	return m_sprite.getGlobalBounds().intersects(enemybullet->getSprite().getGlobalBounds());
 }
 
-bool Player::collidesWith(const Item_& iem)
+bool Player::collidesWith(Item_* iem)
 {
 	//placeholder
 	return true;
