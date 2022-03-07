@@ -15,6 +15,7 @@ run: $(ODIR)/$(PNAME)
 	@echo "\033[0m\033[1;34mFinished.\033[0m"
 
 $(ODIR)/$(PNAME): $(SRCD)
+	@[ -d $(ODIR) ] || mkdir -p $(ODIR)
 	@echo "\033[0m\033[0;32mBuilding Project..........................\033[0m\033[2m"
 	$(CC) $^ -o $(ODIR)/$(PNAME) $(CFLAGS) $(LIBS)
 	@echo "\033[0m\033[1;32mProject Compiled Successfully.\033[0m"
@@ -27,6 +28,7 @@ clean:
 	@echo "\033[0m\033[0;33mCleaned Project.\033[0m\033[2m"
 
 novel:
+	@[ -d $(ODIR) ] || mkdir -p $(ODIR)
 	@echo "\033[0m\033[0;32mBuilding Novel Project..........................\033[0m\033[2m"	
 	$(CC) Space_Invaders/src/Scenes/BasicTest.cpp Space_Invaders/src/Application/Application.cpp Space_Invaders/src/SceneManager/TextPanel.cpp Space_Invaders/src/Application/BasicNovel.cpp -o $(ODIR)/$(PNAME)_Novel $(CFLAGS) $(LIBS)
 	@echo "\033[0m\033[1;32mProject Compiled Successfully.\033[0m"
