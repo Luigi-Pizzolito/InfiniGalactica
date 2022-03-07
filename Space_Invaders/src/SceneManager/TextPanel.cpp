@@ -1,7 +1,7 @@
 #include "TextPanel.h"
 #include <iostream>
 
-TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, sf::Color highlight, sf::RenderWindow* m_window, sf::View* m_view, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view) {
+TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, sf::Color highlight, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
 	// Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
 	unsigned width = m_view->getSize().x - 2*(margin+border+padding);
 	unsigned currentOffset = 0;
@@ -44,7 +44,7 @@ TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize,
 	size_t ep = 0;
 	while (string.find(sf::String("\31")) != sf::String::InvalidPos) {
 		ep = string.find(sf::String("\31"));
-		panel_gen.push_back(string.substring(sp, ep)+sf::String(L" …")); //add elipsis string if not on the last element
+		panel_gen.push_back(string.substring(sp, ep)+sf::String(L"…   ")); //add elipsis string if not on the last element
 		string.erase(sp, (ep-sp)+1);
 		sp = 0;
 	}
@@ -77,12 +77,20 @@ std::string TextPanel::ToUTF8(const sf::String &original)
 	}
 
 bool TextPanel::next() {
-	if (panel_i < panel_p->size()-1) {
-		panel_i++;
-		return true;
-	} else {
-		return false;
+	if (!(revealed < (this->text()).getSize()-1) && *s_key!=prev_key) { // only skip to next if showing the line is done, if the space key has just been pressed, if there are panels left if holding only FF, no skip
+		if (panel_i < panel_p->size()-1) {	
+			panel_i++;
+			revealed = 0;
+			reveal_b = 0;
+			// *s_key = false;
+			return false;
+		} else {
+			// no more panels to show, next text panel
+			std::cout << "no more panels to show, next text panel\n";
+			return true;
+		}
 	}
+	return false;
 }
 
 sf::String TextPanel::text() {
@@ -98,6 +106,15 @@ void TextPanel::tick() {
 	} else {
 		blink_b = false;
 	}
+
+	if (reveal_b%(size_t)(60/reveal_s) == 0) {
+		if (revealed < (this->text()).getSize()-1) {
+			revealed += *s_key ? hold_s_boost : 1;
+		}
+	}
+	reveal_b++;
+
+	prev_key=*s_key;
 }
 
 void TextPanel::draw() {
@@ -114,18 +131,33 @@ void TextPanel::draw() {
 
 	// Create a text
 	sf::String draw_text(this->text());
+	draw_text.replace(L"…  ", L"...");
 
-	// ellipsis animation
-	float rate_b_mod = (60/(rate_be*2))+1;
-	const size_t tick_be_mod = tick_be%(size_t)rate_b_mod;
-	if (tick_be_mod < (rate_b_mod/3)) {
-		draw_text.replace(L" …", L".  ");
-	} else if (tick_be_mod >= (rate_b_mod/3) && tick_be_mod < 2*(rate_b_mod/3)) {
-		draw_text.replace(L" …", L".. ");
-	} else if (tick_be_mod >= 2*(rate_b_mod/3) && tick_be_mod < rate_b_mod) {
-		draw_text.replace(L" …", L"...");
-	} if (tick_be_mod==rate_b_mod-1) {
-		tick_be=0;
+	// letter by letter reveal
+	if (revealed < draw_text.getSize()-1) {
+		draw_text = draw_text.substring(0, revealed);
+	}
+
+	// if finished revealing
+	if (!(revealed < (this->text()).getSize()-1)) {
+		// ellipsis animation
+		float rate_b_mod = (60/(rate_be*2))+1;
+		const size_t tick_be_mod = tick_be%(size_t)rate_b_mod;
+		if (tick_be_mod < (rate_b_mod/3)) {
+			draw_text.replace(L"...", L".  ");
+		} else if (tick_be_mod >= (rate_b_mod/3) && tick_be_mod < 2*(rate_b_mod/3)) {
+			draw_text.replace(L"...", L".. ");
+		} else if (tick_be_mod >= 2*(rate_b_mod/3) && tick_be_mod < rate_b_mod) {
+			draw_text.replace(L"...", L"...");
+		} if (tick_be_mod==rate_b_mod-1) {
+			tick_be=0;
+		}
+
+		// next blinker
+		sf::Text textn(blink_b ? L"" : L" ", font, fontSize);
+		textn.setOrigin(sf::Vector2f(-margin-(m_view->getSize().x - 2*(margin+border+padding)),-m_view->getSize().y + (margin+border+padding) + fontSize - line_padding));
+		textn.setFillColor(sf::Color(highlight.r,highlight.g,highlight.b,highlight.a/1.1));
+		m_window->draw(textn);
 	}
 	
 	sf::Text text(draw_text, font, fontSize);
@@ -135,11 +167,4 @@ void TextPanel::draw() {
 
 	// Draw it
 	m_window->draw(text);
-
-	// sf::Vector2f origin = ;
-	// std::cout << "x: " << origin.x << ", y: " << origin.y <<"\n";
-	sf::Text textn(blink_b ? L"" : L" ", font, fontSize);
-	textn.setOrigin(sf::Vector2f(-margin-(m_view->getSize().x - 2*(margin+border+padding)),-m_view->getSize().y + (margin+border+padding) + fontSize - line_padding));
-	textn.setFillColor(sf::Color(highlight.r,highlight.g,highlight.b,highlight.a/1.1));
-	m_window->draw(textn);
 }

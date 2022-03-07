@@ -12,7 +12,7 @@ NovelGame::NovelGame(const sf::Vector2i &screen_dimensions, const char *app_name
 	// Setting the textures
 	// player.setTexture(player_texture);
 	text_panel = new TextPanel(sf::String(L"你好，大家你们喜欢space adventure吗？ Hello, are you ready to play InfiniGalactica? If not you should hold on to your socks!  You really should play this otherwise imma whoops your lil' ass straight outta here you lil' who you think you are"),
-							   font, 11 * 4, sf::Color::Cyan, m_window, m_view);
+							   font, 11 * 4, sf::Color::Cyan, m_window, m_view, &key_space);
 }
 
 NovelGame::~NovelGame()

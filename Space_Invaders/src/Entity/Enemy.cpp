@@ -28,8 +28,8 @@ void Enemy::rotate(float angle)
 
 void Enemy::setTexture(const sf::Texture& texture)
 {
-	m_sprite.setScale(0.5, 0.5f);
 	m_sprite.setTexture(texture);
+	m_sprite.setScale(0.5f, 0.5f);
 	
 }
 
