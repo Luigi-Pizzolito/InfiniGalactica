@@ -21,9 +21,9 @@ public:
 
 	//Overloads of Collisions
 	void setTexture(const sf::Texture& texture)override;
-	bool collidesWith(const Enemy& enemy);
-	bool collidesWith(const EnemyBullet& enemybullet);
-	bool collidesWith(const Item_& iem);
+	bool collidesWith(Enemy* enemy);
+	bool collidesWith(EnemyBullet* enemybullet);
+	bool collidesWith(Item_* iem);
 	const sf::Sprite& getSprite()const { return m_sprite; }
 
 };

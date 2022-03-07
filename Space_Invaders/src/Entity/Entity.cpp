@@ -43,3 +43,13 @@ void Entity::setTexture(const sf::Texture& texture)
 	//This function must bind the Entity with an external texture
 }
 
+sf::Vector2f Entity::getSize()
+{
+	return sf::Vector2f(m_sprite.getTextureRect().width * m_sprite.getScale().x, m_sprite.getTextureRect().height * m_sprite.getScale().y);
+}
+
+sf::Vector2f Entity::getTopLeftPos()
+{
+	return sf::Vector2f(m_sprite.getPosition());
+}
+

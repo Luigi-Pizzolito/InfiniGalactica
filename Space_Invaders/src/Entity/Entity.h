@@ -24,7 +24,7 @@ public:
 	//this is called every single frame
 	virtual void move(DIRECTIONS dir);
 	virtual void setTexture(const sf::Texture& texture);
-
-
+	sf::Vector2f getSize();
+	sf::Vector2f getTopLeftPos();
 };
 
