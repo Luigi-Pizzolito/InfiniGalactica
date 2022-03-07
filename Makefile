@@ -7,7 +7,7 @@ IDIR =Dependencies/include
 LDIR =Dependencies/lib-darwin
 LIBS=-l sfml-system -l sfml-window -l sfml-graphics -l sfml-audio -l sfml-network -Wl,-rpath $(LDIR)
 CFLAGS=-std=c++14 -I $(IDIR) -I $(PNAME)/src/
-# add -g to add debug symbols, add -c to statically link
+# add -g to add debug symbols, add -c to statically link, omit -o to generate .o files i think
 
 run: $(ODIR)/$(PNAME)
 	@echo "\033[0;34mRunning Project..........................\033[0m\033[2m"
