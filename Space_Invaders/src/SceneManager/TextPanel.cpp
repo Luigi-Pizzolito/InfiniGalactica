@@ -1,7 +1,7 @@
 #include "TextPanel.h"
 #include <iostream>
 
-TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize,  sf::RenderWindow* m_window, sf::View* m_view, bool bold):font(font), fontSize(fontSize),m_window(m_window),m_view(m_view) {
+TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, sf::Color highlight, sf::RenderWindow* m_window, sf::View* m_view, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view) {
 	// Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
 	unsigned width = m_view->getSize().x - 2*(margin+border+padding);
 	unsigned currentOffset = 0;
@@ -90,45 +90,56 @@ sf::String TextPanel::text() {
 }
 
 void TextPanel::tick() {
-	tick_b++;
+	tick_be++;
+	if (panel_i < panel_p->size()-1) {
+		tick_b++;
+		blink_b = ((tick_b%((size_t)(60/(rate_b*2))+1))>(((60/(rate_b*2))+1)/4));
+		if ((tick_b%((size_t)(60/(rate_b*2))+1)) == 0) {tick_b=0;}
+	} else {
+		blink_b = false;
+	}
 }
 
 void TextPanel::draw() {
 	// Draw dialog box
 	float height = 2*((float)fontSize+padding);
 	sf::RectangleShape dialog_box = sf::RectangleShape();
-	// std::cout << "h: " << height << "\n";
 	dialog_box.setPosition(sf::Vector2f(margin, m_view->getSize().y-height-margin));
 	dialog_box.setSize(sf::Vector2f(m_view->getSize().x-2*margin, height));
 	// dialog_box.setTexture(&dialog_overlay);
 	dialog_box.setFillColor(sf::Color::Black);
 	dialog_box.setOutlineThickness(border);
-	dialog_box.setOutlineColor(sf::Color::Cyan);
+	dialog_box.setOutlineColor(highlight);
 	m_window->draw(dialog_box);
 
 	// Create a text
 	sf::String draw_text(this->text());
 
 	// ellipsis animation
-	float rate_b_mod = (60/(rate_b*2))+1;
-	const size_t tick_b_mod = tick_b%(size_t)rate_b_mod;
-	if (tick_b_mod < (rate_b_mod/3)) {
+	float rate_b_mod = (60/(rate_be*2))+1;
+	const size_t tick_be_mod = tick_be%(size_t)rate_b_mod;
+	if (tick_be_mod < (rate_b_mod/3)) {
 		draw_text.replace(L" …", L".  ");
-	} else if (tick_b_mod >= (rate_b_mod/3) && tick_b_mod < 2*(rate_b_mod/3)) {
+	} else if (tick_be_mod >= (rate_b_mod/3) && tick_be_mod < 2*(rate_b_mod/3)) {
 		draw_text.replace(L" …", L".. ");
-	} else if (tick_b_mod >= 2*(rate_b_mod/3) && tick_b_mod < rate_b_mod) {
+	} else if (tick_be_mod >= 2*(rate_b_mod/3) && tick_be_mod < rate_b_mod) {
 		draw_text.replace(L" …", L"...");
-	} if (tick_b_mod==rate_b_mod-1) {
-		tick_b=0;
+	} if (tick_be_mod==rate_b_mod-1) {
+		tick_be=0;
 	}
 	
-	// draw_text.replace(L" …", blink_b ? L" " : L"…");
 	sf::Text text(draw_text, font, fontSize);
-	// sf::Vector2f origin = ;
-	// std::cout << "x: " << origin.x << ", y: " << origin.y <<"\n";
 	text.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 2*fontSize + line_padding));
 	text.setFillColor(sf::Color::White);
 	text.setLineSpacing(line_spacing);
+
 	// Draw it
 	m_window->draw(text);
+
+	// sf::Vector2f origin = ;
+	// std::cout << "x: " << origin.x << ", y: " << origin.y <<"\n";
+	sf::Text textn(blink_b ? L"" : L" ", font, fontSize);
+	textn.setOrigin(sf::Vector2f(-margin-(m_view->getSize().x - 2*(margin+border+padding)),-m_view->getSize().y + (margin+border+padding) + fontSize - line_padding));
+	textn.setFillColor(sf::Color(highlight.r,highlight.g,highlight.b,highlight.a/1.1));
+	m_window->draw(textn);
 }
