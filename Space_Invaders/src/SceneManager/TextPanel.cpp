@@ -1,7 +1,7 @@
 #include "TextPanel.h"
 #include <iostream>
 
-TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, sf::Color highlight, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
+TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, const sf::Color highlight, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
 	// Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
 	unsigned width = m_view->getSize().x - 2*(margin+border+padding);
 	unsigned currentOffset = 0;
@@ -86,7 +86,6 @@ bool TextPanel::next() {
 			return false;
 		} else {
 			// no more panels to show, next text panel
-			std::cout << "no more panels to show, next text panel\n";
 			return true;
 		}
 	}
@@ -160,6 +159,7 @@ void TextPanel::draw() {
 		m_window->draw(textn);
 	}
 	
+	// create main text
 	sf::Text text(draw_text, font, fontSize);
 	text.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 2*fontSize + line_padding));
 	text.setFillColor(sf::Color::White);
