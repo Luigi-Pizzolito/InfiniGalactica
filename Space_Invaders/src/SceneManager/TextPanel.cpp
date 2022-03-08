@@ -39,30 +39,25 @@ TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize,
 	}
 
 	// split string at separators \31 and push to array.
-	std::vector<sf::String> panel_gen;
 	size_t sp = 0;
 	size_t ep = 0;
 	while (string.find(sf::String("\31")) != sf::String::InvalidPos) {
 		ep = string.find(sf::String("\31"));
-		panel_gen.push_back(string.substring(sp, ep)+sf::String(L"…   ")); //add elipsis string if not on the last element
+		panel_p.push_back(string.substring(sp, ep)+sf::String(L"…   ")); //add elipsis string if not on the last element
 		string.erase(sp, (ep-sp)+1);
 		sp = 0;
 	}
-	panel_gen.push_back(string);
+	panel_p.push_back(string);
 
 	// std::cout << ToUTF8(string) << "\n--START--\n";
 	// for (size_t i = 0; i < panel_gen.size(); i++)
 	// {
 	// 	std::cout << ToUTF8(  panel_gen.at(i)  ) << "\n----\n";
 	// }
-
-	// Load the panels to pointer
-	panel_p = new std::vector<sf::String>(panel_gen);
-	panel_gen.clear();
 }
 
 TextPanel::~TextPanel() {
-	panel_p->clear();
+	panel_p.clear();
 }
 
 std::string TextPanel::ToUTF8(const sf::String &original)
@@ -78,7 +73,7 @@ std::string TextPanel::ToUTF8(const sf::String &original)
 
 bool TextPanel::next() {
 	if (!(revealed < (this->text()).getSize()-1) && *s_key!=prev_key) { // only skip to next if showing the line is done, if the space key has just been pressed, if there are panels left if holding only FF, no skip
-		if (panel_i < panel_p->size()-1) {	
+		if (panel_i < panel_p.size()-1) {	
 			panel_i++;
 			revealed = 0;
 			reveal_b = 0;
@@ -93,12 +88,12 @@ bool TextPanel::next() {
 }
 
 sf::String TextPanel::text() {
-	return panel_p->at(panel_i);
+	return panel_p.at(panel_i);
 }
 
 void TextPanel::tick() {
 	tick_be++;
-	if (panel_i < panel_p->size()-1) {
+	if (panel_i < panel_p.size()-1) {
 		tick_b++;
 		blink_b = ((tick_b%((size_t)(60/(rate_b*2))+1))>(((60/(rate_b*2))+1)/4));
 		if ((tick_b%((size_t)(60/(rate_b*2))+1)) == 0) {tick_b=0;}

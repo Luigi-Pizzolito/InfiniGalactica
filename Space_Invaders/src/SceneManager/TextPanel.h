@@ -15,7 +15,7 @@ class TextPanel {
         bool* s_key;
         bool prev_key;
         // Internal vars storage
-        std::vector<sf::String>* panel_p;
+        std::vector<sf::String> panel_p;
         size_t panel_i = 0;
         int revealed = 0;
         // Internal timer vars
@@ -39,7 +39,7 @@ class TextPanel {
         // Internal utility methods
         static std::string ToUTF8(const sf::String &original);
         sf::String text();
-        
+
     public:
         TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, const sf::Color highlight, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold = false);
         ~TextPanel();

@@ -13,7 +13,7 @@ class TextManager {
         bool* s_key;
 
         // Internal vars storage
-        std::vector<TextPanel*> scenes_p;
+        std::vector<TextPanel> scenes_p;
         size_t scene_i = 0;
 
         // Layout/style parameters
