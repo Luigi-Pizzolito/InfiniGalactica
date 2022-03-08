@@ -1,6 +1,6 @@
 #pragma once
 #include "Application.h"
-#include "SceneManager/TextPanel.h"
+#include "SceneManager/TextManager.h"
 // #include <vector>
 // #include <string>
 
@@ -8,7 +8,7 @@ class NovelGame :public Application {
 
 private:
     //Fonts
-    sf::Font font;
+    // sf::Font font;
 
 	//Textures
 	// sf::Texture dialog_overlay;
@@ -21,7 +21,8 @@ private:
     bool key_space = false;
 
     // Internal functions
-    TextPanel* text_panel;
+    // TextPanel* text_panel;
+	TextManager* text_panel;
 
 public:
 	//Constructors and Destructors

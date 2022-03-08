@@ -30,7 +30,7 @@ clean:
 novel:
 	@[ -d $(ODIR) ] || mkdir -p $(ODIR)
 	@echo "\033[0m\033[0;32mBuilding Novel Project..........................\033[0m\033[2m"	
-	$(CC) Space_Invaders/src/Scenes/BasicTest.cpp Space_Invaders/src/Application/Application.cpp Space_Invaders/src/SceneManager/TextPanel.cpp Space_Invaders/src/Application/BasicNovel.cpp -o $(ODIR)/$(PNAME)_Novel $(CFLAGS) $(LIBS)
+	$(CC) Space_Invaders/src/Scenes/BasicTest.cpp Space_Invaders/src/Application/Application.cpp Space_Invaders/src/SceneManager/TextPanel.cpp Space_Invaders/src/SceneManager/TextManager.cpp Space_Invaders/src/Application/BasicNovel.cpp -o $(ODIR)/$(PNAME)_Novel $(CFLAGS) $(LIBS)
 	@echo "\033[0m\033[1;32mProject Compiled Successfully.\033[0m"
 	@echo "\033[0;34mRunning Novel Project..........................\033[0m\033[2m"
 	cd Space_Invaders; ../$(ODIR)/Space_Invaders_Novel
