@@ -1,7 +1,7 @@
 #include "TextPanel.h"
 #include <iostream>
 
-TextPanel::TextPanel(sf::String string, const sf::Font &font, unsigned fontSize, const sf::Color highlight, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
+TextPanel::TextPanel(sf::String string, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
 	// Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
 	unsigned width = m_view->getSize().x - 2*(margin+border+padding);
 	unsigned currentOffset = 0;

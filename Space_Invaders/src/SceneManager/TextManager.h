@@ -1,13 +1,16 @@
 #pragma once
 #include "TextPanel.h"
 #include <json.hpp>
+using json = nlohmann::json;
 #include <vector>
+#include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
 class TextManager {
     private:
         // Constructor vars storage
+        const std::string file;
         sf::RenderWindow* m_window;
         sf::View* m_view;
         bool* s_key;
@@ -23,10 +26,10 @@ class TextManager {
         // Internal utility methods
         void loadScene();
     public:
-        TextManager(sf::RenderWindow* m_window, sf::View* m_view, bool* s_key);
+        TextManager(std::string scene, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key);
         ~TextManager();
 
-        void next();
+        bool next();
         void tick();
         void draw();
 };

@@ -1,0 +1,22 @@
+[
+    {
+        "text": "你好，大家你们喜欢space adventure吗？ Hello, are you ready to play InfiniGalactica? You'd better be.",
+        "color": "00FFFF"
+    },
+    {
+        "text": "hehe now i am green",
+        "color": "00FF55"
+    },
+    {
+        "text": "hehe now i am red",
+        "color": "FF0000"
+    },
+    {
+        "text": "or even purple",
+        "color": "FF00FF"
+    },
+    {
+        "text": "which colour will you use? make sure to put the hex code as well as the text in JSON format!",
+        "color": "FF7400"
+    }
+]
