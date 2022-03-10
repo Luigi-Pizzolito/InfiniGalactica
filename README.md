@@ -18,7 +18,7 @@ Note: The code has gone through a set of changes, hence some of the entries in o
 
 ---
 ## Application Components
-![Class Diagram](https://www.luigipizzolito.com/InfiniGalactica/readme/Class%20Diagram%20-%20InfiniGalactica.drawio_white.png)
+![Class Diagram](https://www.luigipizzolito.com/InfiniGalactica/readme/Class%20Diagram%20-%20InfiniGalactica.drawio_dark.png)
 
 ## Directory Structure
 ```
@@ -112,7 +112,7 @@ Space_Invaders
 1. Make sure you have G++ and make installed.
 2. Download binary SFML release for Linux.
 3. Reconfigure Makefile.
-4. 3. run `make`.
+4. run `make`.
 
 ## Running the executables
 Pre-compiled binary executables can be found in the releases or in the `bin` folder for each respective platform, just execute.
