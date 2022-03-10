@@ -4,6 +4,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
+//Class Implemented by Luigi 06.03 00:35
+//Separated to its own class by Luigi 06.03 01:04
 class TextPanel {
     private:
         // Constructor vars storage

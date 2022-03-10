@@ -14,6 +14,7 @@ StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_nu
 
 StarField::~StarField() {}
 
+//Implemented by Luigi 05.03 00:00
 void StarField::addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset) {
     // generate position and texture coordinates for each vertex
 
@@ -40,6 +41,7 @@ void StarField::genStars(sf::VertexArray* stars) {
 	std::uniform_int_distribution<int>      ry(-0.25f*m_window->getSize().y,m_window->getSize().y*4); // 
     std::uniform_real_distribution<float>   rs(0.5f,4.0f);    // generation bounds for star size
     std::uniform_int_distribution<int>      rt(0, 4);            // random texture
+    //Random Sprites Implemented by Luigi 04.03 16:12
 
     // randomly distribute star positions
     for (int i = 0; i < stars->getVertexCount()/4;i++) {

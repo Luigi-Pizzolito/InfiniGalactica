@@ -10,7 +10,7 @@ PhysicsEntity::~PhysicsEntity() {
 }
 
 
-
+// Implemented by Luigi 03.03 22:26
 void PhysicsEntity::updatePhysics() {
 	// propagate accel to vel, and reset accell
 	veloc+=accel;
@@ -22,14 +22,12 @@ void PhysicsEntity::updatePhysics() {
 	else if (veloc.x < 0) {veloc.x+=friction.x;}
 	if (veloc.y > 0) {veloc.y-=friction.y;}
 	else if (veloc.y < 0) {veloc.y+=friction.y;}
-
-	// add repulsion if near screen edges
-	// sf::Vector2f
 	
 	//move vel
 	m_sprite.move(veloc);
 }
 
+// Implemented by Luigi 03.03 22:25
 void PhysicsEntity::applyForce(sf::Vector2f force) {
     // Add force to acceleration, force_divisor is basically mass as F=ma aka. a=F/m
 	// force/=force_divisor;
