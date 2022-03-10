@@ -3,6 +3,7 @@
 #include <iostream> //needed for color conversions
 #include <fstream>
 
+
 TextManager::TextManager(std::string scene, sf::RenderWindow *m_window, sf::View *m_view, bool *s_key) : file(scene), m_window(m_window), m_view(m_view), s_key(s_key)
 {
     // Load and set font
@@ -19,6 +20,7 @@ TextManager::~TextManager()
 
 void TextManager::loadScene()
 {
+    // Load from JSON Implemented by Luigi 08.03 14:40
     // Load and parse JSON file
     std::ifstream ifs(file);
     json j = json::parse(ifs);

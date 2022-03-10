@@ -127,11 +127,13 @@ void TextPanel::draw() {
 	sf::String draw_text(this->text());
 	draw_text.replace(L"…  ", L"...");
 
+	// Reveal animation Implemented by Luigi 07.03 17:12
 	// letter by letter reveal
 	if (revealed < draw_text.getSize()-1) {
 		draw_text = draw_text.substring(0, revealed);
 	}
 
+	// Ellipsis animation Implemented by Luigi 06.03 04:36
 	// if finished revealing
 	if (!(revealed < (this->text()).getSize()-1)) {
 		// ellipsis animation

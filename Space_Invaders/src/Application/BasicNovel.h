@@ -4,6 +4,7 @@
 // #include <vector>
 // #include <string>
 
+//Class Implemented by Luigi 06.03 00:35
 class NovelGame :public Application {
 
 private:

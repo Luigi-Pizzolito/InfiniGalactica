@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+//Class Implemented by Luigi 04.03 14:02
 class StarField {
     private:
         sf::RenderWindow* m_window;

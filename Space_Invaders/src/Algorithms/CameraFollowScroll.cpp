@@ -1,7 +1,7 @@
 #include "CameraFollowScroll.h"
 #include <cmath>
 // #include <iostream>
-
+// Class Implemented by Luigi 04.03 14:02
 
 CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed):window(window),view(view),player(player),c_speed(c_speed) {
     const sf::Sprite* sprite = &player->getSprite();
@@ -24,7 +24,9 @@ float CameraFollowHorzScroll::mapF(float value, float istart, float istop, float
 	return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
 }
 
+//Implemented by Luigi with modifications 05.03 16:34
 void CameraFollowHorzScroll::follow() {
+    //Implemented player bounds keeping by Luigi 05.03 19:17
     // check if player is going out of bounds
     float border_width = 2.0f;
     float repulse_force = 0.5f;
@@ -56,6 +58,7 @@ void CameraFollowHorzScroll::follow() {
     // Get the vector the camera should move in
     sf::Vector2f move = last_p + c_speed/60.0f;
 
+    // Implemented player push camera by Luigi 07.03 11:55
     // Get the position of the player, if in the last band to the right of the screen, move the camera extra in proportion to the player position and curent player speed
     // aka. player pushes the camera.
     const sf::Sprite* sprite = &player->getSprite();
