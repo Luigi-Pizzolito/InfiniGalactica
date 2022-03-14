@@ -6,7 +6,7 @@
 //Implemented by Daniel 03.01 11:57 AM
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
-
+	m_sprite.setScale(0.5f, 0.5f);
 }
 
 Player::~Player()
@@ -49,7 +49,7 @@ void Player::applyExtForce(sf::Vector2f force) {
 void Player::setTexture(const sf::Texture& texture)
 {
 	m_sprite.setTexture(texture);
-	m_sprite.setScale(0.5f, 0.5f);
+	
 }
 //Implemented by Daniel 03.01 12:13 PM
 bool Player::collidesWith(Enemy* enemy)

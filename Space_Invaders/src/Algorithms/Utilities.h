@@ -35,8 +35,10 @@ namespace Control {
 		float m_cycleduration;
 		bool m_counting;
 	public:
+		GameTimer();
 		GameTimer(float duration);
 		~GameTimer();
+		void setDuration(float duration);
 		void start();
 		bool timeOut();
 	};

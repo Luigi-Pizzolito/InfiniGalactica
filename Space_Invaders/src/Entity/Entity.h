@@ -12,7 +12,6 @@ protected:
 	//variables
 	//Added by Daniel 03.01 11:24 AM
 	sf::Sprite m_sprite;
-	sf::Texture* m_texture;
 	int m_HP=0;
 	int m_MaxHP=0;
 	float m_Speed=0.0f;

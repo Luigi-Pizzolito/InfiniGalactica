@@ -18,6 +18,7 @@ Application::~Application()
 {
 	//Window deletion
 	delete m_window;
+	delete m_view;
 }
 //Implemented by Daniel 02.27 8:16 AM
 const bool Application::isRunning()const

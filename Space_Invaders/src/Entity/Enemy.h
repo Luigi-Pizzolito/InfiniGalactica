@@ -28,7 +28,7 @@ public:
 	//Implemented by Daniel 03.01 1:29 PM
 	const sf::Sprite& getSprite()const { return m_sprite; }
 	//Implemented by Daniel 03.05 6:00 PM
-	void hurt(PlayerBullet* bullet);
+	void hurt(const PlayerBullet* bullet);
 	//Implemented by Daniel 03.05 6:03 PM
 	int getHP();
 };

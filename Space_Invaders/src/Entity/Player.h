@@ -17,7 +17,6 @@ public:
 	float player_friction;
 	//Implemented by Daniel 03.01 11:58 AM
 	void move(DIRECTIONS dir) override;
-	void shoot();
 	//Implemented by Luigi set time!!!!!!!!!!!!!!!!!!!
 	void applyExtForce(sf::Vector2f force);
 

@@ -26,15 +26,16 @@ void Enemy::rotate(float angle)
 //Implemented by Daniel 03.01 1:17 PM
 void Enemy::setTexture(const sf::Texture& texture)
 {
-	m_sprite.setScale(0.5, 0.5f);
+	m_sprite.setScale(0.4, 0.4f);
 	m_sprite.setTexture(texture);
 	
 }
 //Implemented by Daniel 03.05 1:20 PM
 void Enemy::setPosition(const sf::Vector2f& position)
 {
-	
-	m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y- m_sprite.getTextureRect().height * m_sprite.getScale().y));
+	//m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y - m_sprite.getTextureRect().height * m_sprite.getScale().y));
+
+	m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y- getSize().y));
 
 }
 //Implemented by Daniel 03.06 4:01 PM
@@ -49,7 +50,7 @@ bool Enemy::collidesWith(const PlayerBullet* bullet)
 	return m_sprite.getGlobalBounds().intersects(bullet->getSprite().getGlobalBounds());
 }
 //Implemented by Daniel 03.05 6:02 PM
-void Enemy::hurt(PlayerBullet* bullet)
+void Enemy::hurt(const PlayerBullet* bullet)
 {
 	m_HP -= bullet->getDamage();
 }

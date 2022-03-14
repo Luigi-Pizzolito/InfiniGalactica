@@ -16,7 +16,6 @@ protected:
 	sf::RenderWindow* m_window = nullptr;
 	sf::View* m_view = nullptr; // Luigi: Added sf:View because that has a .move() function for scrolling
 	sf::VideoMode m_videoMode;
-	sf::Event m_events;
 
 public:
 	//Implemented by Daniel 02.27 8:10 AM

@@ -52,11 +52,23 @@ namespace Control {
 	{
 
 	}
+
+	GameTimer::GameTimer():m_cycleduration(0.0f),m_counting(false)
+	{
+
+	}
+
 	//Implemented by Daniel 03.07 10:27 AM
 	GameTimer::~GameTimer()
 	{
 
 	}
+
+	void GameTimer::setDuration(float duration)
+	{
+		m_cycleduration = duration;
+	}
+
 	//Implemented by Daniel 03.07 10:28 AM
 	void GameTimer::start()
 	{
