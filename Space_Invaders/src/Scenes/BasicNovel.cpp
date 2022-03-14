@@ -1,8 +1,7 @@
-#include "Application/BasicNovel.h"
+#include "Scenes/BasicNovel.h"
 #include <iostream>
-// #include "SceneManager/TextManager.h"
 
-NovelGame::NovelGame(const sf::Vector2i &screen_dimensions, const char *app_name)
+NovelGame::NovelGame()
 {
 	// Load Script
 	text_panel = new TextManager("res/Novel/Scenes/scene2.json", Scene::s_window, Scene::s_view, &key_space);

@@ -24,7 +24,7 @@ void Player::move(DIRECTIONS dir)
 		applyForce(sf::Vector2f(-m_Speed, 0.0f));		// movement is done by applyForce with a sf::Vector2f and a force divisor float
 		break;
 	case DIRECTIONS::RIGHT:
-		applyForce(sf::Vector2f(m_Speed*1.2f, 0.0f));
+		applyForce(sf::Vector2f(m_Speed*1.2f, 0.0f));  // fix to compensate for reference-fram subtraction of camera base speed in this direction
 		break;
 	case DIRECTIONS::UP:
 		applyForce(sf::Vector2f(0.0f, -m_Speed));

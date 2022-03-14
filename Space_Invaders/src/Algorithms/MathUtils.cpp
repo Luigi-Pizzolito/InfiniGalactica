@@ -1,7 +1,11 @@
 #include "MathUtils.h"
 #include <cmath>
 #include <iostream>
-std::ostream& operator<<(std::ostream& stream, const sf::Vector2f& vec);
+//for debugging
+std::ostream& operator<<(std::ostream& stream, const sf::Vector2f& vec) {
+	stream << vec.x << "," << vec.y;
+	return stream;
+}
 //Implemented by Daniel 03.06 5:02 PM
 sf::Vector2f VectorMath::getUnitaryVector(const sf::Vector2f& initpos, const sf::Vector2f& finalpos)
 {

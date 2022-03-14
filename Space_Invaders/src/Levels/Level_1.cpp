@@ -28,7 +28,7 @@ Level1::Level1() :Level()
 	screen_effect.setTexture(&broken_screen_texture);
 
 	//Music
-	MusicPlayer* music = new MusicPlayer("song1", true);
+	MusicPlayer* music = new MusicPlayer("song2", true);
 }
 
 Level1::~Level1()

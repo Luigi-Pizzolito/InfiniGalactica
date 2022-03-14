@@ -1,5 +1,5 @@
 #include "Scene.h"
-
+#include <iostream>
 namespace SceneManagement {
 
 	//static variables initialization 
@@ -35,8 +35,13 @@ namespace SceneManagement {
 				if (s_events.key.code == sf::Keyboard::Escape) { s_window->close(); }
 				else if(s_events.key.code==sf::Keyboard::X){
 					//this means new game
-					setScene(m_Scenes.front().first);
+					// setScene(m_Scenes.front().first);
+					setScene(std::string("Level1"));
+				} else if(s_events.key.code==sf::Keyboard::Z){
+					//this means novel test
+					setScene(std::string("Novel Test"));
 				}
+				//!!! BUG: set scene does not block input handling fast enough, if X and Z are pressed at the same time then both scenes are initialised in memory.
 				break;
 
 				// No more type of events
@@ -74,6 +79,7 @@ namespace SceneManagement {
 		//then the SceneMenu is going to create that scene for us
 		//and the pointer in the game will be updated.
 		for (auto& scene : m_Scenes) {
+			std::cout << "scene is: \"" << scene.first.c_str() << "\" search pattern is \"" + name + "\"\n";
 			if (name == scene.first.c_str()) {
 				//instantiates the scene
 				if (m_CurrentScenePtr && m_CurrentScenePtr != this) {
@@ -81,11 +87,11 @@ namespace SceneManagement {
 					delete m_CurrentScenePtr;
 				}
 
+				//! Luigi moved this inside the if statement, for whatever reason it was outside
+				m_CurrentScenePtr = scene.second();
+				m_sceneElement = &scene;
+				break;
 			}
-			m_CurrentScenePtr = scene.second();
-			m_sceneElement = &scene;
-
-			break;
 
 		}
 	}

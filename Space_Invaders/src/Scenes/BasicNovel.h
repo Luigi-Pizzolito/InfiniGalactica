@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneManager/Scene.h"
-#include "SceneManager/TextManager.h"
-#include "SceneManager/MusicPlayer.h"
+#include "MediaManager/TextManager.h"
+#include "MediaManager/MusicPlayer.h"
 // #include <vector>
 // #include <string>
 
@@ -29,7 +29,7 @@ private:
 
 public:
 	//Constructors and Destructors
-	NovelGame(const sf::Vector2i& screen_dimensions, const char* app_name);
+	NovelGame();
 	~NovelGame();
 	void pollEvents()override;
 	void update(float delta_time) override;

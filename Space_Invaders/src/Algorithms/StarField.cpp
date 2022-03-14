@@ -63,7 +63,7 @@ void StarField::genStars(sf::VertexArray* stars) {
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int>      rx(-0.25f*m_window->getSize().x,m_window->getSize().x*4); // generation bounds for star field
-	std::uniform_int_distribution<int>      ry(-4.0f,m_window->getSize().y-4.0f); // 
+	std::uniform_int_distribution<int>      ry(0.0f,m_window->getSize().y); // 
     std::uniform_real_distribution<float>   rs(2.0f,8.0f);    // generation bounds for star size
     std::uniform_int_distribution<int>      rt(0, 4);            // random texture
     //Random Sprites Implemented by Luigi 04.03 16:12
@@ -82,7 +82,7 @@ void StarField::genNebulas(sf::VertexArray* nebulas) {
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int>      rx(-0.25f*m_window->getSize().x,m_window->getSize().x*4); // generation bounds for nebula field
-	std::uniform_int_distribution<int>      ry(-175.0f,m_window->getSize().y-175.0f); // 
+	std::uniform_int_distribution<int>      ry(-100.0f,m_window->getSize().y-250.0f); // 
     std::uniform_real_distribution<float>   rs(200.0f,1000.0f);    // generation bounds for nebula size
     std::uniform_int_distribution<int>      rt(0, 6);            // random texture
     //Random Sprites Implemented by Luigi 04.03 16:12
