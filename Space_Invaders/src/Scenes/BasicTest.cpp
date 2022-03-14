@@ -5,13 +5,14 @@
 //Group-Libs
 #include "Application/BasicShooter.h"
 #include "Application/BasicNovel.h"
+#include "SceneManager/MusicPlayer.h"
 ///variables
 //Added by Daniel 02.27 10:00 AM
 int main() {
 
 	//Client Side Application
 	// ShooterGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/4, sf::VideoMode::getDesktopMode().height/4), "Shooter Test");
-	NovelGame application(sf::Vector2i(320*2, 240*2), "Novel Test");
+	NovelGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/2.5, sf::VideoMode::getDesktopMode().height/2.5), "Novel Test");
 
 	// todo: add music class
 
