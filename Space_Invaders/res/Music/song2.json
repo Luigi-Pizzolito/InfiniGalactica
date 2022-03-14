@@ -1,0 +1,8 @@
+{
+    "file": "res/Music/ogg/technoMission.ogg",
+    "loop_points": [
+        { "off":  7.990, "len": 20.002 },
+        { "off": 44.000, "len": 27.217 },
+        { "off": 88.000, "len": 24.000 }
+    ]
+}

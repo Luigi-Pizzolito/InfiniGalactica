@@ -9,7 +9,7 @@ NovelGame::NovelGame(const sf::Vector2i &screen_dimensions, const char *app_name
 	// Load Script
 	text_panel = new TextManager("res/Novel/Scenes/scene2.json", m_window, m_view, &key_space);
 
-	music = new MusicPlayer("song1", true);
+	music = new MusicPlayer("song4", true);
 }
 
 NovelGame::~NovelGame()

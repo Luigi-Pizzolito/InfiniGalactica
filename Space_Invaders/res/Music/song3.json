@@ -1,0 +1,9 @@
+{
+    "file": "res/Music/ogg/toPlayTheGame.ogg",
+    "loop_points": [
+        { "off":  7.1550, "len": 7.9325 },
+        { "off":  15.0875, "len": 30.9302 },
+        { "off":  15.0875, "len": 30.9302 },
+        { "off":  15.0875, "len": 30.9302 }
+    ]
+}

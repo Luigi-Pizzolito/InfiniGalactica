@@ -1,8 +1,6 @@
 {
-    "file": "res/Music/song1.ogg",
+    "file": "res/Music/ogg/aMellowQuest.ogg",
     "loop_points": [
-        { "off":  7.990, "len": 20.002},
-        { "off": 44.000, "len": 27.217},
-        { "off": 88.000, "len": 24.000}
+        { "off":  30.1756, "len": 46.0185 }
     ]
 }
