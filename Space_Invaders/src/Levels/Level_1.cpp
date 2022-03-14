@@ -16,7 +16,7 @@ Level1::Level1() :Level()
 	//create the camera
 	camera = new CameraFollowHorzScroll(Scene::s_window,Scene::s_view,player,sf::Vector2f(100.0f,0.0f));
 	//create the starfield
-	starfield = new StarField(Scene::s_window,Scene::s_view,25,1.2f);
+	starfield = new StarField(Scene::s_window,Scene::s_view,25,1.4f);
 	//Screen Effect
 	
 	//Set up Timers
@@ -28,7 +28,7 @@ Level1::Level1() :Level()
 	screen_effect.setTexture(&broken_screen_texture);
 
 	//Music
-	MusicPlayer* music = new MusicPlayer("song2", true);
+	music = new MusicPlayer("song1", true);
 }
 
 Level1::~Level1()
@@ -114,6 +114,11 @@ void Level1::update(float delta_time)
 			if (collided) {
 				player->hurt(enemy_bullet);
 
+
+				// for testing music access
+				if (player->getHP() <=0) {
+					music->stop();
+				}
 			}
 
 			return collided; }), world_enemy_bullets.end());
@@ -124,7 +129,7 @@ void Level1::update(float delta_time)
 
 	}
 	else {
-
+		
 		screen_effect.setPosition(Scene::s_view->getCenter());
 		screen_effect.setFillColor(sf::Color(255, 255, 255, 255));
 	}

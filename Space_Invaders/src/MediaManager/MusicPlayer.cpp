@@ -13,7 +13,7 @@ MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
     // open music file
     if (!player.openFromFile(cfg["file"]))
     {
-        std::cerr << "Failed to open: " << cfg["file"] << "\n";
+        std::cout << "Failed to open: " << cfg["file"] << "\n";
     }
 
     // set initial loop
@@ -58,6 +58,11 @@ void MusicPlayer::play() {
 void MusicPlayer::pause() {
     // Pause the sf::Music player
     player.pause();
+}
+
+void MusicPlayer::stop() {
+    // Stop the sf::Music player
+    player.stop();
 }
 
 void MusicPlayer::update(float levelProgress) {

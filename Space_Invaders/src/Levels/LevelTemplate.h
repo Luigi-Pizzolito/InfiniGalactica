@@ -1,6 +1,6 @@
 #pragma once
 #include "SceneManager/Scene.h"
-#include "SceneManager/MusicPlayer.h"
+#include "MediaManager/MusicPlayer.h"
 #include "Application/Application.h"
 #include <vector>
 #include "Entity/Player.h"
