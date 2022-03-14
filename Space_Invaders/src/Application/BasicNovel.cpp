@@ -1,4 +1,5 @@
 #include "BasicNovel.h"
+#include <iostream>
 // #include "SceneManager/TextManager.h"
 
 NovelGame::NovelGame(const sf::Vector2i &screen_dimensions, const char *app_name)
@@ -6,7 +7,9 @@ NovelGame::NovelGame(const sf::Vector2i &screen_dimensions, const char *app_name
 	: Application(screen_dimensions, app_name)
 {
 	// Load Script
-	text_panel = new TextManager("res/Novel/Scenes/scene1.json", m_window, m_view, &key_space);
+	text_panel = new TextManager("res/Novel/Scenes/scene2.json", m_window, m_view, &key_space);
+
+	music = new MusicPlayer("song2", true);
 }
 
 NovelGame::~NovelGame()
@@ -34,6 +37,16 @@ void NovelGame::pollEvents()
 				key_space = true;
 				text_panel->next();
 			}
+
+			if (m_events.key.code == sf::Keyboard::Tab) {
+				music->update(lvl_p);
+				lvl_p+= 0.05f;
+			}
+
+			if (m_events.key.code == sf::Keyboard::LShift) {
+				std::cout << "playing: " << music->position() << "\n";
+			}
+
 			break;
 		case sf::Event::KeyReleased:
 			if (m_events.key.code == sf::Keyboard::Space)

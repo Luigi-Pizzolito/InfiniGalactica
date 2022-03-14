@@ -1,6 +1,7 @@
 #pragma once
 #include "Application.h"
 #include "SceneManager/TextManager.h"
+#include "SceneManager/MusicPlayer.h"
 // #include <vector>
 // #include <string>
 
@@ -8,6 +9,8 @@
 class NovelGame :public Application {
 
 private:
+	MusicPlayer* music;
+	float lvl_p = 0.0f;
     //Fonts
     // sf::Font font;
 
