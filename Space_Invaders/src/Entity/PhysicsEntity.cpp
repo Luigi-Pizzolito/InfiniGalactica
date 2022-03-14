@@ -10,7 +10,6 @@ PhysicsEntity::~PhysicsEntity() {
 }
 
 
-// Implemented by Luigi 03.03 22:26
 void PhysicsEntity::updatePhysics() {
 	// propagate accel to vel, and reset accell
 	veloc+=accel;
@@ -27,7 +26,6 @@ void PhysicsEntity::updatePhysics() {
 	m_sprite.move(veloc);
 }
 
-// Implemented by Luigi 03.03 22:25
 void PhysicsEntity::applyForce(sf::Vector2f force) {
     // Add force to acceleration, force_divisor is basically mass as F=ma aka. a=F/m
 	// force/=force_divisor;

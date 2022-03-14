@@ -4,7 +4,6 @@
 #include "Scenes/BasicNovel.h"
 #include <iostream>
 
-//Implemented by Daniel 02.27 11:00 AM
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
 	// Initializer List
 	: Application(screen_dimensions, app_name)
@@ -40,7 +39,6 @@ ShooterGame::~ShooterGame()
 }
 
 
-//Added by Daniel 02.27 12:12 PM
 void ShooterGame::update()//reimplement for every level
 {
 
@@ -57,7 +55,6 @@ void ShooterGame::update()//reimplement for every level
 
 
 }
-//Added by Daniel 02.27 12:30 PM
 void ShooterGame::render()//reimplement for every level
 {
 	//can keep the clear function here

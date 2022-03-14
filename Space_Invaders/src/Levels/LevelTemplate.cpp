@@ -27,7 +27,6 @@ void Level::pollEvents()
 	{
 
 		// window events
-		//Added by Daniel 02.28 1:00 PM
 		switch (Scene::s_events.type)
 		{
 		case sf::Event::Closed:
@@ -48,7 +47,6 @@ void Level::pollEvents()
 			break;
 		}
 	}
-	//Added by Daniel and Luigi 02.27 11:00 AM
 	// States Update
 	if (key_u) { player->move(DIRECTIONS::UP); }
 	else if (key_d) { player->move(DIRECTIONS::DOWN); }
@@ -56,7 +54,6 @@ void Level::pollEvents()
 	if (key_l) { player->move(DIRECTIONS::LEFT); }
 	else if (key_r) { player->move(DIRECTIONS::RIGHT); }
 	if (key_s) {
-		//Added by Daniel 03.05 2:00 PM
 		if (player_bullet_timer.timeOut()) {spawnPlayerBullet(); }
 	}
 }

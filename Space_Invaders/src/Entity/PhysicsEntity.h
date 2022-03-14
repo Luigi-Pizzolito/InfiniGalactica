@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h"
 
-//Class Implemented by Luigi 03.03 22:26
 class PhysicsEntity:public Entity {
     protected:
         sf::Vector2f accel;

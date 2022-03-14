@@ -6,7 +6,6 @@
 //Group-Libs
 #include "Application/BasicShooter.h"
 ///variables
-//Added by Daniel 02.27 10:00 AM
 int main() {
 
 	//Client Side Application

@@ -3,7 +3,6 @@
 #include <SFML/Window.hpp>
 #include "Entity/Player.h"
 
-//Class Implemented by Luigi 04.03 14:02
 class CameraFollowHorzScroll {
     private:
         sf::RenderWindow* window;

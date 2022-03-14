@@ -25,7 +25,6 @@ namespace SceneManagement {
 		{
 
 			// window events
-			//Added by Daniel 02.28 1:00 PM
 			switch (s_events.type)
 			{
 			case sf::Event::Closed:
@@ -87,7 +86,6 @@ namespace SceneManagement {
 					delete m_CurrentScenePtr;
 				}
 
-				//! Luigi moved this inside the if statement, for whatever reason it was outside
 				m_CurrentScenePtr = scene.second();
 				m_sceneElement = &scene;
 				break;

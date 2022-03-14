@@ -8,9 +8,7 @@
 #include "Algorithms/CameraFollowScroll.h"
 #include "Algorithms/Utilities.h"
 #include "SceneManager/Scene.h"
-//Class Implemented by Daniel 02.27 10:00 AM
 class ShooterGame :public Application {
-	//Implemented by Daniel 02.27 10:01 AM
 private:
 	SceneManagement::Scene* m_currentScene;
 	SceneManagement::SceneMenu* m_menu;
@@ -18,7 +16,6 @@ public:
 	//Constructors and Destructors
 	ShooterGame(const sf::Vector2i& screen_dimensions, const char* app_name);
 	~ShooterGame();
-	//Added by Daniel 02.27 11:00 AM
 	void update()override;
 	void render()override;
 private:

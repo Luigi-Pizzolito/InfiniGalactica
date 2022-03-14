@@ -21,7 +21,6 @@ TextManager::~TextManager()
 
 void TextManager::loadScene()
 {
-    // Load from JSON Implemented by Luigi 08.03 14:40
     // Load and parse JSON file
     std::ifstream ifs(file);
     json j = json::parse(ifs);

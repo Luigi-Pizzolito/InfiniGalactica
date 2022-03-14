@@ -26,7 +26,6 @@ protected:
 	Player* player;
 	//this handles the bullet slot based on the available type of bullet
 	uint8_t selected_slot;
-	//Implemented by Daniel 02.27 10:02 AM
 	//In the future subdivide this into enemy type1 type2
 	std::vector<Enemy*> world_enemies;
 	//Projectiles
@@ -43,7 +42,6 @@ protected:
 	bool key_d;
 	bool key_l;
 	bool key_r;
-	//Implemented by Daniel 03.07 10:00 AM
 	bool key_s;
 	//timers and spawners
 	Control::GameTimer player_bullet_timer;
