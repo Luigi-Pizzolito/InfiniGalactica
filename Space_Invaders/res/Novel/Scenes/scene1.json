@@ -1,22 +1,37 @@
 [
     {
-        "text": "你好，大家你们喜欢space adventure吗？ Hello, are you ready to play InfiniGalactica? You'd better be.",
-        "color": "00FFFF"
+        "text":"指挥官：皓月，我将会告诉你一件很重要的事，请你一定要保密",
+        "color":"ccff66"
     },
+
+
     {
-        "text": "hehe now i am green",
-        "color": "00FF55"
+        "text":"皓月：请说",
+        "color":"ccff66"
     },
+
+
     {
-        "text": "hehe now i am red",
-        "color": "FF0000"
+        "text":"指挥官：前往皮尔特沃夫的地球高层们被祖安人挟持了.....所以我们急需在全球范围内选拔军士们组建一只15人的队伍前往营救他们，而亚洲战区的高层们希望你能前去",
+        "color":"ccff66"
     },
+       
     {
-        "text": "or even purple",
-        "color": "FF00FF"
+        "text":"皓月：........",
+        "color": "ccff66"
     },
+
     {
-        "text": "which colour will you use? make sure to put the hex code as well as the text in JSON format!",
-        "color": "FF7400"
+        "text":"指挥官：你是不是不愿意？",
+        "color":"ccff66"
+    },
+
+    {
+        "text":"坚决服从命令",
+        "color":"ccff66"
+
     }
+
+
+
 ]
