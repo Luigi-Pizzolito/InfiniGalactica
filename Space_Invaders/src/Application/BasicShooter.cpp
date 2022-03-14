@@ -9,15 +9,15 @@ ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_
 	// Initializer List
 	: Application(screen_dimensions, app_name),
 	  player(100, 0.5f, 100.0f),
-	  starfield(m_window, m_view, 100),
+	  starfield(m_window, m_view, 25, 1.2f),
 	  player_bullet_timer(0.5f),
 	  enemy_spawner(1.0f),
 	  camera(m_window, m_view, &player, sf::Vector2f(100.0f, 0.0f))
 {
 	//Implemented by Daniel 02.27 11:05 AM
 	// Load Textures for Entities and Projectiles
-	player_texture.loadFromFile("res/Sprites/player.png");
-	enemy_texture.loadFromFile("res/Sprites/enemy.png");
+	player_texture.loadFromFile("res/Sprites/player1.png");
+	enemy_texture.loadFromFile("res/Sprites/enemy1.png");
 	projectile_texture.loadFromFile("res/Sprites/bullet.png");
 	broken_screen.loadFromFile("res/Sprites/brokenscreen.png");
 	// Setting the textures
