@@ -14,7 +14,7 @@ int main() {
 	// ShooterGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/4, sf::VideoMode::getDesktopMode().height/4), "Shooter Test");
 	NovelGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/2.5, sf::VideoMode::getDesktopMode().height/2.5), "Novel Test");
 
-	// todo: add music class
+	// todo: add class to draw HUD
 
 	//Game Loop
 	while (application.isRunning()) {
