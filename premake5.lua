@@ -1,5 +1,4 @@
 workspace "Space_Invaders"
---Implemented by Daniel 02.25 8:00 AM
 	architecture "x86"
 	
 

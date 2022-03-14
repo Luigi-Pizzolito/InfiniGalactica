@@ -39,7 +39,6 @@ StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_nu
 
 StarField::~StarField() {}
 
-//Implemented by Luigi 05.03 00:00
 void StarField::addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset) {
     // generate position and texture coordinates for each vertex
 
@@ -63,10 +62,9 @@ void StarField::genStars(sf::VertexArray* stars) {
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int>      rx(-0.25f*m_window->getSize().x,m_window->getSize().x*4); // generation bounds for star field
-	std::uniform_int_distribution<int>      ry(-4.0f,m_window->getSize().y-4.0f); // 
+	std::uniform_int_distribution<int>      ry(0.0f,m_window->getSize().y); // 
     std::uniform_real_distribution<float>   rs(2.0f,8.0f);    // generation bounds for star size
     std::uniform_int_distribution<int>      rt(0, 4);            // random texture
-    //Random Sprites Implemented by Luigi 04.03 16:12
 
     // randomly distribute star positions
     for (int i = 0; i < stars->getVertexCount()/4;i++) {
@@ -82,10 +80,9 @@ void StarField::genNebulas(sf::VertexArray* nebulas) {
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int>      rx(-0.25f*m_window->getSize().x,m_window->getSize().x*4); // generation bounds for nebula field
-	std::uniform_int_distribution<int>      ry(-175.0f,m_window->getSize().y-175.0f); // 
+	std::uniform_int_distribution<int>      ry(-100.0f,m_window->getSize().y-250.0f); // 
     std::uniform_real_distribution<float>   rs(200.0f,1000.0f);    // generation bounds for nebula size
     std::uniform_int_distribution<int>      rt(0, 6);            // random texture
-    //Random Sprites Implemented by Luigi 04.03 16:12
 
     // randomly distribute nebula positions
     for (int i = 0; i < nebulas->getVertexCount()/4;i++) {

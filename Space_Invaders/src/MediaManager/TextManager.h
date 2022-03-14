@@ -7,7 +7,6 @@ using json = nlohmann::json;
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
-//Class Implemented by Luigi 08.03 10:43
 class TextManager {
     private:
         // Constructor vars storage

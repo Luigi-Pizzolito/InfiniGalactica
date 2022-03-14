@@ -1,12 +1,11 @@
 #pragma once
-#include "Application.h"
-#include "SceneManager/TextManager.h"
-#include "SceneManager/MusicPlayer.h"
+#include "SceneManager/Scene.h"
+#include "MediaManager/TextManager.h"
+#include "MediaManager/MusicPlayer.h"
 // #include <vector>
 // #include <string>
 
-//Class Implemented by Luigi 06.03 00:35
-class NovelGame :public Application {
+class NovelGame :public SceneManagement::Scene {
 
 private:
 	MusicPlayer* music;
@@ -30,9 +29,9 @@ private:
 
 public:
 	//Constructors and Destructors
-	NovelGame(const sf::Vector2i& screen_dimensions, const char* app_name);
+	NovelGame();
 	~NovelGame();
 	void pollEvents()override;
-	void update()override;
+	void update(float delta_time) override;
 	void render()override;
 };

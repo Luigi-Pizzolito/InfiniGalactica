@@ -18,6 +18,7 @@ class MusicPlayer {
 
         void play();
         void pause();
+        void stop();
         float position() {return player.getPlayingOffset().asSeconds();}
         void update(float levelProgress);
 };

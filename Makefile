@@ -1,5 +1,5 @@
 PNAME=Space_Invaders
-SRCD=$(PNAME)/src/**/*.cpp
+SRCD=$(PNAME)/src/**/*.cpp $(PNAME)/src/*.cpp
 ODIR=bin/Darwin-Release-x86
 
 CC=g++
@@ -9,9 +9,10 @@ LIBS=-l sfml-system -l sfml-window -l sfml-graphics -l sfml-audio -l sfml-networ
 CFLAGS=-std=c++14 -I $(IDIR) -I $(PNAME)/src/
 # add -g to add debug symbols, add -c to statically link, omit -o to generate .o files i think
 
+# 2> /dev/null  silences stderr for annyong UpdateRecents: messages
 run: $(ODIR)/$(PNAME)
-	@echo "\033[0;34mRunning Project..........................\033[0m\033[2m"
-	cd Space_Invaders; ../$(ODIR)/Space_Invaders
+	@echo "\033[0;34mRunning Project..........................\033[0m\033[2m\033[39;2m"
+	cd Space_Invaders; ../$(ODIR)/Space_Invaders 2> /dev/null 
 	@echo "\033[0m\033[1;34mFinished.\033[0m"
 
 $(ODIR)/$(PNAME): $(SRCD)

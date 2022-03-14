@@ -1,13 +1,10 @@
-#include "BasicNovel.h"
+#include "Scenes/BasicNovel.h"
 #include <iostream>
-// #include "SceneManager/TextManager.h"
 
-NovelGame::NovelGame(const sf::Vector2i &screen_dimensions, const char *app_name)
-	// Initializer List
-	: Application(screen_dimensions, app_name)
+NovelGame::NovelGame()
 {
 	// Load Script
-	text_panel = new TextManager("res/Novel/Scenes/scene2.json", m_window, m_view, &key_space);
+	text_panel = new TextManager("res/Novel/Scenes/scene2.json", Scene::s_window, Scene::s_view, &key_space);
 
 	music = new MusicPlayer("song4", true);
 }
@@ -18,38 +15,38 @@ NovelGame::~NovelGame()
 
 void NovelGame::pollEvents()
 {
-	while (m_window->pollEvent(m_events))
+	while (Scene::s_window->pollEvent(Scene::s_events))
 	{
 		// window events
-		switch (m_events.type)
+		switch (Scene::s_events.type)
 		{
 		case sf::Event::Closed:
-			m_window->close();
+			Scene::s_window->close();
 			break;
 		case sf::Event::KeyPressed:
-			if (m_events.key.code == sf::Keyboard::Escape)
+			if (Scene::s_events.key.code == sf::Keyboard::Escape)
 			{
-				m_window->close();
+				Scene::s_window->close();
 			}
 
-			if (m_events.key.code == sf::Keyboard::Space)
+			if (Scene::s_events.key.code == sf::Keyboard::Space)
 			{
 				key_space = true;
 				text_panel->next();
 			}
 
-			if (m_events.key.code == sf::Keyboard::Tab) {
+			if (Scene::s_events.key.code == sf::Keyboard::Tab) {
 				music->update(lvl_p);
 				lvl_p+= 0.05f;
 			}
 
-			if (m_events.key.code == sf::Keyboard::LShift) {
+			if (Scene::s_events.key.code == sf::Keyboard::LShift) {
 				std::cout << "playing: " << music->position() << "\n";
 			}
 
 			break;
 		case sf::Event::KeyReleased:
-			if (m_events.key.code == sf::Keyboard::Space)
+			if (Scene::s_events.key.code == sf::Keyboard::Space)
 			{
 				key_space = false;
 			}
@@ -62,7 +59,9 @@ void NovelGame::pollEvents()
 	// react to space key here
 }
 
-void NovelGame::update()
+
+
+void NovelGame::update(float delta_time)
 {
 	pollEvents();
 	text_panel->tick();
@@ -70,7 +69,7 @@ void NovelGame::update()
 
 void NovelGame::render()
 {
-	m_window->clear();
+	//m_window->clear();
 
 	// render background
 
@@ -78,7 +77,7 @@ void NovelGame::render()
 	// m_window->draw(player.getSprite());
 	text_panel->draw();
 
-	// displays objects on the screen
-	m_window->display();
+	//// displays objects on the screen
+	//m_window->display();
 }
 
