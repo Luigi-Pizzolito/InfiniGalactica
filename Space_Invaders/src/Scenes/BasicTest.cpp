@@ -11,9 +11,9 @@
 int main() {
 
 	//Client Side Application
-	// ShooterGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/4, sf::VideoMode::getDesktopMode().height/4), "Shooter Test");
-	NovelGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/2.5, sf::VideoMode::getDesktopMode().height/2.5), "Novel Test");
-
+	ShooterGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/4, sf::VideoMode::getDesktopMode().height/4), "Shooter Test");
+	// NovelGame application(sf::Vector2i(sf::VideoMode::getDesktopMode().width/2.5, sf::VideoMode::getDesktopMode().height/2.5), "Novel Test");
+	MusicPlayer* music = new MusicPlayer("song2", true);
 	// todo: add class to draw HUD
 
 	//Game Loop
