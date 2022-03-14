@@ -109,7 +109,7 @@ void ShooterGame::update()
 	enemy_spawner.start();
 	if (enemy_spawner.timeOut()) {
 		//calculate the position
-		sf::Vector2f pos(m_view->getCenter().x + m_window->getSize().x / 2,
+		sf::Vector2f pos(m_view->getCenter().x + m_view->getSize().x / 2,
 			m_view->getSize().y);
 	
 		SpawnEnemy(pos);
