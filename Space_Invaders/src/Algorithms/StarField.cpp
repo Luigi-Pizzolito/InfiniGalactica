@@ -1,6 +1,8 @@
 #include "StarField.h"
 #include <random>
 
+// todo: add asteroids and nebulas in the background as well.
+
 StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_num):m_window(window),c_view(view),star_num(star_num) {
     // set star texture
     star_texture.loadFromFile("res/Sprites/stars.png");
