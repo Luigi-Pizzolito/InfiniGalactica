@@ -37,14 +37,15 @@ namespace SceneManagement {
 			std::cout << "Selected " << selec << "\n";
 
 			// handle selection choice
+			// for first layer menu
 			if (selec == "Exit") {
 				s_window->close();
 			} else
 			if (selec == "Continue") {
-
+				setScene(std::string("Novel Test"));
 			} else
 			if (selec == "New Game") {
-
+				setScene(std::string("Level1"));
 			} else
 			if (selec == "Endless Mode") {
 
@@ -55,6 +56,7 @@ namespace SceneManagement {
 			if (selec == "Credits") {
 
 			}
+
 
 			selection.selected = false;
 		}
@@ -78,15 +80,15 @@ namespace SceneManagement {
 			case sf::Event::KeyPressed:
 				// if (s_events.key.code == sf::Keyboard::Escape) { s_window->close(); }
 				selection.handleInput(s_events);
-				if(s_events.key.code==sf::Keyboard::X){
-					//this means new game
-					// setScene(m_Scenes.front().first);
-					setScene(std::string("Level1"));
-				} else if(s_events.key.code==sf::Keyboard::Z){
-					//this means novel test
-					setScene(std::string("Novel Test"));
-				}
-				//!!! BUG: set scene does not block input handling fast enough, if X and Z are pressed at the same time then both scenes are initialised in memory.
+				// if(s_events.key.code==sf::Keyboard::X){
+				// 	//this means new game
+				// 	// setScene(m_Scenes.front().first);
+				// 	setScene(std::string("Level1"));
+				// } else if(s_events.key.code==sf::Keyboard::Z){
+				// 	//this means novel test
+				// 	setScene(std::string("Novel Test"));
+				// }
+				// // !!! BUG: set scene does not block input handling fast enough, if X and Z are pressed at the same time then both scenes are initialised in memory.
 				break;
 
 				// No more type of events
@@ -109,7 +111,7 @@ namespace SceneManagement {
 		Scene::s_window->draw(title);
 	}
 
-	//only call this function at the beginning
+
 	void SceneMenu::setScene(const std::string& name)
 	{
 		//if the name of the scene we are looking for has been registered
@@ -131,6 +133,14 @@ namespace SceneManagement {
 
 		}
 	}
+
+
+	void SceneMenu::backToMenu() {
+		m_CurrentScenePtr = this;
+		m_sceneElement = nullptr;		// scene element is reset here as there is no scene element for menu
+										// be sure to set this when next switching to a scene
+	}
+
 	//this function helps to the transition of levels
 	void SceneMenu::nextScene()
 	{

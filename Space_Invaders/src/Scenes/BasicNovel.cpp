@@ -44,6 +44,10 @@ void NovelGame::pollEvents()
 				std::cout << "playing: " << music->position() << "\n";
 			}
 
+			if (Scene::s_events.key.code == sf::Keyboard::Backspace) {
+				m_return = true;
+			}
+
 			break;
 		case sf::Event::KeyReleased:
 			if (Scene::s_events.key.code == sf::Keyboard::Space)

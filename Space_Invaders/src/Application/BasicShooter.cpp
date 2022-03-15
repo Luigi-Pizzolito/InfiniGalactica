@@ -53,6 +53,13 @@ void ShooterGame::update()//reimplement for every level
 	//add conditions to change the current scene
 	//if currentscene.finished(){scenemenu.nextscene}
 
+	if (m_currentScene->m_return) {
+		m_currentScene->m_return = false;
+		m_menu->backToMenu();
+		// m_currentScene = nullptr;
+		m_currentScene = nullptr;
+		//! this causes seg fault
+	}
 
 }
 void ShooterGame::render()//reimplement for every level

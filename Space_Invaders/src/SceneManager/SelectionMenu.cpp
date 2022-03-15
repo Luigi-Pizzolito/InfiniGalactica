@@ -1,6 +1,8 @@
 #include "SelectionMenu.h"
 #include <iostream>
 
+//todo: use this scene to create pause and game over menu scenes
+
 SelectionMenu::SelectionMenu(sf::RenderWindow* window, const sf::View* view):m_window(window),c_view(view) {
     // selection_t.setString("Continue\nNew Game\nEndless Mode\nOptions");
     font.loadFromFile("res/Novel/LanaPixel.ttf");

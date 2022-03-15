@@ -26,6 +26,7 @@ class SelectionMenu {
         void draw();
         void addOptions(std::string single_option);
         void addOptions(std::vector<std::string> multiple_option);
+        void clearOptions() { options.clear(); }
         std::string selection() { return options[selection_i]; }
         void handleInput(sf::Event event);
         bool selected = false;

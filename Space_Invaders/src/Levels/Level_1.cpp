@@ -127,6 +127,8 @@ void Level1::update(float delta_time)
 		screen_effect.setPosition(Scene::s_view->getCenter());
 		screen_effect.setFillColor(sf::Color(255, 255, 255, 255));
 	}
+
+	//todo: update music with level progress %
 }
 
 //Render Level Graphics
