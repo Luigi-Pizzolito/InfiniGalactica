@@ -126,6 +126,7 @@ void FSScrollTextManager::loadScene() {
     sf::String sfTmp = sf::String::fromUtf8(str.begin(), str.end());
     // Set text, adding line wrap
     fs_text.setString(addLineWrap(sf::String(sfTmp)));
+    fs_text.setPosition(t_pos);
 }
 
 sf::String FSScrollTextManager::addLineWrap(sf::String string) {
@@ -173,7 +174,7 @@ bool FSScrollTextManager::tick() {
 
     // Check if text is done scrolling
     // std::cout << "text x: " << fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height << "\tView Thres: " << m_view->getSize().y/4 << "\n";
-    if (fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height < m_view->getSize().y/2) {
+    if (fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height < m_view->getSize().y/3.5) {
         std::cout << "done scrolling!\n";
         return true;
     } else {

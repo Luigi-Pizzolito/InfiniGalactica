@@ -1,6 +1,5 @@
-#include "Level_1.h"
-
-Level1::Level1() :Level()
+#include "Level_2.h"
+Level2::Level2() :Level()
 {
 	//At the start of any level we can set the basic textures, create the player
 	//Prepare the vectors for the enemies and bullets
@@ -14,11 +13,11 @@ Level1::Level1() :Level()
 	//Set player Texture
 	player->setTexture(player_textures[0]);
 	//create the camera
-	camera = new CameraFollowHorzScroll(Scene::s_window,Scene::s_view,player,sf::Vector2f(100.0f,0.0f));
+	camera = new CameraFollowHorzScroll(Scene::s_window, Scene::s_view, player, sf::Vector2f(100.0f, 0.0f));
 	//create the starfield
-	starfield = new StarField(Scene::s_window,Scene::s_view,25,1.4f);
+	starfield = new StarField(Scene::s_window,Scene::s_view,25,1.4f);;
 	//Screen Effect
-	
+
 	//Set up Timers
 	setUpTimers();
 	screen_effect.setSize(sf::Vector2f(Scene::s_window->getSize().x, Scene::s_window->getSize().y));
@@ -26,17 +25,16 @@ Level1::Level1() :Level()
 	screen_effect.setPosition(Scene::s_view->getCenter());
 	screen_effect.setFillColor(sf::Color(255, 255, 255, 0));
 	screen_effect.setTexture(&broken_screen_texture);
+	std::cout << "Created Level 2\n";
 
 	//Music
-	music = new MusicPlayer("song1", true);
-
-	std::cout << "Created Level 1\n";
+	music = new MusicPlayer("song2", true);
 }
 
-Level1::~Level1()
+Level2::~Level2()
 {
 	//Deletion of Heap allocated variables upon completion of the level or exit of the app
-	std::cout << "Destroyed Level 1\n";
+	std::cout << "Destroyed Level 2\n";
 	delete player;
 	delete starfield;
 	delete camera;
@@ -44,10 +42,11 @@ Level1::~Level1()
 }
 
 //Level Logic
-void Level1::update(float delta_time)
+void Level2::update(float delta_time)
 {
 	pollEvents();
 	if (player->getHP() > 0) {
+
 		if (player_score > 50 && !player_max) {
 			player->setTexture(player_textures[1]);
 			player_max = true;
@@ -81,7 +80,7 @@ void Level1::update(float delta_time)
 		for (auto& enemy : world_enemies) {
 			enemy->move();
 			if (enemy->canShoot()) {
-				spawnEnemyBullet(enemy_projectile_texture[0],VectorMath::getAABBMidBack(enemy->getTopLeftPos(), enemy->getSize()), VectorMath::Vdirection::LEFT);
+				spawnEnemyBullet(enemy_projectile_texture[0], VectorMath::getAABBMidBack(enemy->getTopLeftPos(), enemy->getSize()), VectorMath::Vdirection::LEFT);
 
 			}
 		}
@@ -118,11 +117,6 @@ void Level1::update(float delta_time)
 			if (collided) {
 				player->hurt(enemy_bullet);
 
-
-				// for testing music access
-				if (player->getHP() <=0) {
-					music->stop();
-				}
 			}
 
 			return collided; }), world_enemy_bullets.end());
@@ -132,16 +126,16 @@ void Level1::update(float delta_time)
 
 	}
 	else {
-		
+
 		screen_effect.setPosition(Scene::s_view->getCenter());
 		screen_effect.setFillColor(sf::Color(255, 255, 255, 255));
 		SceneManagement::goBackToMainMenu();
+
 	}
-	//todo: update music with level progress %
 }
 
 //Render Level Graphics
-void Level1::render()
+void Level2::render()
 {
 	// render background
 	starfield->draw();
@@ -162,7 +156,7 @@ void Level1::render()
 }
 
 
-void Level1::prepareContainers()
+void Level2::prepareContainers()
 {
 	//Reserving Textures
 	//Player
@@ -176,12 +170,12 @@ void Level1::prepareContainers()
 	player_bullets.reserve(80);
 	world_enemies.reserve(50);
 	world_enemy_bullets.reserve(80);
-	
+
 
 
 }
 
-void Level1::loadTextures()
+void Level2::loadTextures()
 {
 	//Player Textures
 	player_textures.emplace_back();
@@ -204,12 +198,12 @@ void Level1::loadTextures()
 	broken_screen_texture.loadFromFile("res/Sprites/brokenscreen.png");
 }
 
-void Level1::setUpTimers()
+void Level2::setUpTimers()
 {
 	//Set up all of the main Timers and Spawners
 	player_bullet_timer.setDuration(0.5f);
 	enemy_spawner.setDuration(1.0f);
 
-	
+
 }
 

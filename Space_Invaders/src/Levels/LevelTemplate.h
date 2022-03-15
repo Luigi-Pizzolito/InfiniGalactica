@@ -15,6 +15,7 @@ protected:
 	//variables
 	size_t player_score;
 	size_t enemy_death_count;
+	bool player_max;
 	//Textures,since we aren't sure how many types of enemies we need per level,
 	//it is more convenient to use a vector
 	std::vector<sf::Texture> player_textures;

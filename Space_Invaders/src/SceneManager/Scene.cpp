@@ -6,13 +6,14 @@ namespace SceneManagement {
 	sf::RenderWindow* Scene::s_window = nullptr;
 	sf::View* Scene::s_view = nullptr;
 	sf::Event Scene::s_events;
-
+	SceneMenu* Scene::s_main_menu = nullptr;
 
 
 	SceneMenu::SceneMenu(Scene*& currentScenePtr)
 		:Scene(),m_CurrentScenePtr(currentScenePtr),
 		 selection(Scene::s_window, Scene::s_view),
-		 rstarfield(Scene::s_window,Scene::s_view,250,10.0f)
+		 rstarfield(Scene::s_window,Scene::s_view,250,10.0f),
+		 music("song3", true)
 	{
 		m_CurrentScenePtr = this;
 		m_texture.loadFromFile("res/Sprites/Cutscenes/menu_background.png");
@@ -22,6 +23,8 @@ namespace SceneManagement {
 		//m_background.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(Scene::s_view->getSize().x, Scene::s_view->getSize().y)));
 		// Background
 		// rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,250,10.0f);
+		// Music
+		music.update(0.9f);
 
 		title.setString("InfiniGalactica");
 		title_font.loadFromFile("res/Novel/Linebeam.ttf");
@@ -91,7 +94,6 @@ namespace SceneManagement {
 				// 	//this means novel test
 				// 	setScene(std::string("Novel Test"));
 				// }
-				// // !!! BUG: set scene does not block input handling fast enough, if X and Z are pressed at the same time then both scenes are initialised in memory.
 				break;
 
 				// No more type of events
@@ -122,7 +124,7 @@ namespace SceneManagement {
 		//then the SceneMenu is going to create that scene for us
 		//and the pointer in the game will be updated.
 		for (auto& scene : m_Scenes) {
-			std::cout << "scene is: \"" << scene.first.c_str() << "\" search pattern is \"" + name + "\"\n";
+			// std::cout << "scene is: \"" << scene.first.c_str() << "\" search pattern is \"" + name + "\"\n";
 			if (name == scene.first.c_str()) {
 				//instantiates the scene
 				if (m_CurrentScenePtr && m_CurrentScenePtr != this) {
@@ -132,6 +134,11 @@ namespace SceneManagement {
 
 				m_CurrentScenePtr = scene.second();
 				m_sceneElement = &scene;
+
+				if (strcmp(name.c_str(), "Credits") != 0) {
+					// std::cout << "pausing music, not going to credits\n";
+					Scene::s_main_menu->music.pause();
+				}
 				break;
 			}
 
@@ -144,6 +151,7 @@ namespace SceneManagement {
 		if (m_CurrentScenePtr && m_CurrentScenePtr != this) {
 			//this is just to avoid deleting the menu
 			delete m_CurrentScenePtr;
+			m_CurrentScenePtr = nullptr;
 		}
 		//for extra safety, if someone for some reason sets a scene that is not the 1st one as
 		//the 1st scene
@@ -154,14 +162,37 @@ namespace SceneManagement {
 		}
 		else {
 			//this means that the last scene(credits has finished)
-			delete m_CurrentScenePtr;
-			//go back to the menu
-			m_CurrentScenePtr = this;
+			//delete m_CurrentScenePtr;
+			////go back to the menu
+			//m_CurrentScenePtr = this;
+			goBackToMainMenu();
 		}
 		
 
 	}
 
+	void goBackToMainMenu()
+	{
+		std::cout << "going back to main menu from : " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
+		if (Scene::s_main_menu->m_CurrentScenePtr&& (Scene::s_main_menu->m_CurrentScenePtr!= Scene::s_main_menu)) {
+			//delete the current scene
+			delete Scene::s_main_menu->m_CurrentScenePtr;
+		}
+		if (Scene::s_main_menu->m_sceneElement->first != std::string("Credits")) {
+			// std::cout << "resuming music, came from not credits\n";
+			Scene::s_main_menu->music.play();
+		}
+		//set the scene pointer to the first scene(not needed but elegant)
+		Scene::s_main_menu->m_sceneElement = Scene::s_main_menu->m_Scenes.data();
+		Scene::s_main_menu->m_CurrentScenePtr = Scene::s_main_menu;
+		Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
+		Scene::s_window->setView(*Scene::s_view);
+
+		std::cout << "Current scene is: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
+
+		//!! because of this if, the scenes are not deleted, move it before seeting the pointer and it segfaults
+		
+	}
 
 
 }

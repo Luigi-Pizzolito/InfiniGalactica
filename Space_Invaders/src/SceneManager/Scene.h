@@ -9,13 +9,17 @@
 #include <SFML/Audio.hpp>
 
 #include "SceneManager/SelectionMenu.h"
+#include "MediaManager/MusicPlayer.h"
 #include "Algorithms/StarField.h"
 namespace SceneManagement {
+
+	class SceneMenu;
 	class Scene {
 	public:
 		static sf::RenderWindow* s_window;
 		static sf::View* s_view;
 		static sf::Event s_events;
+		static SceneMenu* s_main_menu;
 	protected:
 		bool m_finished;
 		//sf::RenderWindow* m_window = nullptr;
@@ -27,7 +31,7 @@ namespace SceneManagement {
 		virtual void update(float delta_time) {}
 		virtual void render() {}
 		inline bool isSceneFinished() {return m_finished;}
-		// bool m_return = false;
+		bool m_return = false;
 		
 	};
 	class SceneMenu : public Scene {
@@ -56,6 +60,7 @@ namespace SceneManagement {
 	private:
 		// Background
         RadialStarField rstarfield;
+		MusicPlayer music;
 		sf::RectangleShape m_background;
 		sf::Texture m_texture;
 		sf::Font title_font;
@@ -68,9 +73,10 @@ namespace SceneManagement {
 		//we use std::function as a placeholder for the lambda
 		//when we register, we register the name and its lambda
 		std::pair<std::string, std::function<Scene* ()>>* m_sceneElement;
+		friend void goBackToMainMenu();
 		
 	};
-
+	void goBackToMainMenu();
 
 
 }
