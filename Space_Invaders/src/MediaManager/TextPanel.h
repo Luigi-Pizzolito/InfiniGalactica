@@ -24,6 +24,12 @@ class TextPanel {
         size_t tick_be = 0; 
         bool blink_b = false;
         size_t reveal_b = 0;
+        // Internal drawing vars
+        sf::RectangleShape dialog_box;
+        sf::Text textn;
+        sf::Text text_d;
+        sf::Text actor_t;
+        sf::RectangleShape actor_box;
 
         // Layout parameters
         const float margin = 20;

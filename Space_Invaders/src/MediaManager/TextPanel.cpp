@@ -54,6 +54,40 @@ TextPanel::TextPanel(sf::String string, const sf::String actor, const sf::Color 
 	// {
 	// 	std::cout << ToUTF8(  panel_gen.at(i)  ) << "\n----\n";
 	// }
+
+
+	// Initialise static drawing parameters
+	// dialog box
+	float height = 2*((float)fontSize+padding);
+	dialog_box.setPosition(sf::Vector2f(margin, m_view->getSize().y-height-margin));
+	dialog_box.setSize(sf::Vector2f(m_view->getSize().x-2*margin, height));
+	dialog_box.setFillColor(sf::Color::Black);
+	dialog_box.setOutlineThickness(border);
+	dialog_box.setOutlineColor(highlight);
+	// next blinker
+	textn.setCharacterSize(fontSize);
+	textn.setFont(font);
+	textn.setOrigin(sf::Vector2f(-margin-(m_view->getSize().x - 2*(margin+border+padding)),-m_view->getSize().y + (margin+border+padding) + fontSize - line_padding));
+	textn.setFillColor(sf::Color(highlight.r,highlight.g,highlight.b,highlight.a/1.1));
+	// main text
+	text_d.setFont(font);
+	text_d.setCharacterSize(fontSize);
+	text_d.setFillColor(sf::Color::White);
+	text_d.setLineSpacing(line_spacing);
+	text_d.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 2*fontSize + line_padding));
+	// actor text
+	actor_t.setFont(font);
+	actor_t.setCharacterSize(fontSize);
+	actor_t.setFillColor(sf::Color::White);
+	actor_t.setString(actor);
+	actor_t.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 3*fontSize + line_padding + 3*border));
+	// actor box
+	actor_box.setPosition(sf::Vector2f(margin, m_view->getSize().y-(margin+border+padding+ 3*fontSize + line_padding + 3*border)));
+	actor_box.setSize(sf::Vector2f(2*margin + actor_t.getLocalBounds().width, fontSize+2*border));
+	actor_t.setString(actor+sf::String(":"));
+	actor_box.setFillColor(sf::Color::Black);
+	actor_box.setOutlineThickness(border);
+	actor_box.setOutlineColor(highlight);
 }
 
 TextPanel::~TextPanel() {
@@ -113,16 +147,9 @@ void TextPanel::tick() {
 
 void TextPanel::draw() {
 	// Draw dialog box
-	float height = 2*((float)fontSize+padding);
-	sf::RectangleShape dialog_box = sf::RectangleShape();
-	dialog_box.setPosition(sf::Vector2f(margin, m_view->getSize().y-height-margin));
-	dialog_box.setSize(sf::Vector2f(m_view->getSize().x-2*margin, height));
-	dialog_box.setFillColor(sf::Color::Black);
-	dialog_box.setOutlineThickness(border);
-	dialog_box.setOutlineColor(highlight);
 	m_window->draw(dialog_box);
 
-	// Create a text
+	// Create a main text
 	sf::String draw_text(this->text());
 	draw_text.replace(L"…  ", L"...");
 
@@ -147,45 +174,18 @@ void TextPanel::draw() {
 		}
 
 		// next blinker
-		sf::Text textn(blink_b ? L"\ue006" : L" ", font, fontSize);
-		textn.setOrigin(sf::Vector2f(-margin-(m_view->getSize().x - 2*(margin+border+padding)),-m_view->getSize().y + (margin+border+padding) + fontSize - line_padding));
-		textn.setFillColor(sf::Color(highlight.r,highlight.g,highlight.b,highlight.a/1.1));
+		textn.setString(blink_b ? L"\ue006" : L" ");
 		m_window->draw(textn);
 	}
-	
-	// create main text
-	sf::Text text;
-	text.setFont(font);
-	text.setCharacterSize(fontSize);
-	text.setFillColor(sf::Color::White);
-	text.setLineSpacing(line_spacing);
-	text.setString(draw_text);
-	text.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 2*fontSize + line_padding));
 
 	if (actor != "") {
-		// create actor text
-		sf::Text actor_t;
-		actor_t.setFont(font);
-		actor_t.setCharacterSize(fontSize);
-		actor_t.setFillColor(sf::Color::White);
-		actor_t.setString(actor);
-		actor_t.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 3*fontSize + line_padding + 3*border));
-
-		// Draw actor box
-		sf::RectangleShape actor_box = sf::RectangleShape();
-		actor_box.setPosition(sf::Vector2f(margin, m_view->getSize().y-(margin+border+padding+ 3*fontSize + line_padding + 3*border)));
-		actor_box.setSize(sf::Vector2f(2*margin + actor_t.getLocalBounds().width, fontSize+2*border));
-		actor_t.setString(actor+sf::String(":"));
-		actor_box.setFillColor(sf::Color::Black);
-		actor_box.setOutlineThickness(border);
-		actor_box.setOutlineColor(highlight);
-
-		// Draw
+		// Draw actor box and text
 		m_window->draw(actor_box);
 		m_window->draw(actor_t);
 	}
 
-	// Draw it
-	m_window->draw(text);
+	// draw main text
+	text_d.setString(draw_text);
+	m_window->draw(text_d);
 
 }
