@@ -46,6 +46,14 @@ void Level::pollEvents()
 			//Player Input of key release
 			playerInputStates(STATES::RELEASED);
 			break;
+
+		case sf::Event::MouseButtonPressed:
+			key_s = true;
+			break;
+		case sf::Event::MouseButtonReleased:
+			key_s = false;
+			break;
+
 			// No more type of events
 		default:
 			break;
@@ -68,20 +76,20 @@ void Level::playerInputStates(STATES state)
 	switch (state)
 	{
 	case STATES::PRESSED:
-		if (Scene::s_events.key.code == sf::Keyboard::A) { key_l = true; }
-		else if (Scene::s_events.key.code == sf::Keyboard::D) { key_r = true; }
-		if (Scene::s_events.key.code == sf::Keyboard::W) { key_u = true; }
-		else if (Scene::s_events.key.code == sf::Keyboard::S) { key_d = true; }
+		if 		(Scene::s_events.key.code == sf::Keyboard::A || Scene::s_events.key.code == sf::Keyboard::Left) { key_l = true; }
+		else if (Scene::s_events.key.code == sf::Keyboard::D || Scene::s_events.key.code == sf::Keyboard::Right) { key_r = true; }
+		if 		(Scene::s_events.key.code == sf::Keyboard::W || Scene::s_events.key.code == sf::Keyboard::Up) { key_u = true; }
+		else if (Scene::s_events.key.code == sf::Keyboard::S || Scene::s_events.key.code == sf::Keyboard::Down) { key_d = true; }
 
-		if (Scene::s_events.key.code == sf::Keyboard::G) { key_s = true; }
+		if (Scene::s_events.key.code == sf::Keyboard::G || Scene::s_events.key.code == sf::Keyboard::Space || Scene::s_events.key.code == sf::Keyboard::M) { key_s = true; }
 		break;
 	case STATES::RELEASED:
-		if (Scene::s_events.key.code == sf::Keyboard::A) { key_l = false; }
-		if (Scene::s_events.key.code == sf::Keyboard::D) { key_r = false; }
-		if (Scene::s_events.key.code == sf::Keyboard::W) { key_u = false; }
-		if (Scene::s_events.key.code == sf::Keyboard::S) { key_d = false; }
+		if (Scene::s_events.key.code == sf::Keyboard::A || Scene::s_events.key.code == sf::Keyboard::Left) { key_l = false; }
+		if (Scene::s_events.key.code == sf::Keyboard::D || Scene::s_events.key.code == sf::Keyboard::Right) { key_r = false; }
+		if (Scene::s_events.key.code == sf::Keyboard::W || Scene::s_events.key.code == sf::Keyboard::Up) { key_u = false; }
+		if (Scene::s_events.key.code == sf::Keyboard::S || Scene::s_events.key.code == sf::Keyboard::Down) { key_d = false; }
 
-		if (Scene::s_events.key.code == sf::Keyboard::G) { key_s = false; }
+		if (Scene::s_events.key.code == sf::Keyboard::G || Scene::s_events.key.code == sf::Keyboard::Space || Scene::s_events.key.code == sf::Keyboard::M) { key_s = false; }
 		break;
 	default:
 		break;
