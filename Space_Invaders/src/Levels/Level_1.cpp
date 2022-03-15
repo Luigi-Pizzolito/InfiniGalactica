@@ -30,6 +30,10 @@ Level1::Level1() :Level()
 	//Music
 	music = new MusicPlayer("song1", true);
 
+	//HUD
+	float level_p = 0.68f;
+	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, &level_p);
+
 	std::cout << "Created Level 1\n";
 }
 
@@ -40,6 +44,7 @@ Level1::~Level1()
 	delete player;
 	delete starfield;
 	delete camera;
+	delete hud;
 	delete music;
 }
 
@@ -159,6 +164,7 @@ void Level1::render()
 	Scene::s_window->draw(player->getSprite());
 	Scene::s_window->draw(screen_effect);
 	// displays objects on the screen
+	hud->draw();
 }
 
 

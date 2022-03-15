@@ -49,7 +49,7 @@ void TextManager::loadScene()
         // Color parse
         char *clr = &*color.begin();
         int r, g, b;
-        sscanf(clr, "%02x%02x%02x", &r, &g, &b);
+        std::sscanf(clr, "%02x%02x%02x", &r, &g, &b);
         // String format conversion
         std::string str(text);
         sf::String sfTmp = sf::String::fromUtf8(str.begin(), str.end());

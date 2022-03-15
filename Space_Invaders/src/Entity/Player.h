@@ -23,5 +23,6 @@ public:
 	bool collidesWith(Item_* iem);
 	const sf::Sprite& getSprite()const { return m_sprite; }
 	void hurt(EnemyBullet* bullet);
-	int getHP();
+	int getHP() {return m_HP;}
+	int getMaxHP() {return m_MaxHP;}
 };

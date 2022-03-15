@@ -65,7 +65,3 @@ void Player::hurt(EnemyBullet* bullet)
 {
 	m_HP -= bullet->getDamage();
 }
-int Player::getHP()
-{
-	return m_HP;
-}

@@ -1,11 +1,12 @@
 #pragma once
 #include "SceneManager/Scene.h"
-#include "MediaManager/MusicPlayer.h"
 #include "Application/Application.h"
 #include <vector>
 #include "Entity/Player.h"
 #include "Entity/Enemy.h"
 #include "Projectiles/Projectile.h"
+#include "MediaManager/MusicPlayer.h"
+#include "MediaManager/HUDPanel.h"
 #include "Algorithms/StarField.h"
 #include "Algorithms/CameraFollowScroll.h"
 #include "Algorithms/Utilities.h"
@@ -35,6 +36,8 @@ protected:
 	std::vector<PlayerBullet*> player_bullets;
 	std::vector<EnemyBullet*> world_enemy_bullets;
 
+	//HUD
+	HUDPanel* hud;
 	//Background
 	StarField* starfield;
 	//Camera

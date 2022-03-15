@@ -29,6 +29,10 @@ Level2::Level2() :Level()
 
 	//Music
 	music = new MusicPlayer("song2", true);
+
+	//HUD
+	float level_p = 0.68f;
+	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, &level_p);
 }
 
 Level2::~Level2()
@@ -38,6 +42,7 @@ Level2::~Level2()
 	delete player;
 	delete starfield;
 	delete camera;
+	delete hud;
 	delete music;
 }
 
@@ -153,6 +158,7 @@ void Level2::render()
 	Scene::s_window->draw(player->getSprite());
 	Scene::s_window->draw(screen_effect);
 	// displays objects on the screen
+	hud->draw();
 }
 
 
