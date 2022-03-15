@@ -11,6 +11,7 @@ Level::Level() :Scene(),player_score(0),enemy_death_count(0),selected_slot(0)
 	key_l = false;
 	key_r = false;
 	key_s = false;
+	player_max = false;
 
 }
 

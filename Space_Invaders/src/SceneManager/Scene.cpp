@@ -6,7 +6,7 @@ namespace SceneManagement {
 	sf::RenderWindow* Scene::s_window = nullptr;
 	sf::View* Scene::s_view = nullptr;
 	sf::Event Scene::s_events;
-
+	SceneMenu* Scene::s_main_menu = nullptr;
 
 
 	SceneMenu::SceneMenu(Scene*& currentScenePtr)
@@ -91,7 +91,6 @@ namespace SceneManagement {
 				// 	//this means novel test
 				// 	setScene(std::string("Novel Test"));
 				// }
-				// // !!! BUG: set scene does not block input handling fast enough, if X and Z are pressed at the same time then both scenes are initialised in memory.
 				break;
 
 				// No more type of events
@@ -144,6 +143,7 @@ namespace SceneManagement {
 		if (m_CurrentScenePtr && m_CurrentScenePtr != this) {
 			//this is just to avoid deleting the menu
 			delete m_CurrentScenePtr;
+			m_CurrentScenePtr = nullptr;
 		}
 		//for extra safety, if someone for some reason sets a scene that is not the 1st one as
 		//the 1st scene
@@ -154,14 +154,28 @@ namespace SceneManagement {
 		}
 		else {
 			//this means that the last scene(credits has finished)
-			delete m_CurrentScenePtr;
-			//go back to the menu
-			m_CurrentScenePtr = this;
+			//delete m_CurrentScenePtr;
+			////go back to the menu
+			//m_CurrentScenePtr = this;
+			goBackToMainMenu();
 		}
 		
 
 	}
 
+	void goBackToMainMenu()
+	{
+		if (Scene::s_main_menu->m_CurrentScenePtr&& (Scene::s_main_menu->m_CurrentScenePtr!= Scene::s_main_menu)) {
+			//delete the current scene
+			delete Scene::s_main_menu->m_CurrentScenePtr;
+		}
+		//set the scene pointer to the first scene(not needed but elegant)
+		// Scene::s_main_menu->m_sceneElement = Scene::s_main_menu->m_Scenes.data();
+		// Scene::s_main_menu->m_CurrentScenePtr = Scene::s_main_menu;
+		// Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
+		// Scene::s_window->setView(*Scene::s_view);
+	
+	}
 
 
 }
