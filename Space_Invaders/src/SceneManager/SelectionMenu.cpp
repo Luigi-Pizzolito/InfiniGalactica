@@ -12,7 +12,7 @@ SelectionMenu::SelectionMenu(sf::RenderWindow* window, const sf::View* view):m_w
     pointer_t.setFont(font);
     pointer_t.setCharacterSize(font_s);
     pointer_t.setFillColor(sf::Color::White);
-    pointer_t.setString(L"");
+    pointer_t.setString(L"\ue01d");
 }
 
 SelectionMenu::~SelectionMenu() {}

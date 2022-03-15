@@ -148,7 +148,7 @@ void TextPanel::draw() {
 		}
 
 		// next blinker
-		sf::Text textn(blink_b ? L"" : L" ", font, fontSize);
+		sf::Text textn(blink_b ? L"\ue006" : L" ", font, fontSize);
 		textn.setOrigin(sf::Vector2f(-margin-(m_view->getSize().x - 2*(margin+border+padding)),-m_view->getSize().y + (margin+border+padding) + fontSize - line_padding));
 		textn.setFillColor(sf::Color(highlight.r,highlight.g,highlight.b,highlight.a/1.1));
 		m_window->draw(textn);
