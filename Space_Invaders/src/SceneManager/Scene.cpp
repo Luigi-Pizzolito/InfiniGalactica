@@ -19,6 +19,8 @@ namespace SceneManagement {
 		m_background.setTexture(&m_texture);
 		
 		//m_background.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(Scene::s_view->getSize().x, Scene::s_view->getSize().y)));
+		// Background
+		rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,250,10.0f);
 
 		title.setString("InfiniGalactica");
 		title_font.loadFromFile("res/Novel/Linebeam.ttf");
@@ -107,6 +109,7 @@ namespace SceneManagement {
 	void SceneMenu::render()
 	{
 		// Scene::s_window->draw(m_background);
+		rstarfield->draw();
 		selection.draw();
 		Scene::s_window->draw(title);
 	}
@@ -133,14 +136,6 @@ namespace SceneManagement {
 
 		}
 	}
-
-
-	//Luigi
-	// void SceneMenu::backToMenu() {
-	// 	m_CurrentScenePtr = this;
-	// 	m_sceneElement = nullptr;		// scene element is reset here as there is no scene element for menu
-	// 									// be sure to set this when next switching to a scene
-	// }
 
 	//this function helps to the transition of levels
 	void SceneMenu::nextScene()

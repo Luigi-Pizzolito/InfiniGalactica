@@ -2,6 +2,8 @@
 #include "SFML/Graphics.hpp"
 #define _USE_MATH_DEFINES
 #include <math.h>
+// for debugging
+std::ostream& operator<<(std::ostream& stream, const sf::Vector2f& vec);
 namespace VectorMath {
 
 	//returns the unitary vector in direction to the final pos

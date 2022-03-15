@@ -8,7 +8,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 
-#include "SelectionMenu.h"
+#include "SceneManager/SelectionMenu.h"
+#include "Algorithms/StarField.h"
 namespace SceneManagement {
 	class Scene {
 	public:
@@ -53,6 +54,8 @@ namespace SceneManagement {
 		void backToMenu();
 
 	private:
+		// Background
+        RadialStarField* rstarfield;
 		sf::RectangleShape m_background;
 		sf::Texture m_texture;
 		sf::Font title_font;

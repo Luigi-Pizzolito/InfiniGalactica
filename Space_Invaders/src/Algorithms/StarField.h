@@ -21,7 +21,6 @@ class StarField {
         sf::VertexArray* star_layers[8];
         std::vector<sf::VertexArray*> nebula_layers;
 
-        static void addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset);
         void genStars(sf::VertexArray* stars);
         void genNebulas(sf::VertexArray* nebulas);
         void parallax();
@@ -29,5 +28,31 @@ class StarField {
     public:
         StarField(sf::RenderWindow* window, const sf::View* view, int star_num, float nebula_num);
         ~StarField();
+        void draw();
+
+        static void addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset);
+};
+
+
+
+
+class RadialStarField {
+    private:
+        sf::RenderWindow* m_window;
+        const sf::View* c_view;
+        sf::Texture star_texture;
+        sf::RenderStates star_rstate;
+        sf::VertexArray* stars;
+
+        int star_num;
+        const float speed;
+        std::vector<sf::Vector3f> star_coords;
+
+        void genStars();
+        void travel();
+
+    public:
+        RadialStarField(sf::RenderWindow* window, const sf::View* view, int star_num, const float speed);
+        ~RadialStarField();
         void draw();
 };

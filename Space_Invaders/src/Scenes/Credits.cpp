@@ -4,8 +4,12 @@ Credits::Credits() {
     // Load Script
     fs_text = new FSScrollTextManager("res/credits.json", Scene::s_window, Scene::s_view, &key_space);
 
+	// Music
     music = new MusicPlayer("song3", true);
     music->update(0.9f);
+
+	// Background
+	rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,350,5.0f);
 }
 
 Credits::~Credits() {
@@ -53,5 +57,6 @@ void Credits::update(float delta_time) {
 }
 
 void Credits::render() {
+	rstarfield->draw();
     fs_text->draw();
 }

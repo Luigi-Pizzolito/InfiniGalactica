@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneManager/Scene.h"
 #include "MediaManager/TextManager.h"
+#include "Algorithms/StarField.h"
 #include "MediaManager/MusicPlayer.h"
 
 class Credits: public SceneManagement::Scene {
@@ -8,6 +9,9 @@ class Credits: public SceneManagement::Scene {
 
         // BGM
         MusicPlayer* music;
+
+        // Background
+        RadialStarField* rstarfield;
 
         //Input bools
         bool key_space = false;
