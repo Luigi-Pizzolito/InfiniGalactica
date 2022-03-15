@@ -2,7 +2,7 @@
 #include <random>
 #include <iostream>
 
-// todo: add asteroids and nebulas in the background as well.
+//todo: add ?static method? for radial star field for titles
 
 StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_num, float nebula_num):m_window(window),c_view(view),star_num(star_num),nebula_num(nebula_num) {
     // set star texture

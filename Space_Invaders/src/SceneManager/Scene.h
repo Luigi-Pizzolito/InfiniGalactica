@@ -48,6 +48,8 @@ namespace SceneManagement {
 		void setScene(const std::string& name);
 		void nextScene();
 
+		void handleSelection();
+
 	private:
 		sf::RectangleShape m_background;
 		sf::Texture m_texture;
@@ -62,7 +64,6 @@ namespace SceneManagement {
 		//when we register, we register the name and its lambda
 		std::pair<std::string, std::function<Scene* ()>>* m_sceneElement;
 		
-		void handleSelection(std::string selec);
 	};
 
 

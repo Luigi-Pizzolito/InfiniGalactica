@@ -3,7 +3,7 @@
 #include <iostream> //needed for color conversions
 #include <fstream>
 
-// todo: add fullscreen scrolling textpanel class alt for intro opening scene etc
+// todo: add fullscreen scrolling textpanel class alt for intro opening scene, credits etc
 
 TextManager::TextManager(std::string scene, sf::RenderWindow *m_window, sf::View *m_view, bool *s_key) : file(scene), m_window(m_window), m_view(m_view), s_key(s_key)
 {

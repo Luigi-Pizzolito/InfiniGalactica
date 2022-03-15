@@ -31,8 +31,33 @@ namespace SceneManagement {
 		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
 	}
 
-	void SceneMenu::handleSelection(std::string selec) {
-		std::cout << "Selected " << selec << "\n";
+	void SceneMenu::handleSelection() {
+		if (selection.selected) {
+			std::string selec = selection.selection();
+			std::cout << "Selected " << selec << "\n";
+
+			// handle selection choice
+			if (selec == "Exit") {
+				s_window->close();
+			} else
+			if (selec == "Continue") {
+
+			} else
+			if (selec == "New Game") {
+
+			} else
+			if (selec == "Endless Mode") {
+
+			} else
+			if (selec == "Options") {
+
+			} else
+			if (selec == "Credits") {
+
+			}
+
+			selection.selected = false;
+		}
 	}
 
 
@@ -51,7 +76,7 @@ namespace SceneManagement {
 				s_window->close();
 				break;
 			case sf::Event::KeyPressed:
-				if (s_events.key.code == sf::Keyboard::Escape) { s_window->close(); }
+				// if (s_events.key.code == sf::Keyboard::Escape) { s_window->close(); }
 				selection.handleInput(s_events);
 				if(s_events.key.code==sf::Keyboard::X){
 					//this means new game
@@ -74,10 +99,7 @@ namespace SceneManagement {
 	void SceneMenu::update(float delta_time)
 	{
 		pollEvents();
-		if (selection.selected) {
-			std::cout << "Selected " << selection.selection() << "\n";
-			selection.selected = false;
-		}
+		handleSelection();
 	}
 
 	void SceneMenu::render()
