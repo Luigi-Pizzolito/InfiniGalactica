@@ -54,7 +54,7 @@ namespace SceneManagement {
 
 			} else
 			if (selec == "Credits") {
-
+				setScene(std::string("Credits"));
 			}
 
 
@@ -135,11 +135,12 @@ namespace SceneManagement {
 	}
 
 
-	void SceneMenu::backToMenu() {
-		m_CurrentScenePtr = this;
-		m_sceneElement = nullptr;		// scene element is reset here as there is no scene element for menu
-										// be sure to set this when next switching to a scene
-	}
+	//Luigi
+	// void SceneMenu::backToMenu() {
+	// 	m_CurrentScenePtr = this;
+	// 	m_sceneElement = nullptr;		// scene element is reset here as there is no scene element for menu
+	// 									// be sure to set this when next switching to a scene
+	// }
 
 	//this function helps to the transition of levels
 	void SceneMenu::nextScene()

@@ -19,14 +19,14 @@ namespace SceneManagement {
 		bool m_finished;
 		//sf::RenderWindow* m_window = nullptr;
 	public:
-		Scene():m_finished(false),m_return(false) {}
+		Scene():m_finished(false) {}
 		virtual ~Scene() {}
 
 		virtual void pollEvents() {}
 		virtual void update(float delta_time) {}
 		virtual void render() {}
 		inline bool isSceneFinished() {return m_finished;}
-		bool m_return;
+		// bool m_return = false;
 		
 	};
 	class SceneMenu : public Scene {

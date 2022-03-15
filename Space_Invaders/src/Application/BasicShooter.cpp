@@ -2,6 +2,7 @@
 #include "Algorithms/MathUtils.h"
 #include "Levels/Level_1.h"
 #include "Scenes/BasicNovel.h"
+#include "Scenes/Credits.h"
 #include <iostream>
 
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
@@ -20,6 +21,7 @@ ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_
 	//Register Levels using the menu/SceneManager
 	m_menu->registerScene<NovelGame>(std::string("Novel Test"));
 	m_menu->registerScene<Level1>(std::string("Level1"));
+	m_menu->registerScene<Credits>(std::string("Credits"));
 }
 
 //When closing the application
@@ -53,13 +55,14 @@ void ShooterGame::update()//reimplement for every level
 	//add conditions to change the current scene
 	//if currentscene.finished(){scenemenu.nextscene}
 
-	if (m_currentScene->m_return) {
-		m_currentScene->m_return = false;
-		m_menu->backToMenu();
-		// m_currentScene = nullptr;
-		m_currentScene = nullptr;
-		//! this causes seg fault
-	}
+	//Luigi
+	// if (m_currentScene->m_return) {
+	// 	m_currentScene->m_return = false;
+	// 	m_menu->backToMenu();
+	// 	m_currentScene = nullptr;
+	// 	// delete m_currentScene;
+	// 	//! this causes seg fault
+	// }
 
 }
 void ShooterGame::render()//reimplement for every level

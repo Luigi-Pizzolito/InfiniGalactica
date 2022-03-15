@@ -87,3 +87,100 @@ void TextManager::draw()
 {
     scenes_p[scene_i].draw();
 }
+
+
+
+
+
+
+
+
+
+FSScrollTextManager::FSScrollTextManager(std::string scene, sf::RenderWindow *m_window, sf::View *m_view, bool *s_key) : file(scene), m_window(m_window), m_view(m_view), s_key(s_key)
+{
+    // Load and set font
+    font.loadFromFile("res/Novel/LanaPixel.ttf");
+    fs_text.setFont(font);
+    fs_text.setFillColor(sf::Color::White);
+    fs_text.setCharacterSize(fontSize);
+    fs_text.setLineSpacing(line_spacing);
+
+    // Load current scene from JSON files
+    loadScene();
+
+    // Set initial position
+    // t_pos = sf::Vector2f(-vert_margin*1.3f,-horz_margin);
+    t_pos = sf::Vector2f(m_view->getCenter().x,m_view->getSize().y-4*vert_margin);
+    fs_text.setOrigin(sf::Vector2f(fs_text.getGlobalBounds().width/2,0.0f));
+}
+
+FSScrollTextManager::~FSScrollTextManager() {}
+
+
+void FSScrollTextManager::loadScene() {
+    // Load and parse JSON file
+    std::ifstream ifs(file);
+    json j = json::parse(ifs);
+    // String format conversion
+    std::string str(j["text"]);
+    sf::String sfTmp = sf::String::fromUtf8(str.begin(), str.end());
+    // Set text, adding line wrap
+    fs_text.setString(addLineWrap(sf::String(sfTmp)));
+}
+
+sf::String FSScrollTextManager::addLineWrap(sf::String string) {
+    // Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
+	unsigned width = m_view->getSize().x - 2*horz_margin;
+	unsigned currentOffset = 0;
+	bool firstWord = true;
+	std::size_t wordBegining = 0;
+
+	for (std::size_t pos(0); pos < string.getSize(); ++pos)
+	{
+		auto currentChar = string[pos];
+		if (currentChar == '\n')
+		{
+			currentOffset = 0;
+			firstWord = true;
+			continue;
+		}
+		else if (currentChar == ' ')
+		{
+			wordBegining = pos;
+			firstWord = false;
+		}
+
+		auto glyph = font.getGlyph(currentChar, fontSize, false);
+		currentOffset += glyph.advance;
+
+		if (!firstWord && currentOffset > width)
+		{
+			pos = wordBegining;
+			string[pos] = '\n';
+			firstWord = true;
+			currentOffset = 0;
+		}
+	}
+
+    return string;
+}
+
+
+bool FSScrollTextManager::tick() {
+    // Scroll text
+    t_pos.y-= *s_key ? hold_s_boost : 1;
+    fs_text.setPosition(t_pos);
+
+    // Check if text is done scrolling
+    // std::cout << "text x: " << fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height << "\tView Thres: " << m_view->getSize().y/4 << "\n";
+    if (fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height < m_view->getSize().y/2) {
+        std::cout << "done scrolling!\n";
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void FSScrollTextManager::draw() {
+    m_window->draw(fs_text);
+}

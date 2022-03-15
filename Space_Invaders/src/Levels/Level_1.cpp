@@ -37,6 +37,7 @@ Level1::~Level1()
 	delete player;
 	delete starfield;
 	delete camera;
+	// delete music;
 }
 
 //Level Logic

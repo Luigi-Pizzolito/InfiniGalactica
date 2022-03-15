@@ -11,6 +11,9 @@ NovelGame::NovelGame()
 
 NovelGame::~NovelGame()
 {
+	//! deleting this causes seg fault on exit??
+	// delete text_panel;
+	// delete music;
 }
 
 void NovelGame::pollEvents()
@@ -45,7 +48,7 @@ void NovelGame::pollEvents()
 			}
 
 			if (Scene::s_events.key.code == sf::Keyboard::Backspace) {
-				m_return = true;
+				// m_return = true;
 			}
 
 			break;
@@ -60,7 +63,7 @@ void NovelGame::pollEvents()
 			break;
 		}
 	}
-	// react to space key here
+
 }
 
 
@@ -73,15 +76,6 @@ void NovelGame::update(float delta_time)
 
 void NovelGame::render()
 {
-	//m_window->clear();
-
-	// render background
-
-	// renders objects
-	// m_window->draw(player.getSprite());
 	text_panel->draw();
-
-	//// displays objects on the screen
-	//m_window->display();
 }
 

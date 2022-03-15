@@ -33,3 +33,35 @@ class TextManager {
         void tick();
         void draw();
 };
+
+class FSScrollTextManager {
+    private:
+        // Constructor vars storage
+        const std::string file;
+        sf::RenderWindow* m_window;
+        sf::View* m_view;
+        bool* s_key;
+
+        // Internal vars storage
+        sf::Text fs_text;
+        sf::Vector2f t_pos;
+
+        // Layout/style parameters
+        sf::Font font;
+        const unsigned fontSize = 4*11;
+        const float line_spacing = 1.0f;
+        const float horz_margin = m_view->getSize().x/8;
+        const float vert_margin = m_view->getSize().y/6;
+        const float hold_s_boost = 4.0f;
+
+        // Internal utility methods
+        void loadScene();
+        sf::String addLineWrap(sf::String string);
+
+    public:
+        FSScrollTextManager(std::string scene, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key);
+        ~FSScrollTextManager();
+
+        bool tick();
+        void draw();
+};
