@@ -91,16 +91,15 @@ namespace SceneManagement {
 				s_window->close();
 				break;
 			case sf::Event::KeyPressed:
-				// if (s_events.key.code == sf::Keyboard::Escape) { s_window->close(); }
+				if (s_events.key.code == sf::Keyboard::Escape) { 
+					if ( selection.selection_i != selection.lastOpt()) {
+						selection.selection_i = selection.lastOpt();
+					} else {
+						selection.selected = true;
+					}
+				}
+
 				selection.handleInput(s_events);
-				// if(s_events.key.code==sf::Keyboard::X){
-				// 	//this means new game
-				// 	// setScene(m_Scenes.front().first);
-				// 	setScene(std::string("Level1"));
-				// } else if(s_events.key.code==sf::Keyboard::Z){
-				// 	//this means novel test
-				// 	setScene(std::string("Novel Test"));
-				// }
 				break;
 
 				// No more type of events

@@ -12,7 +12,7 @@ SelectionMenu::SelectionMenu(sf::RenderWindow* window, const sf::View* view):m_w
     pointer_t.setFont(font);
     pointer_t.setCharacterSize(font_s);
     pointer_t.setFillColor(sf::Color::White);
-    pointer_t.setString(L"\ue01d");
+    pointer_t.setString(selection_i != lastOpt() ? L"\ue01d" : L"\ue01c");
 }
 
 SelectionMenu::~SelectionMenu() {}
@@ -38,6 +38,7 @@ void SelectionMenu::updateLayout() {
     selection_t.setString(opts);
     selection_t.setOrigin(sf::Vector2f((-c_view->getSize().x/2)+(selection_t.getGlobalBounds().width/4), -c_view->getSize().y/2));
 
+    pointer_t.setString(selection_i != lastOpt() ? L"\ue01d" : L"\ue01c");
     pointer_t.setOrigin(sf::Vector2f((-c_view->getSize().x/2)+(selection_t.getGlobalBounds().width/4)+pointer_t.getGlobalBounds().width+10, (-c_view->getSize().y/2)-selection_i*selec_off));
 }
 
