@@ -13,7 +13,9 @@ Credits::Credits() {
 }
 
 Credits::~Credits() {
-    //! delete heap variables here?
+    delete fs_text;
+	delete music;
+	delete rstarfield;
 }
 
 void Credits::pollEvents() {

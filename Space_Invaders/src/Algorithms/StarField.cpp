@@ -36,7 +36,16 @@ StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_nu
     }
 }
 
-StarField::~StarField() {}
+StarField::~StarField() {
+    for (int i = 0; i < star_layc; i++) {
+        delete star_layers[i];
+        star_layers[i] = nullptr;
+    }
+    for (int i = 0; i < nebula_layc; i++) {
+        delete nebula_layers[i];
+    }
+    nebula_layers.clear();
+}
 
 void StarField::addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset) {
     // generate position and texture coordinates for each vertex
@@ -144,7 +153,9 @@ RadialStarField::RadialStarField(sf::RenderWindow* window, const sf::View* view,
     genStars();
 }
 
-RadialStarField::~RadialStarField() {}
+RadialStarField::~RadialStarField() {
+    stars->clear();
+}
 
 
 void RadialStarField::genStars() {

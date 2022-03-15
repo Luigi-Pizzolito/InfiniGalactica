@@ -11,7 +11,8 @@ namespace SceneManagement {
 
 	SceneMenu::SceneMenu(Scene*& currentScenePtr)
 		:Scene(),m_CurrentScenePtr(currentScenePtr),
-		 selection(Scene::s_window, Scene::s_view)
+		 selection(Scene::s_window, Scene::s_view),
+		 rstarfield(Scene::s_window,Scene::s_view,250,10.0f)
 	{
 		m_CurrentScenePtr = this;
 		m_texture.loadFromFile("res/Sprites/Cutscenes/menu_background.png");
@@ -20,7 +21,7 @@ namespace SceneManagement {
 		
 		//m_background.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(Scene::s_view->getSize().x, Scene::s_view->getSize().y)));
 		// Background
-		rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,250,10.0f);
+		// rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,250,10.0f);
 
 		title.setString("InfiniGalactica");
 		title_font.loadFromFile("res/Novel/Linebeam.ttf");
@@ -109,7 +110,7 @@ namespace SceneManagement {
 	void SceneMenu::render()
 	{
 		// Scene::s_window->draw(m_background);
-		rstarfield->draw();
+		rstarfield.draw();
 		selection.draw();
 		Scene::s_window->draw(title);
 	}

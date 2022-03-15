@@ -37,6 +37,9 @@ void Level::pollEvents()
 			if (Scene::s_events.key.code == sf::Keyboard::Q) {
 				switchSlot();
 			}
+			if (Scene::s_events.key.code == sf::Keyboard::Escape) {
+				Scene::s_window->close();
+			}
 			break;
 		case sf::Event::KeyReleased:
 			//Player Input of key release

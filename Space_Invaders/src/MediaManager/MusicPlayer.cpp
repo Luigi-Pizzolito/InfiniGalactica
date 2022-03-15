@@ -35,7 +35,6 @@ MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
 
 MusicPlayer::~MusicPlayer() {
     player.stop();
-    delete &player;
 }
 
 void MusicPlayer::setLoop(int i) {

@@ -55,7 +55,7 @@ namespace SceneManagement {
 
 	private:
 		// Background
-        RadialStarField* rstarfield;
+        RadialStarField rstarfield;
 		sf::RectangleShape m_background;
 		sf::Texture m_texture;
 		sf::Font title_font;

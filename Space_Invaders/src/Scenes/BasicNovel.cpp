@@ -11,9 +11,8 @@ NovelGame::NovelGame()
 
 NovelGame::~NovelGame()
 {
-	//! deleting this causes seg fault on exit??
-	// delete text_panel;
-	// delete music;
+	delete text_panel;
+	delete music;
 }
 
 void NovelGame::pollEvents()
