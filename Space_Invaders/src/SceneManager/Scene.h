@@ -62,6 +62,7 @@ namespace SceneManagement {
 		//when we register, we register the name and its lambda
 		std::pair<std::string, std::function<Scene* ()>>* m_sceneElement;
 		
+		void handleSelection(std::string selec);
 	};
 
 

@@ -31,6 +31,10 @@ namespace SceneManagement {
 		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
 	}
 
+	void SceneMenu::handleSelection(std::string selec) {
+		std::cout << "Selected " << selec << "\n";
+	}
+
 
 
 	//Supposing we already registered Levels
@@ -70,6 +74,10 @@ namespace SceneManagement {
 	void SceneMenu::update(float delta_time)
 	{
 		pollEvents();
+		if (selection.selected) {
+			std::cout << "Selected " << selection.selection() << "\n";
+			selection.selected = false;
+		}
 	}
 
 	void SceneMenu::render()
