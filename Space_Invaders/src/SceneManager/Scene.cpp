@@ -29,7 +29,14 @@ namespace SceneManagement {
 		title.setString("InfiniGalactica");
 		title_font.loadFromFile("res/Novel/Linebeam.ttf");
 		title.setFont(title_font);
-		title.setCharacterSize(150);
+		float c_siz = 150.0f;
+		title.setCharacterSize(c_siz);
+		// get the largest size that will fit in bounds with padding
+		while (title.getGlobalBounds().width > Scene::s_view->getSize().x-Scene::s_view->getSize().x/8) {
+			c_siz -=5;
+			title.setCharacterSize(c_siz);
+		}
+		
 		title.setOrigin(sf::Vector2f((-Scene::s_view->getSize().x/2)+(title.getGlobalBounds().width/2), -Scene::s_view->getSize().y/5));
 		title.setFillColor(sf::Color::White);
 
