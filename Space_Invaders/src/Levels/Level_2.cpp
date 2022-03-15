@@ -26,6 +26,9 @@ Level2::Level2() :Level()
 	screen_effect.setFillColor(sf::Color(255, 255, 255, 0));
 	screen_effect.setTexture(&broken_screen_texture);
 	std::cout << "Created Level 2\n";
+
+	//Music
+	music = new MusicPlayer("song2", true);
 }
 
 Level2::~Level2()

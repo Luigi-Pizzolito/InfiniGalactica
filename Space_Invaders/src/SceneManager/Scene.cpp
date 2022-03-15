@@ -12,7 +12,8 @@ namespace SceneManagement {
 	SceneMenu::SceneMenu(Scene*& currentScenePtr)
 		:Scene(),m_CurrentScenePtr(currentScenePtr),
 		 selection(Scene::s_window, Scene::s_view),
-		 rstarfield(Scene::s_window,Scene::s_view,250,10.0f)
+		 rstarfield(Scene::s_window,Scene::s_view,250,10.0f),
+		 music("song3", true)
 	{
 		m_CurrentScenePtr = this;
 		m_texture.loadFromFile("res/Sprites/Cutscenes/menu_background.png");
@@ -22,6 +23,8 @@ namespace SceneManagement {
 		//m_background.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(Scene::s_view->getSize().x, Scene::s_view->getSize().y)));
 		// Background
 		// rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,250,10.0f);
+		// Music
+		music.update(0.9f);
 
 		title.setString("InfiniGalactica");
 		title_font.loadFromFile("res/Novel/Linebeam.ttf");
@@ -131,6 +134,11 @@ namespace SceneManagement {
 
 				m_CurrentScenePtr = scene.second();
 				m_sceneElement = &scene;
+
+				if (strcmp(name.c_str(), "Credits") != 0) {
+					std::cout << "pausing music, not going to credits\n";
+					Scene::s_main_menu->music.pause();
+				}
 				break;
 			}
 
@@ -151,6 +159,10 @@ namespace SceneManagement {
 			m_sceneElement++;//move to the next pair
 			m_CurrentScenePtr = m_sceneElement->second();
 
+			if (strcmp(m_sceneElement->first.c_str(),"Credits") == 0) {
+				std::cout << "not pausing music, going to credits\n";
+				Scene::s_main_menu->music.pause();
+			}
 		}
 		else {
 			//this means that the last scene(credits has finished)
@@ -165,16 +177,25 @@ namespace SceneManagement {
 
 	void goBackToMainMenu()
 	{
+		std::cout << "going back to main menu from : " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
+		//set the scene pointer to the first scene(not needed but elegant)
+		Scene::s_main_menu->m_sceneElement = Scene::s_main_menu->m_Scenes.data();
+		Scene::s_main_menu->m_CurrentScenePtr = Scene::s_main_menu;
+		Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
+		Scene::s_window->setView(*Scene::s_view);
+
+		if (strcmp(Scene::s_main_menu->m_sceneElement->first.c_str(), "Credits") != 0) {
+			std::cout << "not resuming music, came from credits\n";
+			Scene::s_main_menu->music.play();
+		}
+
+		std::cout << "Current scene is: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
+
+		//!! because of this if, the scenes are not deleted, move it before seeting the pointer and it segfaults
 		if (Scene::s_main_menu->m_CurrentScenePtr&& (Scene::s_main_menu->m_CurrentScenePtr!= Scene::s_main_menu)) {
 			//delete the current scene
 			delete Scene::s_main_menu->m_CurrentScenePtr;
 		}
-		//set the scene pointer to the first scene(not needed but elegant)
-		// Scene::s_main_menu->m_sceneElement = Scene::s_main_menu->m_Scenes.data();
-		// Scene::s_main_menu->m_CurrentScenePtr = Scene::s_main_menu;
-		// Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
-		// Scene::s_window->setView(*Scene::s_view);
-	
 	}
 
 

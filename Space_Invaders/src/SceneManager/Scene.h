@@ -9,6 +9,7 @@
 #include <SFML/Audio.hpp>
 
 #include "SceneManager/SelectionMenu.h"
+#include "MediaManager/MusicPlayer.h"
 #include "Algorithms/StarField.h"
 namespace SceneManagement {
 
@@ -58,7 +59,8 @@ namespace SceneManagement {
 
 	private:
 		// Background
-        	RadialStarField rstarfield;
+        RadialStarField rstarfield;
+		MusicPlayer music;
 		sf::RectangleShape m_background;
 		sf::Texture m_texture;
 		sf::Font title_font;

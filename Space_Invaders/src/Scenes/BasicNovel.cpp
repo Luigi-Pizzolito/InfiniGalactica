@@ -28,7 +28,7 @@ void NovelGame::pollEvents()
 		case sf::Event::KeyPressed:
 			if (Scene::s_events.key.code == sf::Keyboard::Escape)
 			{
-				Scene::s_window->close();
+				SceneManagement::goBackToMainMenu();			//!!! calling this here DOES causes segfault
 			}
 
 			if (Scene::s_events.key.code == sf::Keyboard::Space)

@@ -173,7 +173,7 @@ bool FSScrollTextManager::tick() {
 
     // Check if text is done scrolling
     // std::cout << "text x: " << fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height << "\tView Thres: " << m_view->getSize().y/4 << "\n";
-    if (fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height < m_view->getSize().y/2) {
+    if (fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height < m_view->getSize().y/3.5) {
         std::cout << "done scrolling!\n";
         return true;
     } else {

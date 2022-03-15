@@ -5,8 +5,8 @@ Credits::Credits() {
     fs_text = new FSScrollTextManager("res/credits.json", Scene::s_window, Scene::s_view, &key_space);
 
 	// Music
-    music = new MusicPlayer("song3", true);
-    music->update(0.9f);
+    // music = new MusicPlayer("song3", true);
+    // music->update(0.9f);
 
 	// Background
 	rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,350,5.0f);
@@ -14,7 +14,7 @@ Credits::Credits() {
 
 Credits::~Credits() {
     delete fs_text;
-	delete music;
+	// delete music;
 	delete rstarfield;
 }
 
@@ -30,9 +30,9 @@ void Credits::pollEvents() {
 		case sf::Event::KeyPressed:
 			if (Scene::s_events.key.code == sf::Keyboard::Escape)
 			{
-				Scene::s_window->close();
+				std::cout << "SEGFAULT!\n";
+				SceneManagement::goBackToMainMenu();			//!!! calling this here DOES causes segfault
 			}
-            //! -> back to main menu instead
 
 			if (Scene::s_events.key.code == sf::Keyboard::Space)
 			{
@@ -55,7 +55,9 @@ void Credits::pollEvents() {
 
 void Credits::update(float delta_time) {
     pollEvents();
-    fs_text->tick();
+    if (fs_text->tick()) {
+		SceneManagement::goBackToMainMenu();		//!!! calling this here DOES NOT causes segfault
+	};
 }
 
 void Credits::render() {
