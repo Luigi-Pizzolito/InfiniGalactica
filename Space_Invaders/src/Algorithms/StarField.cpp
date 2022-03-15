@@ -80,7 +80,7 @@ void StarField::genNebulas(sf::VertexArray* nebulas) {
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int>      rx(-0.25f*c_view->getSize().x,c_view->getSize().x*4); // generation bounds for nebula field
-	std::uniform_int_distribution<int>      ry(-100.0f,c_view->getSize().y-100.0f); // 
+	std::uniform_int_distribution<int>      ry(-100.0f,c_view->getSize().y-450.0f); // 
     std::uniform_real_distribution<float>   rs(200.0f,1000.0f);    // generation bounds for nebula size
     std::uniform_int_distribution<int>      rt(0, 6);            // random texture
 
