@@ -29,6 +29,7 @@ void TextManager::loadScene()
     {
         std::string text;
         std::string color;
+        std::string actor = "";
         // Iterate over key-value pairs and set variables
         for (auto &[key, val] : j[i].items())
         {
@@ -39,6 +40,8 @@ void TextManager::loadScene()
             else if (key == "color")
             {
                 color = val;
+            } else if (key == "actor") {
+                actor = val;
             }
         }
 
@@ -50,8 +53,10 @@ void TextManager::loadScene()
         // String format conversion
         std::string str(text);
         sf::String sfTmp = sf::String::fromUtf8(str.begin(), str.end());
+        std::string str2(actor);
+        sf::String sfTmp2 = sf::String::fromUtf8(str2.begin(), str2.end());
         // Create text panel and push to array
-        TextPanel test(sf::String(sfTmp), sf::Color(r, g, b), font, fontSize, m_window, m_view, s_key);
+        TextPanel test(sf::String(sfTmp), sf::String(sfTmp2), sf::Color(r, g, b), font, fontSize, m_window, m_view, s_key);
         scenes_p.push_back(test);
 
         // std::cout << "[#" << color << "] " << text << "\n";

@@ -1,7 +1,7 @@
 #include "TextPanel.h"
 #include <iostream>
 
-TextPanel::TextPanel(sf::String string, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
+TextPanel::TextPanel(sf::String string, const sf::String actor, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), actor(actor), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
 	// Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
 	unsigned width = m_view->getSize().x - 2*(margin+border+padding);
 	unsigned currentOffset = 0;
@@ -117,7 +117,6 @@ void TextPanel::draw() {
 	sf::RectangleShape dialog_box = sf::RectangleShape();
 	dialog_box.setPosition(sf::Vector2f(margin, m_view->getSize().y-height-margin));
 	dialog_box.setSize(sf::Vector2f(m_view->getSize().x-2*margin, height));
-	// dialog_box.setTexture(&dialog_overlay);
 	dialog_box.setFillColor(sf::Color::Black);
 	dialog_box.setOutlineThickness(border);
 	dialog_box.setOutlineColor(highlight);
@@ -155,11 +154,38 @@ void TextPanel::draw() {
 	}
 	
 	// create main text
-	sf::Text text(draw_text, font, fontSize);
-	text.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 2*fontSize + line_padding));
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(fontSize);
 	text.setFillColor(sf::Color::White);
 	text.setLineSpacing(line_spacing);
+	text.setString(draw_text);
+	text.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 2*fontSize + line_padding));
+
+	if (actor != "") {
+		// create actor text
+		sf::Text actor_t;
+		actor_t.setFont(font);
+		actor_t.setCharacterSize(fontSize);
+		actor_t.setFillColor(sf::Color::White);
+		actor_t.setString(actor);
+		actor_t.setOrigin(sf::Vector2f(-(margin+border+padding), -m_view->getSize().y + (margin+border+padding) + 3*fontSize + line_padding + 3*border));
+
+		// Draw actor box
+		sf::RectangleShape actor_box = sf::RectangleShape();
+		actor_box.setPosition(sf::Vector2f(margin, m_view->getSize().y-(margin+border+padding+ 3*fontSize + line_padding + 3*border)));
+		actor_box.setSize(sf::Vector2f(2*margin + actor_t.getLocalBounds().width, fontSize+2*border));
+		actor_t.setString(actor+sf::String(":"));
+		actor_box.setFillColor(sf::Color::Black);
+		actor_box.setOutlineThickness(border);
+		actor_box.setOutlineColor(highlight);
+
+		// Draw
+		m_window->draw(actor_box);
+		m_window->draw(actor_t);
+	}
 
 	// Draw it
 	m_window->draw(text);
+
 }

@@ -9,6 +9,7 @@ class TextPanel {
         // Constructor vars storage
         const sf::Font font;
         const unsigned fontSize;
+        const sf::String actor;
         const sf::Color highlight;
         sf::RenderWindow* m_window;
         sf::View* m_view;
@@ -41,7 +42,7 @@ class TextPanel {
         sf::String text();
 
     public:
-        TextPanel(sf::String string, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold = false);
+        TextPanel(sf::String string, const sf::String actor, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold = false);
         ~TextPanel();
          
         bool next();
