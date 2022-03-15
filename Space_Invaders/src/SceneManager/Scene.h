@@ -31,7 +31,7 @@ namespace SceneManagement {
 		virtual void update(float delta_time) {}
 		virtual void render() {}
 		inline bool isSceneFinished() {return m_finished;}
-		// bool m_return = false;
+		bool m_return = false;
 		
 	};
 	class SceneMenu : public Scene {

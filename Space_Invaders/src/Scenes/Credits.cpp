@@ -1,4 +1,5 @@
 #include "Scenes/Credits.h"
+bool back = false;
 
 Credits::Credits() {
     // Load Script
@@ -30,8 +31,7 @@ void Credits::pollEvents() {
 		case sf::Event::KeyPressed:
 			if (Scene::s_events.key.code == sf::Keyboard::Escape)
 			{
-				std::cout << "SEGFAULT!\n";
-				SceneManagement::goBackToMainMenu();			//!!! calling this here DOES causes segfault
+				m_return = true;
 			}
 
 			if (Scene::s_events.key.code == sf::Keyboard::Space)
@@ -56,8 +56,12 @@ void Credits::pollEvents() {
 void Credits::update(float delta_time) {
     pollEvents();
     if (fs_text->tick()) {
-		SceneManagement::goBackToMainMenu();		//!!! calling this here DOES NOT causes segfault
+		SceneManagement::goBackToMainMenu();
 	};
+	if (m_return) {
+		m_return = false;
+		SceneManagement::goBackToMainMenu();
+	}
 }
 
 void Credits::render() {

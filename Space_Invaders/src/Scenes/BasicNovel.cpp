@@ -28,13 +28,15 @@ void NovelGame::pollEvents()
 		case sf::Event::KeyPressed:
 			if (Scene::s_events.key.code == sf::Keyboard::Escape)
 			{
-				SceneManagement::goBackToMainMenu();			//!!! calling this here DOES causes segfault
+				m_return = true;
 			}
 
 			if (Scene::s_events.key.code == sf::Keyboard::Space)
 			{
 				key_space = true;
-				text_panel->next();
+				if (text_panel->next()) {
+					m_return = true;
+				};
 			}
 
 			if (Scene::s_events.key.code == sf::Keyboard::Tab) {
@@ -71,6 +73,11 @@ void NovelGame::update(float delta_time)
 {
 	pollEvents();
 	text_panel->tick();
+
+	if (m_return) {
+		m_return = false;
+		SceneManagement::goBackToMainMenu();
+	}
 }
 
 void NovelGame::render()

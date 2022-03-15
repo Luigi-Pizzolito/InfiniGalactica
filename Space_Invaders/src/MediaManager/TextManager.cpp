@@ -126,6 +126,7 @@ void FSScrollTextManager::loadScene() {
     sf::String sfTmp = sf::String::fromUtf8(str.begin(), str.end());
     // Set text, adding line wrap
     fs_text.setString(addLineWrap(sf::String(sfTmp)));
+    fs_text.setPosition(t_pos);
 }
 
 sf::String FSScrollTextManager::addLineWrap(sf::String string) {

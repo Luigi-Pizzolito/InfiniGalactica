@@ -38,6 +38,7 @@ Level2::~Level2()
 	delete player;
 	delete starfield;
 	delete camera;
+	delete music;
 }
 
 //Level Logic
@@ -55,12 +56,10 @@ void Level2::update(float delta_time)
 			m_finished = true;
 		}
 		// Update Player physics
-		//Added by Luigi set the time!!!!!!!!!!!!!!!!!!!!!!!!!
 		player->updatePhysics();
 
 
 		// Update spawners, enemies and bullets
-		//Added by Daniel 03.07 12:00 AM
 		player_bullet_timer.start();
 		enemy_spawner.start();
 		if (enemy_spawner.timeOut()) {
@@ -73,7 +72,6 @@ void Level2::update(float delta_time)
 		}
 
 		//Entities and projectiles actions
-		//Added by Daniel 03.05 5:00 PM
 		for (auto& playerbullet : player_bullets) {
 
 			playerbullet->move();
@@ -92,7 +90,6 @@ void Level2::update(float delta_time)
 
 		//Collisions
 		//Enemies
-		//Added by Daniel 03.06 4:00 PM
 		world_enemies.erase(std::remove_if(world_enemies.begin(), world_enemies.end(), [&](Enemy* enemy) {
 			//check for collisions with playerbullets
 			bool is_dead = false;
@@ -115,7 +112,6 @@ void Level2::update(float delta_time)
 
 			return is_dead; }), world_enemies.end());
 		//Player
-		//Added by Daniel 03.06 4:15 PM
 		world_enemy_bullets.erase(std::remove_if(world_enemy_bullets.begin(), world_enemy_bullets.end(), [&](EnemyBullet* enemy_bullet) {
 			bool collided = player->collidesWith(enemy_bullet);
 			if (collided) {
@@ -126,7 +122,6 @@ void Level2::update(float delta_time)
 			return collided; }), world_enemy_bullets.end());
 
 		// scroll camera
-		//Added by Luigi Set the time!!!!!!!!!!!!!!!!!!!!!!!!!
 		camera->follow();
 
 	}
