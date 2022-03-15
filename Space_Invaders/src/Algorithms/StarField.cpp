@@ -17,7 +17,7 @@ StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_nu
     for (int i = 0; i < star_layc; i++) {
         int quad_num = star_num*4 * std::pow(1+parallax_c[i], 5);
         quad_num -= quad_num%4; // ensure quad num is a multiple of 4
-        std::cout << "generated " << quad_num/4.0f << " stars at depth " << parallax_c[i] << "\n";
+        // std::cout << "generated " << quad_num/4.0f << " stars at depth " << parallax_c[i] << "\n";
         if ( parallax_c[i] > nebula_begin_thres ) {
             // if the layer is far back enough, also generate some nebulas, so add nebula layer and parallax coef. + offset
             nebula_layc++;
@@ -31,7 +31,7 @@ StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_nu
     for (int i = 0; i < nebula_layc; i++) {
         int quad_num = nebula_num*4 * std::pow(1+parallax_n_c[i], 3);
         quad_num -= quad_num%4; // ensure quad num is a multiple of 4
-        std::cout << "generated " << quad_num/4.0f << " nebulas at depth " << parallax_n_c[i] << "\n";
+        // std::cout << "generated " << quad_num/4.0f << " nebulas at depth " << parallax_n_c[i] << "\n";
         nebula_layers.push_back(  new sf::VertexArray( sf::Quads, quad_num )  );
         genNebulas(nebula_layers[i]);
     }
@@ -69,7 +69,7 @@ void StarField::genStars(sf::VertexArray* stars) {
     // randomly distribute star positions
     for (int i = 0; i < stars->getVertexCount()/4;i++) {
         float r_size = rs(rng);
-        addElemtoVertexArray(stars, i, sf::Vector2f(rx(rng), ry(rng)), sf::Vector2f(r_size, r_size), sf::Vector2i(8, 8), sf::Vector2i(rt(rng), 0));
+        StarField::addElemtoVertexArray(stars, i, sf::Vector2f(rx(rng), ry(rng)), sf::Vector2f(r_size, r_size), sf::Vector2i(8, 8), sf::Vector2i(rt(rng), 0));
     }
 }
 
@@ -87,7 +87,7 @@ void StarField::genNebulas(sf::VertexArray* nebulas) {
     // randomly distribute nebula positions
     for (int i = 0; i < nebulas->getVertexCount()/4;i++) {
         float r_size = rs(rng);
-        addElemtoVertexArray(nebulas, i, sf::Vector2f(rx(rng), ry(rng)), sf::Vector2f(r_size, r_size), sf::Vector2i(350, 350), sf::Vector2i(rt(rng), 0));
+        StarField::addElemtoVertexArray(nebulas, i, sf::Vector2f(rx(rng), ry(rng)), sf::Vector2f(r_size, r_size), sf::Vector2i(350, 350), sf::Vector2i(rt(rng), 0));
     }
 }
 

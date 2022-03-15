@@ -7,6 +7,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+
+#include "SelectionMenu.h"
 namespace SceneManagement {
 	class Scene {
 	public:
@@ -49,6 +51,9 @@ namespace SceneManagement {
 	private:
 		sf::RectangleShape m_background;
 		sf::Texture m_texture;
+		sf::Font title_font;
+		sf::Text title;
+		SelectionMenu selection;
 		//contains a collection of scenes
 		Scene*& m_CurrentScenePtr;//it will be turned into an alias of an outsider
 		//scene ptr, thanks to this, we can access the methods in the scene

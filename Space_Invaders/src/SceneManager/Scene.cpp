@@ -7,8 +7,11 @@ namespace SceneManagement {
 	sf::View* Scene::s_view = nullptr;
 	sf::Event Scene::s_events;
 
+
+
 	SceneMenu::SceneMenu(Scene*& currentScenePtr)
-		:Scene(),m_CurrentScenePtr(currentScenePtr)
+		:Scene(),m_CurrentScenePtr(currentScenePtr),
+		 selection(Scene::s_window, Scene::s_view)
 	{
 		m_CurrentScenePtr = this;
 		m_texture.loadFromFile("res/Sprites/Cutscenes/menu_background.png");
@@ -16,7 +19,20 @@ namespace SceneManagement {
 		m_background.setTexture(&m_texture);
 		
 		//m_background.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(Scene::s_view->getSize().x, Scene::s_view->getSize().y)));
+
+		title.setString("InfiniGalactica");
+		title_font.loadFromFile("res/Novel/Linebeam.ttf");
+		title.setFont(title_font);
+		title.setCharacterSize(150);
+		title.setOrigin(sf::Vector2f((-Scene::s_view->getSize().x/2)+(title.getGlobalBounds().width/2), -Scene::s_view->getSize().y/5));
+		title.setFillColor(sf::Color::White);
+
+		selection.addOptions(std::string("Continue"));
+		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
 	}
+
+
+
 	//Supposing we already registered Levels
 	void SceneMenu::pollEvents()
 	{
@@ -32,7 +48,8 @@ namespace SceneManagement {
 				break;
 			case sf::Event::KeyPressed:
 				if (s_events.key.code == sf::Keyboard::Escape) { s_window->close(); }
-				else if(s_events.key.code==sf::Keyboard::X){
+				selection.handleInput(s_events);
+				if(s_events.key.code==sf::Keyboard::X){
 					//this means new game
 					// setScene(m_Scenes.front().first);
 					setScene(std::string("Level1"));
@@ -57,19 +74,10 @@ namespace SceneManagement {
 
 	void SceneMenu::render()
 	{
-		Scene::s_window->draw(m_background);
+		// Scene::s_window->draw(m_background);
+		selection.draw();
+		Scene::s_window->draw(title);
 	}
-
-
-	//template<typename T>
-	//void SceneManagement::SceneMenu::registerScene(const std::string& name)
-	//{
-	//	
-	//	std::cout << "Registering Scene " << name << std::endl;
-	//	m_Scenes.push_back(std::make_pair(name, [](){return new T(); }));
-	//	
-	//}
-
 
 	//only call this function at the beginning
 	void SceneMenu::setScene(const std::string& name)

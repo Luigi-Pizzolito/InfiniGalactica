@@ -8,7 +8,7 @@ MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
     // Read JSON file info and parse to store in internal object
     std::ifstream ifs(std::string("res/Music/")+song+std::string(".json"));
     cfg = json::parse(ifs);
-    std::cout << "Loaded json: " << cfg["file"] << "\n";
+    // std::cout << "Loaded json: " << cfg["file"] << "\n";
 
     // open music file
     if (!player.openFromFile(cfg["file"]))
@@ -38,7 +38,7 @@ MusicPlayer::~MusicPlayer() {
 
 void MusicPlayer::setLoop(int i) {
     // Utility function to clean up ugly syntax
-    std::cout << "Looping from " << cfg["loop_points"][i]["off"] << " to " << (float)cfg["loop_points"][i]["off"]+(float)cfg["loop_points"][i]["len"] << "\n";
+    // std::cout << "Looping from " << cfg["loop_points"][i]["off"] << " to " << (float)cfg["loop_points"][i]["off"]+(float)cfg["loop_points"][i]["len"] << "\n";
     player.setLoopPoints(sf::Music::TimeSpan(sf::seconds(cfg["loop_points"][i]["off"]), sf::seconds(cfg["loop_points"][i]["len"])));
     player.setLoop(true);
 }
@@ -67,7 +67,7 @@ void MusicPlayer::stop() {
 
 void MusicPlayer::update(float levelProgress) {
     // Set the loop points, scaling accordingly to the level progress and number of loops.
-    std::cout << "lvl progress: " << levelProgress << "\n";
+    // std::cout << "lvl progress: " << levelProgress << "\n";
     if ( levelProgress < 1.0f) {
         // if in loop scaling range and there are loops
         if (cfg["loop_points"].size() > 0) {
@@ -75,11 +75,11 @@ void MusicPlayer::update(float levelProgress) {
             int loop_i = std::floor(levelProgress/threshold);  // calculate what the current loop should be
             if (loop_i > cfg["loop_points"].size()-1) {loop_i = cfg["loop_points"].size()-1;} // safe guard to not access past array index
             setLoop(loop_i);
-            std::cout << "current loop index: " << loop_i << "\n\n";
+            // std::cout << "current loop index: " << loop_i << "\n\n";
         }
     } else {
         // Otherwise if level complete stop loop and let it end
         noLoop();
-        std::cout << "end loop\n\n";
+        // std::cout << "end loop\n\n";
     }
 }

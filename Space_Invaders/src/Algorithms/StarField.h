@@ -21,7 +21,7 @@ class StarField {
         sf::VertexArray* star_layers[8];
         std::vector<sf::VertexArray*> nebula_layers;
 
-        void addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset);
+        static void addElemtoVertexArray(sf::VertexArray* varray, const int oarray, const sf::Vector2f position, const sf::Vector2f size, const sf::Vector2i tex_size, const sf::Vector2i tex_ioffset);
         void genStars(sf::VertexArray* stars);
         void genNebulas(sf::VertexArray* nebulas);
         void parallax();
