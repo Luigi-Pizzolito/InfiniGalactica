@@ -49,15 +49,15 @@ void SelectionMenu::draw() {
 
 void SelectionMenu::handleInput(sf::Event event) {
     // Increase or decrease selection, no looping.
-    if (event.key.code == sf::Keyboard::S && selection_i < options.size()-1) {
+    if ((event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)&& selection_i < options.size()-1) {
         selection_i++;
     } else
-    if (event.key.code == sf::Keyboard::W && selection_i != 0) {
+    if ((event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)&& selection_i != 0) {
         selection_i--;
     }
     updateLayout();
 
-    if (event.key.code == sf::Keyboard::Enter) {
+    if (event.key.code == sf::Keyboard::Enter || event.key.code == sf::Keyboard::Space) {
         // std::cout << "Selected " << options[selection_i] << "\n";
         // func_ptr(options[selection_i]);
         selected = true;
