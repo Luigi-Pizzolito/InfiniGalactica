@@ -58,9 +58,6 @@ void ShooterGame::update()//reimplement for every level
 		}
 
 		}
-	//todo: add a method so that scenes can call when they have finished for scene manager to advance to the next scene
-	//add conditions to change the current scene
-	//if currentscene.finished(){scenemenu.nextscene}
 }
 void ShooterGame::render()//reimplement for every level
 {

@@ -10,6 +10,8 @@
 #include "Algorithms/CameraFollowScroll.h"
 #include "Algorithms/Utilities.h"
 #include "Algorithms/MathUtils.h"
+
+//todo add HUD class
 class Level :public SceneManagement::Scene {
 protected:
 	//variables
