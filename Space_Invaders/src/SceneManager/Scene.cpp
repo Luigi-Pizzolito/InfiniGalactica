@@ -24,7 +24,7 @@ namespace SceneManagement {
 		// Background
 		// rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,250,10.0f);
 		// Music
-		music.update(0.9f);
+		music.update(0.6f);
 
 		title.setString("InfiniGalactica");
 		title_font.loadFromFile("res/Novel/Linebeam.ttf");
@@ -113,6 +113,9 @@ namespace SceneManagement {
 	{
 		pollEvents();
 		handleSelection();
+		if (music.position() == 0) {
+			music.play();
+		}
 	}
 
 	void SceneMenu::render()
