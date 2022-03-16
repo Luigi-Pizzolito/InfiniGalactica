@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "Projectiles/Projectile.h"
+#include "MediaManager/SFXPlayer.h"
 #include <iostream>
 Enemy::Enemy(int health, float speed, const sf::Vector2f& dir)
 	:Entity(health, speed),m_dir(dir),m_shoot_timer(1.0f)
@@ -9,7 +10,8 @@ Enemy::Enemy(int health, float speed, const sf::Vector2f& dir)
 
 Enemy::~Enemy()
 {
-	std::cout << "Enemy destroyed\n";
+	// std::cout << "Enemy destroyed\n";
+	
 }
 void Enemy::move()
 {
@@ -45,6 +47,7 @@ bool Enemy::collidesWith(const PlayerBullet* bullet)
 void Enemy::hurt(const PlayerBullet* bullet)
 {
 	m_HP -= bullet->getDamage();
+	SFX::play(SFXlib::BulletHit);
 }
 int Enemy::getHP()
 {

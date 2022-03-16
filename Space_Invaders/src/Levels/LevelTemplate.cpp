@@ -1,5 +1,5 @@
 #include "LevelTemplate.h"
-
+#include "MediaManager/SFXPlayer.h"
 
 
 Level::Level() :Scene(),player_score(0),enemy_death_count(0),selected_slot(0)
@@ -124,6 +124,8 @@ void Level::spawnPlayerBullet()
 		player->getSize()), VectorMath::Vdirection::RIGHT));
 
 	player_bullets.back()->setTexture(projectile_textures[selected_slot]);
+
+	SFX::play(SFXlib::BulletShoot);
 }
 
 void Level::spawnEnemyBullet(const sf::Texture& texture,const sf::Vector2f& position, const sf::Vector2f dir)
@@ -131,7 +133,8 @@ void Level::spawnEnemyBullet(const sf::Texture& texture,const sf::Vector2f& posi
 
 	world_enemy_bullets.emplace_back(new EnemyBullet(position, dir));
 	world_enemy_bullets.back()->setTexture(texture);
-
+	std::cout << "Enemie Bullets: " << world_enemy_bullets.size() << "\n";
+	SFX::play(SFXlib::BulletShoot);
 }
 
 

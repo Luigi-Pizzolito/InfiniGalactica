@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Projectiles/Projectile.h"
+#include "MediaManager/SFXPlayer.h"
 
 
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
@@ -11,7 +12,7 @@ Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,f
 
 Player::~Player()
 {
-
+	SFX::play(SFXlib::EnemyDestroy);
 }
 void Player::move(DIRECTIONS dir)
 {
@@ -65,6 +66,7 @@ bool Player::collidesWith(Item_* iem)
 void Player::hurt(EnemyBullet* bullet)
 {
 	m_HP -= bullet->getDamage();
+	SFX::play(SFXlib::BulletHit);
 }
 
 bool Player::canShoot()

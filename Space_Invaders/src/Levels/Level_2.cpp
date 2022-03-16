@@ -1,4 +1,5 @@
 #include "Level_2.h"
+#include "MediaManager/SFXPlayer.h"
 Level2::Level2() :Level()
 {
 	//At the start of any level we can set the basic textures, create the player
@@ -104,6 +105,8 @@ void Level2::update(float delta_time)
 				//delete the memory in the heap
 				delete enemy;
 				player_score += 10;
+
+				SFX::play(SFXlib::EnemyDestroy);
 			}
 
 			return is_dead; }), world_enemies.end());

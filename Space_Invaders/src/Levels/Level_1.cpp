@@ -1,4 +1,5 @@
 #include "Level_1.h"
+#include "MediaManager/SFXPlayer.h"
 
 Level1::Level1() :Level()
 {
@@ -34,13 +35,13 @@ Level1::Level1() :Level()
 	float level_p = 0.68f;
 	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, &level_p);
 
-	std::cout << "Created Level 1\n";
+	// std::cout << "Created Level 1\n";
 }
 
 Level1::~Level1()
 {
 	//Deletion of Heap allocated variables upon completion of the level or exit of the app
-	std::cout << "Destroyed Level 1\n";
+	// std::cout << "Destroyed Level 1\n";
 	delete player;
 	delete starfield;
 	delete camera;
@@ -107,6 +108,8 @@ void Level1::update(float delta_time)
 				//delete the memory in the heap
 				delete enemy;
 				player_score += 10;
+
+				SFX::play(SFXlib::EnemyDestroy);
 			}
 
 			return is_dead; }), world_enemies.end());

@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include "Algorithms/Utilities.h"
+#include "Algorithms/MathUtils.h"
 #include "SceneManager/Scene.h"
+#include <iostream>
 //Forward declaration
 class Enemy;
 
@@ -54,7 +56,7 @@ namespace MemoryManagement {
 			//health,speed,direction
 			int range = 1 - 0 + 1;
 			int type = rand() % range + 0;
-			
+
 			//Only two types
 			if (type == 0) {
 				buffer_alias.emplace_back(new T(t1_health,t1_speed, VectorMath::Vdirection::LEFT));
@@ -90,7 +92,6 @@ namespace MemoryManagement {
 
 		}
 		void update() override {
-			
 			buffer_alias.erase(std::remove_if(buffer_alias.begin(), buffer_alias.end(),
 				[&](T* obj) {
 					//first delete the heap mem

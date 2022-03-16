@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include "MediaManager/SFXPlayer.h"
 #include <cmath>
 #include <iostream>
 
@@ -42,7 +43,7 @@ PlayerBullet::PlayerBullet(const sf::Vector2f& position, const sf::Vector2f& dir
 
 PlayerBullet::~PlayerBullet()
 {
-	std::cout << "PlayerBullet destroyed\n";
+	// std::cout << "PlayerBullet destroyed\n";
 }
 
 EnemyBullet::EnemyBullet(const sf::Vector2f& position, const sf::Vector2f& direction)
@@ -54,5 +55,5 @@ EnemyBullet::EnemyBullet(const sf::Vector2f& position, const sf::Vector2f& direc
 
 EnemyBullet::~EnemyBullet()
 {
-	std::cout << "Enemy bullet destroyed\n";
+	// std::cout << "Enemy bullet destroyed\n";
 }
