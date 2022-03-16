@@ -1,6 +1,7 @@
 #include "MathUtils.h"
 #include <cmath>
 #include <iostream>
+#include "SceneManager/Scene.h"
 //for debugging
 std::ostream& operator<<(std::ostream& stream, const sf::Vector2f& vec) {
 	stream << vec.x << "," << vec.y;
@@ -61,6 +62,19 @@ sf::Vector2f VectorMath::getAABBCenter(const sf::Vector2f& topleftpos, const sf:
 {
 	return (sf::Vector2f(topleftpos.x + size.x/2.0f, topleftpos.y + size.y / 2.0f));
 }
+
+sf::Vector2f VectorMath::getViewPortTopLeftPos()
+{
+	return sf::Vector2f(SceneManagement::Scene::s_view->getCenter() - SceneManagement::Scene::s_view->getSize() / 2.0f);
+
+}
+
+sf::Vector2f VectorMath::getViewportLowerRightPos()
+{
+	return sf::Vector2f(SceneManagement::Scene::s_view->getCenter() + SceneManagement::Scene::s_view->getSize() / 2.0f);
+
+}
+
 float VectorMath::degreeToRadians(float angle)
 {
 	return(angle * M_PI/180.0f);

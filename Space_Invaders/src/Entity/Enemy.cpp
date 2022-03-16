@@ -4,12 +4,12 @@
 Enemy::Enemy(int health, float speed, const sf::Vector2f& dir)
 	:Entity(health, speed),m_dir(dir),m_shoot_timer(1.0f)
 {
-	
+	//std::cout << "Enemy created\n";
 }
 
 Enemy::~Enemy()
 {
-
+	std::cout << "Enemy destroyed\n";
 }
 void Enemy::move()
 {

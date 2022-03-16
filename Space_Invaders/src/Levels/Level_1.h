@@ -11,7 +11,7 @@ public:
 private:
 	void prepareContainers()override;
 	void loadTextures()override;
-	void setUpTimers()override;
+
 
 
 };

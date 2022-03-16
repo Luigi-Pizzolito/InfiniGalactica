@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneManager/Scene.h"
+#include "MediaManager/MusicPlayer.h"
 #include "Application/Application.h"
 #include <vector>
 #include "Entity/Player.h"
@@ -11,7 +12,7 @@
 #include "Algorithms/CameraFollowScroll.h"
 #include "Algorithms/Utilities.h"
 #include "Algorithms/MathUtils.h"
-
+#include "Algorithms/MemoryManegement.h"
 //todo add HUD class
 class Level :public SceneManagement::Scene {
 protected:
@@ -22,7 +23,7 @@ protected:
 	//Textures,since we aren't sure how many types of enemies we need per level,
 	//it is more convenient to use a vector
 	std::vector<sf::Texture> player_textures;
-	std::vector<sf::Texture> enemy_textures;
+
 	std::vector<sf::Texture> projectile_textures;
 	std::vector<sf::Texture> enemy_projectile_texture;
 
@@ -32,9 +33,12 @@ protected:
 	uint8_t selected_slot;
 	//In the future subdivide this into enemy type1 type2
 	std::vector<Enemy*> world_enemies;
+	std::vector<MemoryManagement::BaseEnemySpawner*> spawners;
 	//Projectiles
 	std::vector<PlayerBullet*> player_bullets;
 	std::vector<EnemyBullet*> world_enemy_bullets;
+	//Collectors
+	std::vector<MemoryManagement::BasicCollector*> collectors;
 
 	//HUD
 	HUDPanel* hud;
@@ -50,8 +54,8 @@ protected:
 	bool key_r;
 	bool key_s;
 	//timers and spawners
-	Control::GameTimer player_bullet_timer;
-	Control::GameTimer enemy_spawner;
+	
+	
 
 	//Music
 	MusicPlayer* music;
@@ -66,13 +70,13 @@ protected:
 	//we update and render are not needed here
 	virtual void prepareContainers(){}
 	virtual void loadTextures(){}
-	virtual void setUpTimers(){}
+
 	void playerInputStates(STATES state);
 	void switchSlot();
-	void spawnEnemy(const sf::Vector2f& position);
 	void spawnPlayerBullet();
 	void spawnEnemyBullet(const sf::Texture& texture, const sf::Vector2f& position, const sf::Vector2f dir);
-
+	
+	bool leftViewport(const Projectile* projectile);
 public:
 	Level();
 	virtual~Level();

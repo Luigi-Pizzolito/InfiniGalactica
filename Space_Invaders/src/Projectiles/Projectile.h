@@ -14,6 +14,8 @@ public:
 	void move();
 	void setTexture(const sf::Texture& texture);
 	int getDamage() const { return m_damage; }
+	const sf::Vector2f getSize()const;
+	const sf::Vector2f& getTopLeftPos()const;
 };
 
 

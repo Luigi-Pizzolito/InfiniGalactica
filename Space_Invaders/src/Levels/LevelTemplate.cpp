@@ -6,6 +6,14 @@ Level::Level() :Scene(),player_score(0),enemy_death_count(0),selected_slot(0)
 {
 	//set basic variables to their default state
 	// Initialize key press states
+	//Initialize the spawners
+	
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies));
+	//Initialize collectors
+	collectors.reserve(3);
+	collectors.emplace_back(new MemoryManagement::Collector<Enemy>(world_enemies));
+	collectors.emplace_back(new MemoryManagement::Collector<PlayerBullet>(player_bullets));
+	collectors.emplace_back(new MemoryManagement::Collector<EnemyBullet>(world_enemy_bullets));
 	key_u = false;
 	key_d = false;
 	key_l = false;
@@ -66,7 +74,7 @@ void Level::pollEvents()
 	if (key_l) { player->move(DIRECTIONS::LEFT); }
 	else if (key_r) { player->move(DIRECTIONS::RIGHT); }
 	if (key_s) {
-		if (player_bullet_timer.timeOut()) {spawnPlayerBullet(); }
+		if (player->canShoot()) {spawnPlayerBullet(); }
 	}
 }
 
@@ -108,15 +116,6 @@ void Level::switchSlot()
 	}
 }
 
-void Level::spawnEnemy(const sf::Vector2f& position)
-{
-	//health,speed,direction
-	int range = 1 - 0 + 1;
-	int num = rand() % range + 0;
-	world_enemies.emplace_back(new Enemy(12, 5, VectorMath::Vdirection::LEFT));
-	world_enemies.back()->setTexture(enemy_textures[num]);
-	world_enemies.back()->setPosition(position);
-}
 
 void Level::spawnPlayerBullet()
 {
@@ -135,4 +134,18 @@ void Level::spawnEnemyBullet(const sf::Texture& texture,const sf::Vector2f& posi
 
 }
 
+
+bool Level::leftViewport(const Projectile* projectile)
+{
+	sf::Vector2f top_left_pos = VectorMath::getViewPortTopLeftPos();
+	sf::Vector2f lower_right_pos = VectorMath::getViewportLowerRightPos();
+	//x axis
+	bool far_from_right_side = projectile->getTopLeftPos().x > lower_right_pos.x + projectile->getSize().x;
+	bool far_from_left_side = projectile->getTopLeftPos().x < top_left_pos.x - projectile->getSize().x;
+	//y axis
+	bool far_from_top = projectile->getTopLeftPos().y < top_left_pos.y - projectile->getSize().y;
+	bool far_from_bottom = projectile->getTopLeftPos().y > lower_right_pos.y + projectile->getSize().y;
+
+	return (far_from_right_side || far_from_left_side || far_from_top || far_from_bottom);
+}
 

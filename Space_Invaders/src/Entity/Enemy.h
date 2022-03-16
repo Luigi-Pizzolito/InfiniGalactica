@@ -18,6 +18,7 @@ public:
 	//Overloads of Collisions
 	bool collidesWith(const PlayerBullet* bullet);
 	const sf::Sprite& getSprite()const { return m_sprite; }
+	sf::Sprite& setSprite() { return m_sprite; }
 	void hurt(const PlayerBullet* bullet);
 	int getHP();
 };

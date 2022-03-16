@@ -20,7 +20,7 @@ Level1::Level1() :Level()
 	//Screen Effect
 	
 	//Set up Timers
-	setUpTimers();
+
 	screen_effect.setSize(sf::Vector2f(Scene::s_window->getSize().x, Scene::s_window->getSize().y));
 	screen_effect.setOrigin(screen_effect.getSize().x / 2, screen_effect.getSize().y / 2);
 	screen_effect.setPosition(Scene::s_view->getCenter());
@@ -66,15 +66,8 @@ void Level1::update(float delta_time)
 
 
 		// Update spawners, enemies and bullets
-		player_bullet_timer.start();
-		enemy_spawner.start();
-		if (enemy_spawner.timeOut()) {
-			//calculate the position
-			//if some problem change the second sview to swindow
-			sf::Vector2f pos(Scene::s_view->getCenter().x + Scene::s_view->getSize().x / 2,
-				Scene::s_view->getSize().y);
-
-			spawnEnemy(pos);
+		for (auto& spawner : spawners) {
+			spawner->update();
 		}
 
 		//Entities and projectiles actions
@@ -135,6 +128,10 @@ void Level1::update(float delta_time)
 		// scroll camera
 		camera->follow();
 
+		// Collectors
+		for (auto& collector : collectors) {
+			collector->update();
+		}
 	}
 	else {
 		
@@ -174,8 +171,6 @@ void Level1::prepareContainers()
 	//Player
 	player_textures.reserve(3);
 	projectile_textures.reserve(3);
-	//Enemy
-	enemy_textures.reserve(3);
 	enemy_projectile_texture.reserve(2);
 
 	//Reserving Entities and Projectiles
@@ -194,11 +189,7 @@ void Level1::loadTextures()
 	player_textures.back().loadFromFile("res/Sprites/player1.png");
 	player_textures.emplace_back();
 	player_textures.back().loadFromFile("res/Sprites/player2.png");
-	//Enemy Textures
-	enemy_textures.emplace_back();
-	enemy_textures.back().loadFromFile("res/Sprites/enemy1.png");
-	enemy_textures.emplace_back();
-	enemy_textures.back().loadFromFile("res/Sprites/enemy2.png");
+
 	//Projectile Textures
 	//Player
 	projectile_textures.emplace_back();
@@ -210,12 +201,4 @@ void Level1::loadTextures()
 	broken_screen_texture.loadFromFile("res/Sprites/brokenscreen.png");
 }
 
-void Level1::setUpTimers()
-{
-	//Set up all of the main Timers and Spawners
-	player_bullet_timer.setDuration(0.5f);
-	enemy_spawner.setDuration(1.0f);
-
-	
-}
 

@@ -5,6 +5,7 @@
 
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
+	player_bullet_timer.setDuration(0.5f);
 	m_sprite.setScale(0.5f, 0.5f);
 }
 
@@ -64,4 +65,11 @@ bool Player::collidesWith(Item_* iem)
 void Player::hurt(EnemyBullet* bullet)
 {
 	m_HP -= bullet->getDamage();
+}
+
+bool Player::canShoot()
+{
+	
+	player_bullet_timer.start();
+	return player_bullet_timer.timeOut();
 }
