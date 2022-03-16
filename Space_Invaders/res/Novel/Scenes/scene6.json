@@ -1,50 +1,57 @@
 [
     {
-        "text":"Haoyue: According to the signal given by the headquarters, here It should be the place where Dr. Zhao and the others were imprisoned...",
+        "text":"According to the signal given by the headquarters, here It should be the place where Dr. Zhao and the others were imprisoned...",
+        "actor":"Haoyue",
         "color":"6666ff"
     },
     {
-        "text":"Haoyue (shocked but quickly calmed down): What's going on? ",
+        "text":"What's going on? ",
+        "actor":"Haoyue",
         "color":"6666ff"
     },
     {
-        "text":"Haoyue: These damned Zuan",
+        "text":"These damned Zuan",
+        "actor":"Haoyue",
         "color":"6666ff"
     },
     {
-        "text":" a voice: I finally saw human beings again",
+        "text":"I finally saw human beings again",
+        "actor":"Voice",
         "color":"6666ff"
     },
     {
-        "text":" Haoyue: who are you? ",
+        "text":"who are you? ",
+        "actor":"Haoyue",
         "color":"6666ff"
     },
     {
-        "text":"Voice: Zhao Feng...or the last recording of Zhao Feng's memory stored in the brain. Everyone is dead, only this one has not been stolen by the Zuan . ",
+        "text":"Zhao Feng...or the last recording of Zhao Feng's memory stored in the brain. Everyone is dead, only this one has not been stolen by the Zuan . ",
+        "actor":"Voice",
         "color":"6666ff"
     },
     {
-        "text":"Haoyue: Dr. Zhao....",
+        "text":"Dr. Zhao....",
+        "actor":"Haoyue",
         "color":"6666ff"
     },
     {
-        "text":"Voice: This memory recording was placed in the hippocampus of my brain, please quickly took it away. This is the last thing I left to human beings. The people of Zuan will come over soon... ",
-        "color":"6666ff"
-    },
-    {
-        "text":"Haoyue immediately identified the location of Zhao Feng's signal. The brain under the place was put into the carrying case and left the intercom",
+        "text":"This memory recording was placed in the hippocampus of my brain, please quickly took it away. This is the last thing I left to human beings. The people of Zuan will come over soon... ",
+        "actor":"Voice",
         "color":"6666ff"
     },
     {
         "text":"Haoyue, Haoyue, this is the team, the enemy is too strong, we can't resist, if the task is completed, leave quickly, we will use the last Life guards the last glory, please answer ",
+        "actor":"Team member",
         "color":"6666ff"
     },
     {
-        "text":"Haoyue: ...... ",
+        "text":"...... ",
+        "actor":"Haoyue",
         "color":"6666ff"
     },
     {
-        "text":"teammate:it would be good to eat a bowl of food made by mama...... Team members, take out the balls Lightning cannon, perish with this group of bastards! ! !",
+        "text":"it would be good to eat a bowl of food made by mama...... Team members, take out the balls Lightning cannon, perish with this group of bastards! ! !",
+        "actor":"Team Member",
         "color":"6666ff"
     }
 ]

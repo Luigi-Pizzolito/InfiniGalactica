@@ -1,27 +1,33 @@
 [
     {
         "text":"Battleship HE311, the headquarters ordered you to lead your team to intercept the enemy. If it cannot be intercepted, you should guide it to the low-earth orbit of the home planet, so that our biological weapons can attack the enemy",
+        "actor":"Zaun",
         "color":"ffcc00"
     },
     {
         "text":"Battleship HE311 Received, I am heading to the predetermined location, and the report is completed.",
+        "actor":"Zaun",
         "color":"ffcc00"
     },
     {
         "text":"Battleship HE311 Received, I am heading to the predetermined location, and the report is completed.",
+        "actor":"Zaun",
         "color":"ffcc00"
     },
     {
         "text":"Received, the glory belongs to the natural war mad!",
+        "actor":"Zaun",
         "color":"ffcc00"
     },
     
     {
         "text":"Battleship HE321, the last team mission has been completed, and now the headquarters asks you to temporarily go to interfere with the enemy fighter plane, we will release biological weapons after it has attracted attention, finished",
+        "actor":"Zaun",
         "color":"ffcc00"
     },
     {
         "text":"The battleship HE321 has been received, and is heading to the predetermined trajectory, finished",
+        "actor":"Zaun",
         "color":"ffcc00"
     }
     

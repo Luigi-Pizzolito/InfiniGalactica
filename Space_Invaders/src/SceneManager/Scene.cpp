@@ -197,9 +197,7 @@ namespace SceneManagement {
 		Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
 		Scene::s_window->setView(*Scene::s_view);
 
-		std::cout << "Current scene is: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
-
-		//!! because of this if, the scenes are not deleted, move it before seeting the pointer and it segfaults
+		std::cout << "Current scene is: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n"; 
 		
 	}
 

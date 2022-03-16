@@ -1,26 +1,32 @@
 [
     {
-        "text":"Commander: Haoyue, I will tell you something important, please keep it a secret.",
+        "text": "Haoyue, I will tell you something important, please keep it a secret.",
+        "actor":"Commander",
         "color":"99cc33"
     },
     {
-        "text":" Haoyue: Please speak. ",
+        "text":"Please speak. ",
+        "actor":"Haoyue",
         "color":"99cc33"
     },
     {
-        "text":"Commander: The Earth executives heading to Piltover were held hostage by the Zaun... so we urgently need to select sergeants around the world to form a team of 15 to rescue them, and the Asian theater executives Hope you can go. ",
+        "text":"The Earth executives heading to Piltover were held hostage by the Zaun... so we urgently need to select sergeants around the world to form a team of 15 to rescue them, and the Asian theater executives Hope you can go. ",
+        "actor":"Commander",
         "color":"99cc33"
     },
     {
-        "text":"Haoyue:...... ",
+        "text":"...... ",
+        "actor":"Haoyue",
         "color":"99cc33"
     },
     {
-        "text":"Commander: Are you not willing?",
+        "text":"Are you not willing?",
+        "actor":"Commander",
         "color":"99cc33"
     },
     {
-        "text":" Haoyue: Resolutely obey orders! ! ! ",
+        "text":" Resolutely obey orders! ! ! ",
+        "actor":"Haoyue",
         "color":"99cc33"
     }
 ]

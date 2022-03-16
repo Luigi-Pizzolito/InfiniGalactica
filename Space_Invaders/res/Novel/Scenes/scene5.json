@@ -1,54 +1,67 @@
 [
     {
-        "text":"Ao:captain ,it seems that something has happened",
+        "text":"captain ,it seems that something has happened",
+        "actor":"Ao",
         "color":"ffffff"
     },
     {
         "text":"What's the matter, such a flustered ",
+        "actor":"Ross",
         "color":"ffffff"
     },
     {
-        "text":" Ao: the people went to Piltover... were held hostage, and even the elite team that protected them was wiped out.... ",
+        "text":"the people went to Piltover... were held hostage, and even the elite team that protected them was wiped out.... ",
+        "actor":"Ao",
         "color":"ffffff"
     },
     {
-        "text":"Ross: What are you talking about!  ",
+        "text":"What are you talking about!  ",
+        "actor":"Ross",
         "color":"ffffff"
     },
     {
         "text":"it is real, when I just went to receive the new type of incubator from the earth, there was a virtual video in it:  ",
+        "actor":"Ao",
         "color":"ffffff"
     },
     {
         "text":"The first and second teams were wiped out, the team leader was eliminated, what happened, hell. Report to the commander-in-chief, our troops are exhausted, and the enemy's life force is too strong, we will carry the entire ship's ammunition and the enemy's mothership will be killed. ....we....boom....kakakk...",
+        "actor":"Recording",
         "color":"ffffff"
     },
     {
         "text":"The enemy is attacking, the fourth team, ready to intercept, set up a fire network, and be sure to escort them back to Earth, over. ",
+        "actor":"Recording",
         "color":"ffffff"
     },
     {
         "text":"The enemy has broken through the fire network, and the units are scattered to avoid accidental injury, and we will fight the enemy head-on. ",
+        "actor":"Recording",
         "color":"ffffff"
     },
     {
         "text":"I'm sorry, members, it seems that I can't solve the enemy... Report, the fourth team is completely destroyed, I will die for the country, over.",
+        "actor":"Recording",
         "color":"ffffff"
     },
     {
-        "text":"Ao:captain,it seems that the Zaun may invade our planet",
+        "text":"captain,it seems that the Zaun may invade our planet",
+        "actor":"Ao",
         "color":"ffffff"
     },
     {
-        "text":" Captain: .......",
+        "text":".......",
+        "actor":"Captain",
         "color":"ffffff"
     },
     {
-        "text":"Ao: Let's leave, we can still keep the last fire of mankind. If we stay, our ship will only have hundreds of people, and it will not have much impact on the war situation. We leave, in the universe There still can exist humans. . . . . . ",
+        "text":"Let's leave, we can still keep the last fire of mankind. If we stay, our ship will only have hundreds of people, and it will not have much impact on the war situation. We leave, in the universe There still can exist humans. . . . . . ",
+        "actor":"Ao",
         "color":"ffffff"
     },
     {
-        "text":"Captain: .....Let me think about it ",
+        "text":".....Let me think about it ",
+        "actor":"Captain",
         "color":"ffffff"
     },
     
@@ -58,14 +71,17 @@
     
     {
         "text":"headquarters, headquarters, this is the CN1298 ship, we found a space vortex near the earth, and carried some meteorites, hope to go there deal with. Finished",
+        "actor":"Ross",
         "color":"00FFFF"
     },
     {
-        "text":"captain headquarters, headquarters, this is the CN1298 ship, we found a space vortex near the earth, and carried some meteorites, hope to go there deal with. Finished",
+        "text":"This is headerquarters,you can go and do it ",
+        "actor":"Headerquarters",
         "color":"00FFFF"
     },
     {
-        "text":"a colonel said to himself: Ross, after you leave, I'm afraid it will be a turbulent time. I originally wanted to wait for you and me to go fishing together on Lake Baikal after retiring, but the current situation, alas ...",
+        "text":"Ross, after you leave, I'm afraid it will be a turbulent time. I originally wanted to wait for you and me to go fishing together on Lake Baikal after retiring, but the current situation, alas ...",
+        "actor":"A Colonel",
         "color":"00FFFF"
     }
 ]
