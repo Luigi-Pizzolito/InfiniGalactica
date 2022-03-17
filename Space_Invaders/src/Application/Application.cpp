@@ -5,6 +5,7 @@ Application::Application(const sf::Vector2i& screen_dimensions,const char* app_n
 {
 	//Creates window in the Heap
 	m_window=new sf::RenderWindow(m_videoMode, app_name, sf::Style::Default);
+	m_window->setVerticalSyncEnabled(true);
 	m_window->setFramerateLimit(60);
 
 	m_view =new sf::View();

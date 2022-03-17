@@ -133,7 +133,7 @@ void Level::spawnEnemyBullet(const sf::Texture& texture,const sf::Vector2f& posi
 
 	world_enemy_bullets.emplace_back(new EnemyBullet(position, dir));
 	world_enemy_bullets.back()->setTexture(texture);
-	std::cout << "Enemie Bullets: " << world_enemy_bullets.size() << "\n";
+	// std::cout << "Enemie Bullets: " << world_enemy_bullets.size() << "\n";
 	SFX::play(SFXlib::BulletShoot);
 }
 
