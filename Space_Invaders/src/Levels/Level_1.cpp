@@ -80,8 +80,7 @@ void Level1::update(float delta_time)
 		for (auto& enemy : world_enemies) {
 			enemy->move();
 			if (enemy->canShoot()) {
-				spawnEnemyBullet(enemy_projectile_texture[0],VectorMath::getAABBMidBack(enemy->getTopLeftPos(), enemy->getSize()), VectorMath::Vdirection::LEFT);
-
+				spawnEnemyBullet(enemy);
 			}
 		}
 		for (auto& enemybullet : world_enemy_bullets) {

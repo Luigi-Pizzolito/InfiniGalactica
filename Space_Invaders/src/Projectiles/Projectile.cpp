@@ -5,7 +5,8 @@
 
 Projectile::Projectile(const sf::Vector2f& position, const sf::Vector2f& direction)
 {
-	m_sprite.setPosition(position);
+	m_initpos = position;
+	//m_sprite.setPosition(position);
 	m_dir = direction;
 }
 
@@ -21,6 +22,8 @@ void Projectile::move()
 void Projectile::setTexture(const sf::Texture& texture)
 {
 	m_sprite.setTexture(texture);
+	m_sprite.setOrigin(getSize() / 2.0f);
+	m_sprite.setPosition(m_initpos);
 	m_sprite.setScale(0.2f, 0.2f);
 }
 
@@ -38,12 +41,12 @@ PlayerBullet::PlayerBullet(const sf::Vector2f& position, const sf::Vector2f& dir
 	:Projectile(position,direction)
 {
 	m_speed = 20.0f;
-	m_damage = 15.0f;
+	m_damage = 20.0f;
 }
 
 PlayerBullet::~PlayerBullet()
 {
-	// std::cout << "PlayerBullet destroyed\n";
+	
 }
 
 EnemyBullet::EnemyBullet(const sf::Vector2f& position, const sf::Vector2f& direction)
@@ -55,5 +58,5 @@ EnemyBullet::EnemyBullet(const sf::Vector2f& position, const sf::Vector2f& direc
 
 EnemyBullet::~EnemyBullet()
 {
-	// std::cout << "Enemy bullet destroyed\n";
+
 }

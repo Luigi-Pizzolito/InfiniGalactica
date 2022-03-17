@@ -128,27 +128,13 @@ void Level::spawnPlayerBullet()
 	SFX::play(SFXlib::BulletShoot);
 }
 
-void Level::spawnEnemyBullet(const sf::Texture& texture,const sf::Vector2f& position, const sf::Vector2f dir)
+void Level::spawnEnemyBullet(Enemy* enemy)
 {
 
-	world_enemy_bullets.emplace_back(new EnemyBullet(position, dir));
-	world_enemy_bullets.back()->setTexture(texture);
-	// std::cout << "Enemie Bullets: " << world_enemy_bullets.size() << "\n";
+	//call the function from the enemy that spawns the bullet
+	world_enemy_bullets.emplace_back(enemy->spawnBullet());	
 	SFX::play(SFXlib::BulletShoot);
-}
 
 
-bool Level::leftViewport(const Projectile* projectile)
-{
-	sf::Vector2f top_left_pos = VectorMath::getViewPortTopLeftPos();
-	sf::Vector2f lower_right_pos = VectorMath::getViewportLowerRightPos();
-	//x axis
-	bool far_from_right_side = projectile->getTopLeftPos().x > lower_right_pos.x + projectile->getSize().x;
-	bool far_from_left_side = projectile->getTopLeftPos().x < top_left_pos.x - projectile->getSize().x;
-	//y axis
-	bool far_from_top = projectile->getTopLeftPos().y < top_left_pos.y - projectile->getSize().y;
-	bool far_from_bottom = projectile->getTopLeftPos().y > lower_right_pos.y + projectile->getSize().y;
-
-	return (far_from_right_side || far_from_left_side || far_from_top || far_from_bottom);
 }
 

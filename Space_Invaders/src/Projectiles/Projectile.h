@@ -8,6 +8,7 @@ protected:
 	int m_damage;
 	float m_speed;
 	sf::Vector2f m_dir;
+	sf::Vector2f m_initpos;
 public:
 	Projectile(const sf::Vector2f& position,const sf::Vector2f& direction);
 	virtual ~Projectile();

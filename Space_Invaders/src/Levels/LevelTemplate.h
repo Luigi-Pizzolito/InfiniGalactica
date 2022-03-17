@@ -13,7 +13,7 @@
 #include "Algorithms/Utilities.h"
 #include "Algorithms/MathUtils.h"
 #include "Algorithms/MemoryManegement.h"
-//todo add HUD class
+
 class Level :public SceneManagement::Scene {
 protected:
 	//variables
@@ -74,9 +74,8 @@ protected:
 	void playerInputStates(STATES state);
 	void switchSlot();
 	void spawnPlayerBullet();
-	void spawnEnemyBullet(const sf::Texture& texture, const sf::Vector2f& position, const sf::Vector2f dir);
-	
-	bool leftViewport(const Projectile* projectile);
+	void spawnEnemyBullet(Enemy* enemy);
+
 public:
 	Level();
 	virtual~Level();

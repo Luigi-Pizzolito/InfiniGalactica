@@ -3,8 +3,6 @@
 #include <cmath>
 #include <iostream>
 
-//todo: create SFX player class
-
 MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
     // load song parameters from JSON
     // Read JSON file info and parse to store in internal object

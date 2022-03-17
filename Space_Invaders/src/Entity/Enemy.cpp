@@ -2,16 +2,15 @@
 #include "Projectiles/Projectile.h"
 #include "MediaManager/SFXPlayer.h"
 #include <iostream>
+#include "Algorithms/MathUtils.h"
 Enemy::Enemy(int health, float speed, const sf::Vector2f& dir)
-	:Entity(health, speed),m_dir(dir),m_shoot_timer(1.0f)
+	:Entity(health, speed),m_dir(dir),m_shoot_timer(1.0f),m_projectile_texture(nullptr)
 {
-	//std::cout << "Enemy created\n";
+
 }
 
 Enemy::~Enemy()
 {
-	// std::cout << "Enemy destroyed\n";
-	
 }
 void Enemy::move()
 {
@@ -27,6 +26,9 @@ void Enemy::setTexture(const sf::Texture& texture)
 	m_sprite.setScale(0.4, 0.4f);
 	m_sprite.setTexture(texture);
 	
+}
+void Enemy::setProjectileTexture(sf::Texture& texture) {
+	m_projectile_texture = &texture;
 }
 void Enemy::setPosition(const sf::Vector2f& position)
 {
@@ -52,4 +54,12 @@ void Enemy::hurt(const PlayerBullet* bullet)
 int Enemy::getHP()
 {
 	return m_HP;
+}
+
+EnemyBullet* Enemy::spawnBullet()
+{
+	
+	EnemyBullet* bullet= new EnemyBullet(VectorMath::getAABBMidBack(getTopLeftPos(), getSize()), VectorMath::Vdirection::LEFT);
+	bullet->setTexture(*m_projectile_texture);
+	return bullet;
 }

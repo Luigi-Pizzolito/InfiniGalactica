@@ -3,7 +3,6 @@
 #include "Algorithms/Utilities.h"
 #include "Algorithms/MathUtils.h"
 #include "SceneManager/Scene.h"
-#include <iostream>
 //Forward declaration
 class Enemy;
 
@@ -22,18 +21,19 @@ namespace MemoryManagement {
 	};
 	template<typename T>
 	class EnemySpawner:public BaseEnemySpawner {
-		//target buffer
-	
+		
 	public:
-		//prototype of the enemy
-		//Note Load the Texture!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		sf::Texture enemy_texture;
+		//prototype of the enemy later move this to their respective classes
 		//Type-1 small
-		uint8_t t1_speed = 5;
-		uint16_t t1_health = 45;
+		sf::Texture enemy_texture1;
+		sf::Texture projectile_texture1;
+		uint8_t t1_speed = 10;
+		uint16_t t1_health = 20;
 		//Type-2 big
-		uint8_t t2_speed = 10;
-		uint16_t t2_health = 25;
+		sf::Texture enemy_texture2;
+		sf::Texture projectile_texture2;
+		uint8_t t2_speed = 5;
+		uint16_t t2_health = 30;
 		float timer_duration = 1.0f;
 		//Control- Remember to set the duration of the timer
 		//Todo
@@ -42,7 +42,18 @@ namespace MemoryManagement {
 		Control::GameTimer timer;
 		EnemySpawner(std::vector<Enemy*>& enemy_buffer):BaseEnemySpawner(enemy_buffer){
 			timer.setDuration(timer_duration);
-			enemy_texture.loadFromFile("res/Sprites/enemy1.png");
+			std::string path_texture_1("res/Sprites/enemy1.png");
+			std::string path_texture_2("res/Sprites/enemy2.png");
+			std::string path_projectile_texture1("res/Sprites/bullet.png");
+			std::string path_projectile_texture2("res/Sprites/bullet2.png");
+			///json
+
+			//
+			enemy_texture1.loadFromFile(path_texture_1);
+			enemy_texture2.loadFromFile(path_texture_2);
+			projectile_texture1.loadFromFile(path_projectile_texture1);
+			projectile_texture2.loadFromFile(path_projectile_texture2);
+
 		}
 
 		void update()override {
@@ -60,14 +71,17 @@ namespace MemoryManagement {
 			//Only two types
 			if (type == 0) {
 				buffer_alias.emplace_back(new T(t1_health,t1_speed, VectorMath::Vdirection::LEFT));
-				buffer_alias.back()->setTexture(enemy_texture);
+				buffer_alias.back()->setTexture(enemy_texture1);
+				//buffer_alias.back()->setProjectileTexture(enemy_texture1);
+				buffer_alias.back()->setProjectileTexture(projectile_texture1);
 				
 			}
 			else {
 	
 				buffer_alias.emplace_back(new T(t2_health, t2_speed, VectorMath::Vdirection::LEFT));
-				buffer_alias.back()->setTexture(enemy_texture);
-				buffer_alias.back()->setSprite().setScale(0.3, 0.3);
+				buffer_alias.back()->setTexture(enemy_texture2);
+				//buffer_alias.back()->setSprite().setScale(0.3, 0.3);
+				buffer_alias.back()->setProjectileTexture(projectile_texture2);
 
 			}
 		
@@ -92,6 +106,7 @@ namespace MemoryManagement {
 
 		}
 		void update() override {
+			
 			buffer_alias.erase(std::remove_if(buffer_alias.begin(), buffer_alias.end(),
 				[&](T* obj) {
 					//first delete the heap mem
