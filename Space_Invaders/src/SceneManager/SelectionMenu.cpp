@@ -57,7 +57,7 @@ void SelectionMenu::handleInput(sf::Event event) {
     }
     updateLayout();
 
-    if (event.key.code == sf::Keyboard::Enter || event.key.code == sf::Keyboard::Space) {
+    if (event.key.code == sf::Keyboard::Enter) {  // || event.key.code == sf::Keyboard::Space
         // std::cout << "Selected " << options[selection_i] << "\n";
         // func_ptr(options[selection_i]);
         selected = true;
