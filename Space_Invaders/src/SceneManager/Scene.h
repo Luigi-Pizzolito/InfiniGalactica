@@ -47,7 +47,7 @@ namespace SceneManagement {
 		void registerScene(const std::string& name)
 		{
 
-			std::cout << "Registering Scene " << name << std::endl;
+			std::cout << "Scene Manager: Registering Scene " << name << std::endl;
 			m_Scenes.push_back(std::make_pair(name, []() {return new T(); }));
 
 		}

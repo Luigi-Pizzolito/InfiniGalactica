@@ -17,7 +17,7 @@ namespace Control {
 		m_end = std::chrono::steady_clock::now();
 		m_duration = m_end - m_start;
 		float ms = m_duration.count() * 1000.0f;
-		std::cout << "Time elapsed: " << ms << " ms" << "\n";
+		std::cout << "DebugAutomaticTimer: Time elapsed: " << ms << " ms" << "\n";
 	}
 	DebugManualTimer::DebugManualTimer()
 	{
@@ -37,7 +37,7 @@ namespace Control {
 		m_end = std::chrono::steady_clock::now();
 		m_duration = m_end - m_start;
 		float ms = m_duration.count() * 1000.0f;
-		std::cout << "Time elapsed: " << ms << " ms" << "\n";
+		std::cout << "DebugManualTimer: Time elapsed: " << ms << " ms" << "\n";
 	}
 	GameTimer::GameTimer(float duration):m_cycleduration(duration),m_counting(false)
 	{

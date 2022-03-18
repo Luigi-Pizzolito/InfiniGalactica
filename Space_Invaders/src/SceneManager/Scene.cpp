@@ -19,13 +19,8 @@ namespace SceneManagement {
 		m_texture.loadFromFile("res/Sprites/Cutscenes/menu_background.png");
 		m_background.setSize(sf::Vector2f(Scene::s_window->getSize().x, Scene::s_window->getSize().y));
 		m_background.setTexture(&m_texture);
-		
-		//m_background.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(Scene::s_view->getSize().x, Scene::s_view->getSize().y)));
-		// Background
-		// rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,250,10.0f);
-		// Music
+		// Music pos update for looping
 		music.update(0.6f);
-
 		title.setString("InfiniGalactica");
 		title_font.loadFromFile("res/Novel/Linebeam.ttf");
 		title.setFont(title_font);
@@ -47,7 +42,7 @@ namespace SceneManagement {
 	void SceneMenu::handleSelection() {
 		if (selection.selected) {
 			std::string selec = selection.selection();
-			std::cout << "Selected " << selec << "\n";
+			std::cout << "Scene Menu: Selected " << selec << "\n";
 
 			// handle selection choice
 			// for first layer menu
@@ -182,7 +177,7 @@ namespace SceneManagement {
 
 	void goBackToMainMenu()
 	{
-		std::cout << "going back to main menu from : " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
+		std::cout << "Scene Menu: going back to main menu from : " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
 		if (Scene::s_main_menu->m_CurrentScenePtr&& (Scene::s_main_menu->m_CurrentScenePtr!= Scene::s_main_menu)) {
 			//delete the current scene
 			delete Scene::s_main_menu->m_CurrentScenePtr;
@@ -197,7 +192,7 @@ namespace SceneManagement {
 		Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
 		Scene::s_window->setView(*Scene::s_view);
 
-		std::cout << "Current scene is: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n"; 
+		std::cout << "Scene Menu: Current scene is: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n"; 
 		
 	}
 

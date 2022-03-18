@@ -13,7 +13,7 @@ MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
     // open music file
     if (!player.openFromFile(cfg["file"]))
     {
-        std::cout << "Failed to open: " << cfg["file"] << "\n";
+        std::cout << "MusicPlayer: Failed to open: " << cfg["file"] << "\n";
     }
 
     // set initial loop

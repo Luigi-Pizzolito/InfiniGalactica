@@ -74,7 +74,7 @@ bool TextManager::next()
         }
         else
         {
-            std::cout << "finished displaying all panels\n";
+            std::cout << "TextManager: finished displaying all panels\n";
             return true;
         }
     }
@@ -178,7 +178,7 @@ bool FSScrollTextManager::tick() {
     // Check if text is done scrolling
     // std::cout << "text x: " << fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height << "\tView Thres: " << m_view->getSize().y/4 << "\n";
     if (fs_text.getGlobalBounds().top+fs_text.getGlobalBounds().height < m_view->getSize().y/3.5) {
-        std::cout << "done scrolling!\n";
+        std::cout << "FSScrollTextManager: done scrolling!\n";
         return true;
     } else {
         return false;
