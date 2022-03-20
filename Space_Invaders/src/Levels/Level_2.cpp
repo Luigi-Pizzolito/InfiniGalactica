@@ -20,7 +20,7 @@ Level2::Level2() :Level()
 	//create the camera
 	camera = new CameraFollowHorzScroll(Scene::s_window, Scene::s_view, player, sf::Vector2f(100.0f, 0.0f));
 	//create the starfield
-	starfield = new StarField(Scene::s_window, Scene::s_view, 25, 1.4f);
+	starfield = new StarField(Scene::s_window, Scene::s_view, total_length.x, 25, 1.4f);
 
 	//Set up Timers
 
@@ -207,8 +207,6 @@ void Level2::loadTextures()
 	//Player
 	projectile_textures.emplace_back();
 	projectile_textures.back().loadFromFile("res/Sprites/projectiles/laser_red.png");
-	//Screen Effect
-	broken_screen_texture.loadFromFile("res/Sprites/effects/brokenscreen.png");
 }
 
 

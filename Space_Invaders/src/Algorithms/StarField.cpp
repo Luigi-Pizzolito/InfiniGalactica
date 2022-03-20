@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-StarField::StarField(sf::RenderWindow* window, const sf::View* view, int star_num, float nebula_num):m_window(window),c_view(view),star_num(star_num),nebula_num(nebula_num) {
+StarField::StarField(sf::RenderWindow* window, const sf::View* view, float level_length, int star_num, float nebula_num):m_window(window),c_view(view),level_length(level_length), star_num(star_num),nebula_num(nebula_num) {
     // set star texture
     star_texture.loadFromFile("res/Sprites/stars.png");
     star_rstate.texture = &star_texture;
@@ -69,7 +69,7 @@ void StarField::genStars(sf::VertexArray* stars) {
     // setup random generation
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int>      rx(-0.25f*c_view->getSize().x,c_view->getSize().x*4); // generation bounds for star field
+	std::uniform_int_distribution<int>      rx(-0.25f*c_view->getSize().x,level_length*100.0f); // generation bounds for star field
 	std::uniform_int_distribution<int>      ry(0.0f,c_view->getSize().y); // 
     std::uniform_real_distribution<float>   rs(2.0f,8.0f);    // generation bounds for star size
     std::uniform_int_distribution<int>      rt(0, 4);            // random texture
@@ -87,7 +87,7 @@ void StarField::genNebulas(sf::VertexArray* nebulas) {
     // setup random generation
     std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-	std::uniform_int_distribution<int>      rx(-0.25f*c_view->getSize().x,c_view->getSize().x*4); // generation bounds for nebula field
+	std::uniform_int_distribution<int>      rx(-0.25f*c_view->getSize().x,level_length*100.0f); // generation bounds for nebula field
 	std::uniform_int_distribution<int>      ry(-100.0f,c_view->getSize().y-450.0f); // 
     std::uniform_real_distribution<float>   rs(200.0f,1000.0f);    // generation bounds for nebula size
     std::uniform_int_distribution<int>      rt(0, 6);            // random texture

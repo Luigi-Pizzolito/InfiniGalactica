@@ -64,9 +64,6 @@ protected:
 	//Music
 	MusicPlayer* music;
 
-	//Effects
-	sf::Texture broken_screen_texture;
-
 	//Debug
 	Debug::XAxis* xa;
 

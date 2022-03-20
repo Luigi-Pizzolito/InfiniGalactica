@@ -7,6 +7,7 @@ class StarField {
     private:
         sf::RenderWindow* m_window;
         const sf::View* c_view;
+        float level_length;
         sf::Texture star_texture;
         sf::Texture nebula_texture;
         sf::RenderStates star_rstate;
@@ -26,7 +27,7 @@ class StarField {
         void parallax();
         sf::Vector2f last_p;
     public:
-        StarField(sf::RenderWindow* window, const sf::View* view, int star_num, float nebula_num);
+        StarField(sf::RenderWindow* window, const sf::View* view, float level_length, int star_num, float nebula_num);
         ~StarField();
         void draw();
 
