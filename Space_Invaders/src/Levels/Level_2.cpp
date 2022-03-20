@@ -151,7 +151,10 @@ void Level2::update(float delta_time)
 		SceneManagement::goBackToMainMenu();
 
 	}
-	//todo: update music with level progress %
+
+	//Update music loops with world position
+	float levelProgress =world_position.x/total_length.x;
+	music->update(levelProgress);
 }
 
 //Render Level Graphics

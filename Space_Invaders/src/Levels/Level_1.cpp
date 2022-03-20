@@ -152,7 +152,10 @@ void Level1::update(float delta_time)
 		screen_effect.setFillColor(sf::Color(255, 255, 255, 255));
 		SceneManagement::goBackToMainMenu();
 	}
-	//todo: update music with level progress %
+
+	//Update music loops with world position
+	float levelProgress =world_position.x/total_length.x;
+	music->update(levelProgress);
 }
 
 //Render Level Graphics
