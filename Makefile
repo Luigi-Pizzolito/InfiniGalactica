@@ -9,7 +9,7 @@ LDIR =Dependencies/lib-darwin
 LDIRL=Dependencies/lib-linux
 LIBS=-l sfml-system -l sfml-window -l sfml-graphics -l sfml-audio -l sfml-network -Wl,-rpath $(LDIR)
 LIBSL=-Wl,--copy-dt-needed-entries -l sfml-system -l sfml-window -l sfml-graphics -l sfml-audio -l sfml-network -Wl,-rpath $(LLDIR)
-CFLAGS=-std=c++14 -I $(IDIR) -I $(PNAME)/src/
+CFLAGS=-std=c++17 -I $(IDIR) -I $(PNAME)/src/
 # add -g to add debug symbols, add -c to statically link, omit -o to generate .o files i think
 
 # 2> /dev/null  silences stderr for annyong UpdateRecents: messages
