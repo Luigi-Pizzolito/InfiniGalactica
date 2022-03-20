@@ -11,7 +11,7 @@ Credits::Credits(json cfg) {
     // music->update(0.9f);
 
 	// Background
-	rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,350,5.0f);
+	rstarfield = new RadialStarField(Scene::s_window,Scene::s_view,(int)cfg["rstarfield"]["starNum"],(float)cfg["rstarfield"]["speed"]);
 }
 
 Credits::~Credits() {
