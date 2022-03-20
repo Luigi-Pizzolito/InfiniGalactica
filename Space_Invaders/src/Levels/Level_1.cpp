@@ -117,12 +117,6 @@ void Level1::update(float delta_time)
 			bool collided = player->collidesWith(enemy_bullet);
 			if (collided) {
 				player->hurt(enemy_bullet);
-
-
-				// for testing music access
-				if (player->getHP() <=0) {
-					music->stop();
-				}
 			}
 
 			return collided; }), world_enemy_bullets.end());
