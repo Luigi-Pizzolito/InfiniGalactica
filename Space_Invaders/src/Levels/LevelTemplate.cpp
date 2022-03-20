@@ -21,6 +21,8 @@ Level::Level() :Scene(),player_score(0),enemy_death_count(0),selected_slot(0)
 	key_s = false;
 	player_max = false;
 
+	//Debug
+	xa = new Debug::XAxis(Scene::s_window, Scene::s_view, 100, Scene::s_view->getSize().x*4);
 }
 
 

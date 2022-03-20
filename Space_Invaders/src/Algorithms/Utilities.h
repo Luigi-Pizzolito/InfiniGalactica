@@ -2,6 +2,10 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
 namespace Control {
 	class Timer {
 	protected:
@@ -10,20 +14,6 @@ namespace Control {
 
 		Timer();
 		virtual ~Timer();
-	};
-	class DebugAutomaticTimer :public Timer {
-	public:
-
-		DebugAutomaticTimer();
-		~DebugAutomaticTimer();
-	};
-	class DebugManualTimer :public Timer {
-	public:
-		DebugManualTimer();
-		~DebugManualTimer();
-		void start();
-		void stop();
-
 	};
 	class GameTimer :public Timer {
 	private:
@@ -39,3 +29,34 @@ namespace Control {
 	};
 
 }
+
+namespace Debug
+{
+	class AutomaticTimer :public Control::Timer {
+	public:
+
+		AutomaticTimer();
+		~AutomaticTimer();
+	};
+	class ManualTimer :public Control::Timer {
+	public:
+		ManualTimer();
+		~ManualTimer();
+		void start();
+		void stop();
+
+	};
+
+
+
+	class XAxis {
+		private:
+			sf::RenderWindow* m_window;
+			const sf::View* c_view;
+			sf::VertexArray* lines;
+		public:
+			XAxis(sf::RenderWindow* window, const sf::View* view, int divisions, int total);
+			~XAxis();
+			void draw();
+	};
+};

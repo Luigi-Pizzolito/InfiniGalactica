@@ -164,6 +164,8 @@ void Level1::render()
 	Scene::s_window->draw(screen_effect);
 	// displays objects on the screen
 	hud->draw();
+	//Debug
+	xa->draw();
 }
 
 

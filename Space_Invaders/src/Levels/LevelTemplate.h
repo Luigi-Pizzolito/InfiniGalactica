@@ -64,6 +64,9 @@ protected:
 	sf::Texture broken_screen_texture;
 	sf::RectangleShape screen_effect;
 
+	//Debug
+	Debug::XAxis* xa;
+
 protected:
 	//methods
 	void pollEvents()override;

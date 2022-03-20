@@ -10,6 +10,7 @@ CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::Vie
     sf::Vector2f s_pos = sprite->getScale();                //first get the sprite texture center, starting by getting the scale
     s_pos.x*=(float)sprite->getTextureRect().width/2.0f;    //then multiply by the texture size
     s_pos.y*=(float)sprite->getTextureRect().height/2.0f;
+    s_pos.y*=0;                                             //? but we dont want to offset the camera/world y, the top should be at y=0 for the other functions
     s_pos+=sprite->getPosition();                           //then add the sprite position to get sprite center position
     float sprite_width = sprite->getScale().x*(float)sprite->getTextureRect().width;
     sf::Vector2f view_offset  = sf::Vector2f( -sprite_width, 0.0f); //x offset by half the player texture width
