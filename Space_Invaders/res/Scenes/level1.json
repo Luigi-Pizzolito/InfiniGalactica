@@ -1,0 +1,53 @@
+{
+    "sceneName": "ShooterLevel",
+    "sceneType": "shooterLevel",
+    "levelOptions": {
+        "totalLength": 50.0,
+        "prepareContainers": {
+            "textures": {
+                "players": 3,
+                "projectile": 3
+            },
+            "bullets": 80,
+            "enemies": 50,
+            "enemyBullets":80
+        },
+        "player" : {
+            "health": 100,
+            "speed": 0.5,
+            "fric": 100,
+            "texture_i": 0,
+            "scale": [0.5, 0.5],
+            "upgradePoints": [40, 50]
+        },
+        "loadTextures": {
+            "playerTextures": [
+                "res/Sprites/player/player_base.png",
+                "res/Sprites/player/player_upgrade_1.png",
+                "res/Sprites/player/player_upgrade_2.png"
+            ],
+            "projectileTextures": [
+                "res/Sprites/projectiles/laser_red.png"
+            ]
+        },
+        "camera": {
+            "locked": false
+        },
+        "starfield": {
+            "starNum": 25,
+            "nebulaNum": 1.4
+        },
+        "music": {
+            "song": "song1"
+        },
+        "spawners": {
+            "enemySpawners": [
+                
+            ],
+            "itemSpawners": [
+                
+            ]
+        },
+        "debugXa": true
+    }
+}

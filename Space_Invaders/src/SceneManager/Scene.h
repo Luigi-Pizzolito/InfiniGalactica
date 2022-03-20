@@ -7,6 +7,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include <json.hpp>
+using json = nlohmann::json;
 
 #include "SceneManager/SelectionMenu.h"
 #include "MediaManager/MusicPlayer.h"
@@ -43,12 +45,22 @@ namespace SceneManagement {
 		void update(float delta_time)override;
 		void render()override;
 
-		template <typename T>
-		void registerScene(const std::string& name)
-		{
+		// template <typename T>
+		// void registerScene(const std::string& name)
+		// {
 
-			std::cout << "Scene Manager: Registering Scene " << name << std::endl;
-			m_Scenes.push_back(std::make_pair(name, []() {return new T(); }));
+		// 	std::cout << "Scene Manager: Registering Scene " << name << std::endl;
+		// 	m_Scenes.push_back(std::make_pair(name, []() {return new T(); }));
+
+		// }
+		template <typename T>
+		void registerScenePassJSON(const std::string& json_file)
+		{
+			// std::ifstream ifs(json_file);
+			// json cfg = json::parse(ifs);
+			json cfg2;
+			std::cout << "Scene Manager: Registering Scene by JSON: " << json_file << std::endl;
+			m_Scenes.push_back(std::make_pair(json_file, [](json cfg2) {return new T(cfg2); }));
 
 		}
 		void setScene(const std::string& name);
@@ -69,10 +81,10 @@ namespace SceneManagement {
 		//contains a collection of scenes
 		Scene*& m_CurrentScenePtr;//it will be turned into an alias of an outsider
 		//scene ptr, thanks to this, we can access the methods in the scene
-		std::vector < std::pair<std::string, std::function<Scene*()>>> m_Scenes;
+		std::vector < std::pair<std::string, std::function<Scene*(json cfg)>>> m_Scenes;
 		//we use std::function as a placeholder for the lambda
 		//when we register, we register the name and its lambda
-		std::pair<std::string, std::function<Scene* ()>>* m_sceneElement;
+		std::pair<std::string, std::function<Scene* (json cfg)>>* m_sceneElement;
 		friend void goBackToMainMenu();
 		
 	};

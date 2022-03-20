@@ -1,5 +1,8 @@
 #include "Scene.h"
 #include <iostream>
+#include <json.hpp>
+using json = nlohmann::json;
+#include <fstream>
 namespace SceneManagement {
 
 	//static variables initialization 
@@ -53,7 +56,7 @@ namespace SceneManagement {
 				setScene(std::string("Novel Test"));
 			} else
 			if (selec == "New Game") {
-				setScene(std::string("Level1"));
+				setScene(std::string("level1"));
 			} else
 			if (selec == "Endless Mode") {
 
@@ -136,7 +139,9 @@ namespace SceneManagement {
 					delete m_CurrentScenePtr;
 				}
 
-				m_CurrentScenePtr = scene.second();
+				std::ifstream ifs(std::string("res/Scenes/")+scene.first+std::string(".json"));
+				json cfg = json::parse(ifs);
+				m_CurrentScenePtr = scene.second(cfg);
 				m_sceneElement = &scene;
 
 				if (strcmp(name.c_str(), "Credits") != 0) {
@@ -161,7 +166,9 @@ namespace SceneManagement {
 		//the 1st scene
 		if (m_sceneElement != &m_Scenes.back()) {
 			m_sceneElement++;//move to the next pair
-			m_CurrentScenePtr = m_sceneElement->second();
+			std::ifstream ifs(std::string("res/Scenes/")+m_sceneElement->first+std::string(".json"));
+			json cfg = json::parse(ifs);
+			m_CurrentScenePtr = m_sceneElement->second(cfg);
 
 		}
 		else {
