@@ -13,7 +13,7 @@
         },
         "player" : {
             "health": 100,
-            "speed": 0.5,
+            "speed": 2.5,
             "fric": 100,
             "texture_i": 0,
             "scale": [0.5, 0.5],

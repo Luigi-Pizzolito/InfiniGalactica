@@ -32,6 +32,11 @@ class TextManager {
         bool next();
         void tick();
         void draw();
+
+        float scene_p() {
+            // get the scene progress percentage in order to update the music in the level
+            return ((float)scene_i+1.0f)/(float)scenes_p.size();
+        }
 };
 
 class FSScrollTextManager {

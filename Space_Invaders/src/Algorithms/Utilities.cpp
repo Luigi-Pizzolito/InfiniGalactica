@@ -103,8 +103,8 @@ namespace Debug {
 		if (!ready) {
 			float divs = 100.0f;
 			lines = new sf::VertexArray(sf::LinesStrip,divs*2);
-			for (int i = 0; i <= divs; i+=2) {
-				float p1 = (total_length->x/divs)*100.0f;
+			float p1 = (total_length->x/divs)*100.0f;
+			for (int i = 0; i < 2*divs; i+=2) {
 				(*lines)[i].position   = sf::Vector2f(i*p1,0);
 				(*lines)[i+1].position = sf::Vector2f(i*p1,c_view->getSize().y);
 			}

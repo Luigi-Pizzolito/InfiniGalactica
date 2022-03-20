@@ -157,7 +157,7 @@ void ShooterLevel::update(float delta_time)
 			collector->update();
 		}
 		//check if reached EOL
-		if (world_position.x >= total_length.x-((VectorMath::getViewportLowerRightPos().x-VectorMath::getViewPortTopLeftPos().x)/100.0f)) {
+		if (world_position.x >= total_length.x) {
 			m_finished = true;
 		}
 	}
