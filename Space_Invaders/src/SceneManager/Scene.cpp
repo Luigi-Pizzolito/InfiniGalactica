@@ -6,6 +6,7 @@ using json = nlohmann::json;
 
 #include "Levels/ShooterLevel.h"
 #include "Scenes/Credits.h"
+#include "Scenes/NovelScene.h"
 namespace SceneManagement {
 
 	//static variables initialization 
@@ -56,7 +57,7 @@ namespace SceneManagement {
 				s_window->close();
 			} else
 			if (selec == "Continue") {
-				setScene(std::string("Novel Test"));
+				setScene(std::string("novel1"));
 			} else
 			if (selec == "New Game") {
 				setScene(std::string("level1"));
@@ -135,6 +136,9 @@ namespace SceneManagement {
 		if (cfg["sceneType"] == "shooterLevel") {
 			registerScenePassJSON<ShooterLevel>(json_file);
 		} else
+		if (cfg["sceneType"] == "novelLevel") {
+			registerScenePassJSON<NovelLevel>(json_file);
+		} else
 		if (cfg["sceneType"] == "credits") {
 			registerScenePassJSON<Credits>(json_file);
 		}
@@ -161,7 +165,7 @@ namespace SceneManagement {
 				m_CurrentScenePtr = scene.second(cfg);
 				m_sceneElement = &scene;
 
-				if (strcmp(name.c_str(), "Credits") != 0) {
+				if (strcmp(name.c_str(), "credits") != 0) {
 					// std::cout << "pausing music, not going to credits\n";
 					Scene::s_main_menu->music.pause();
 				}
@@ -206,7 +210,7 @@ namespace SceneManagement {
 			//delete the current scene
 			delete Scene::s_main_menu->m_CurrentScenePtr;
 		}
-		if (Scene::s_main_menu->m_sceneElement->first != std::string("Credits")) {
+		if (Scene::s_main_menu->m_sceneElement->first != std::string("credits")) {
 			// std::cout << "resuming music, came from not credits\n";
 			Scene::s_main_menu->music.play();
 		}

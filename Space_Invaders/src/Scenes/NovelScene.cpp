@@ -1,23 +1,23 @@
-#include "Scenes/BasicNovel.h"
+#include "Scenes/NovelScene.h"
 #include <iostream>
 
 // todo: update music progress based on text panel progress
 
-NovelGame::NovelGame()
+NovelLevel::NovelLevel(json cfg)
 {
 	// Load Script
-	text_panel = new TextManager("res/Novel/Scenes/scene2.json", Scene::s_window, Scene::s_view, &key_space);
+	text_panel = new TextManager(std::string("res/Novel/Scenes/")+std::string(cfg["novelScene"])+std::string(".json"), Scene::s_window, Scene::s_view, &key_space);
 
-	music = new MusicPlayer("song4", true);
+	music = new MusicPlayer(std::string(cfg["music"]), true);
 }
 
-NovelGame::~NovelGame()
+NovelLevel::~NovelLevel()
 {
 	delete text_panel;
 	delete music;
 }
 
-void NovelGame::pollEvents()
+void NovelLevel::pollEvents()
 {
 	while (Scene::s_window->pollEvent(Scene::s_events))
 	{
@@ -41,19 +41,6 @@ void NovelGame::pollEvents()
 				};
 			}
 
-			if (Scene::s_events.key.code == sf::Keyboard::Tab) {
-				music->update(lvl_p);
-				lvl_p+= 0.05f;
-			}
-
-			if (Scene::s_events.key.code == sf::Keyboard::LShift) {
-				std::cout << "playing: " << music->position() << "\n";
-			}
-
-			if (Scene::s_events.key.code == sf::Keyboard::Backspace) {
-				// m_return = true;
-			}
-
 			break;
 		case sf::Event::KeyReleased:
 			if (Scene::s_events.key.code == sf::Keyboard::Space)
@@ -71,10 +58,12 @@ void NovelGame::pollEvents()
 
 
 
-void NovelGame::update(float delta_time)
+void NovelLevel::update(float delta_time)
 {
 	pollEvents();
 	text_panel->tick();
+
+	music->update(text_panel->scene_p());
 
 	if (m_return) {
 		m_return = false;
@@ -82,7 +71,7 @@ void NovelGame::update(float delta_time)
 	}
 }
 
-void NovelGame::render()
+void NovelLevel::render()
 {
 	text_panel->draw();
 }

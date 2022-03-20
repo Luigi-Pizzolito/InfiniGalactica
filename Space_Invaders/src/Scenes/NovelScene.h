@@ -4,8 +4,10 @@
 #include "MediaManager/MusicPlayer.h"
 // #include <vector>
 // #include <string>
+#include <json.hpp>
+using json = nlohmann::json;
 
-class NovelGame :public SceneManagement::Scene {
+class NovelLevel :public SceneManagement::Scene {
 
 private:
 	MusicPlayer* music;
@@ -29,8 +31,8 @@ private:
 
 public:
 	//Constructors and Destructors
-	NovelGame();
-	~NovelGame();
+	NovelLevel(json cfg);
+	~NovelLevel();
 	void pollEvents()override;
 	void update(float delta_time) override;
 	void render()override;
