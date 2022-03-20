@@ -43,7 +43,6 @@ void MusicPlayer::setLoop(int i) {
 }
 
 void MusicPlayer::noLoop() {
-    //todo: prevent segfault when player hasnt loaded duration
     player.setLoopPoints(sf::Music::TimeSpan(sf::seconds(0.0f), player.getDuration()));
     player.setLoop(false);
 }

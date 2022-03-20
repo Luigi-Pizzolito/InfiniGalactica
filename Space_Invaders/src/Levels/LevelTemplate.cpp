@@ -8,11 +8,14 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 	//set basic variables to their default state
 	// Initialize key press states
 	//Initialize the spawners
-	//todo: deifne and load these spawners from json
+	
 	spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies,world_position,total_length));
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Furtive>(world_enemies, world_position, total_length));
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Attacker>(world_enemies, world_position, total_length));
+
 	item_spawners.emplace_back(new MemoryManagement::BaseItemSpawner(world_items));
 	//Initialize collectors
-	collectors.reserve(3);
+	collectors.reserve(4);
 	collectors.emplace_back(new MemoryManagement::Collector<Enemy>(world_enemies));
 	collectors.emplace_back(new MemoryManagement::Collector<PlayerBullet>(player_bullets));
 	collectors.emplace_back(new MemoryManagement::Collector<EnemyBullet>(world_enemy_bullets));
@@ -137,8 +140,13 @@ void Level::spawnEnemyBullet(Enemy* enemy)
 {
 
 	//call the function from the enemy that spawns the bullet
-	world_enemy_bullets.emplace_back(enemy->spawnBullet());	
-	SFX::play(SFXlib::BulletShoot);
+	for (int i = 0; i < enemy->getBulletsCount(); i++) {
+	
+		world_enemy_bullets.emplace_back(enemy->spawnBullet(i));
+		SFX::play(SFXlib::BulletShoot);
+	}
+	
+	
 
 
 }

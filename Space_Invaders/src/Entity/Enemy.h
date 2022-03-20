@@ -16,10 +16,11 @@ protected:
 	uint8_t m_bullet_damage;
 	uint8_t m_bullet_speed;
 	EnemyBullet* bullet;
+	int m_bullets_count ;
 public:
-	Enemy(int health, float speed, const sf::Vector2f& dir);
+	Enemy(int health, float speed, const sf::Vector2f& dir,int bullet_count=1);
 	~Enemy();
-	void move();
+	virtual void move();
 	void rotate(float angle);
 	void setProjectileTexture(sf::Texture& texture, const sf::Vector2f& scalevec);
 	void setPosition(const sf::Vector2f& position);
@@ -32,7 +33,46 @@ public:
 	int getHP();
 
 	//bullet related methods
-	EnemyBullet* spawnBullet();
-	bool canShoot();
+	virtual EnemyBullet* spawnBullet();
+	virtual EnemyBullet* spawnBullet(int bullet_index);
+	virtual bool canShoot();
 	void setBulletParameters(uint8_t bullet_damage, uint8_t bullet_speed);
+	int getBulletsCount() { return m_bullets_count; }
+};
+
+class Furtive :public Enemy {
+protected:
+	sf::Vector2f points[3];
+
+public:
+	Furtive(int health, float speed, const sf::Vector2f& dir);
+	~Furtive();
+	EnemyBullet* spawnBullet()override;
+	EnemyBullet* spawnBullet(int bullet_index)override;
+	void move()override;
+	void setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec)override;
+	
+protected:
+	void setPoints();
+};
+
+class Attacker :public Enemy {
+protected:
+	sf::Vector2f points[2];
+	sf::Texture* m_textures[2];
+	bool m_ready=false;
+	Control::GameTimer bullet_timer;
+	uint8_t current_slot;
+public:
+	Attacker(int health, float speed, const sf::Vector2f& dir,sf::Texture* textures,sf::Vector2f& scalevec);
+	~Attacker();
+
+	EnemyBullet* spawnBullet(int bullet_index)override;
+	bool canShoot()override;
+	void move()override;
+	void setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec)override;
+	
+protected:
+	void setPoints();
+
 };
