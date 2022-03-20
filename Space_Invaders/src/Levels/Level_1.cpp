@@ -3,7 +3,7 @@
 
 Level1::Level1() :Level()
 {
-	total_length.x = 200.0f;
+	total_length.x = 50.0f;
 	//At the start of any level we can set the basic textures, create the player
 	//Prepare the vectors for the enemies and bullets
 	//Loading textures
@@ -22,7 +22,6 @@ Level1::Level1() :Level()
 	//Screen Effect
 	
 	//Set up Timers
-
 	screen_effect.setSize(sf::Vector2f(Scene::s_window->getSize().x, Scene::s_window->getSize().y));
 	screen_effect.setOrigin(screen_effect.getSize().x / 2, screen_effect.getSize().y / 2);
 	screen_effect.setPosition(Scene::s_view->getCenter());
@@ -142,7 +141,7 @@ void Level1::update(float delta_time)
 			collector->update();
 		}
 		//check if reached EOL
-		if (world_position.x >= total_length.x) {
+		if (world_position.x >= total_length.x-((VectorMath::getViewportLowerRightPos().x-VectorMath::getViewPortTopLeftPos().x)/100.0f)) {
 			m_finished = true;
 		}
 	}

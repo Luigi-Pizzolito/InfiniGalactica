@@ -5,7 +5,7 @@
 
 Level2::Level2() :Level()
 {
-	total_length.x = 500.0f;
+	total_length.x = 50.0f;
 	//At the start of any level we can set the basic textures, create the player
 	//Prepare the vectors for the enemies and bullets
 	//Loading textures
@@ -140,7 +140,7 @@ void Level2::update(float delta_time)
 		for (auto& collector : collectors) {
 			collector->update();
 		}
-		if (world_position.x >= total_length.x) {
+		if (world_position.x >= total_length.x-((VectorMath::getViewportLowerRightPos().x-VectorMath::getViewPortTopLeftPos().x)/100.0f)) {
 			m_finished = true;
 		}
 	}
@@ -180,6 +180,9 @@ void Level2::render()
 	Scene::s_window->draw(screen_effect);
 	// displays objects on the screen
 	hud->draw();
+
+	//Debug
+	xa->draw();
 }
 
 

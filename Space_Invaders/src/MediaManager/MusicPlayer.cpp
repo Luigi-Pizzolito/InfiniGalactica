@@ -73,7 +73,10 @@ void MusicPlayer::update(float levelProgress) {
             float threshold = 1.0f/(float)cfg["loop_points"].size();  // calculate percentage thresholds where the loop should be changed to the next one
             int loop_i = std::floor(levelProgress/threshold);  // calculate what the current loop should be
             if (loop_i > cfg["loop_points"].size()-1) {loop_i = cfg["loop_points"].size()-1;} // safe guard to not access past array index
-            setLoop(loop_i);
+            if (cfg["loop_points"].size() > 1 && player.getLoopPoints().offset != sf::Music::TimeSpan(sf::seconds(cfg["loop_points"][loop_i]["off"]), sf::seconds(cfg["loop_points"][loop_i]["len"])).offset) {
+                std::cout << "MusicPlayer: set new loop points to: [" << (float)cfg["loop_points"][loop_i]["off"] << ", " << (float)cfg["loop_points"][loop_i]["off"]+(float)cfg["loop_points"][loop_i]["len"] << "]\n";
+                setLoop(loop_i);
+            }
             // std::cout << "current loop index: " << loop_i << "\n\n";
         }
     } else {
