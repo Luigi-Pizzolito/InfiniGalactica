@@ -36,7 +36,7 @@ void Enemy::setBulletParameters(uint8_t bullet_damage, uint8_t bullet_speed)
 void Enemy::setPosition(const sf::Vector2f& position)
 {
 	//m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y - m_sprite.getTextureRect().height * m_sprite.getScale().y));
-
+	//todo: also randomise x postion from x.position to x.position + 0.5 to 1.0 * screen width
 	m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y- getSize().y)+getSize().y/2.0f);
 
 }

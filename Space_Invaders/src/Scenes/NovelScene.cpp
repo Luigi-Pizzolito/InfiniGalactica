@@ -1,7 +1,6 @@
 #include "Scenes/NovelScene.h"
 #include <iostream>
 
-// todo: update music progress based on text panel progress
 
 NovelLevel::NovelLevel(json cfg)
 {

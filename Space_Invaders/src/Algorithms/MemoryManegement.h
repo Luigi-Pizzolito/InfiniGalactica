@@ -295,6 +295,8 @@ namespace MemoryManagement {
 		void spawn()override {
 			float percent_of_progress = (m_world_pos.x / m_total_length.x) * 100.0f;
 
+			//todo: change this to take array of 2 floats [0.0f,0.0f] as the active spawner range
+
 			if (percent_of_progress < 20.0f) {
 
 				buffer_alias.emplace_back(new Attacker(t1_health, t1_speed, VectorMath::Vdirection::LEFT,&enemy_textures[0],t1_enemy_scale));

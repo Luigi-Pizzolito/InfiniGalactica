@@ -41,7 +41,7 @@ namespace SceneManagement {
 		
 		title.setOrigin(sf::Vector2f((-Scene::s_view->getSize().x/2)+(title.getGlobalBounds().width/2), -Scene::s_view->getSize().y/5));
 		title.setFillColor(sf::Color::White);
-
+		//todo: use another while loop to get vertical spacing bounds for selection on smaller screens
 		selection.addOptions(std::string("Continue"));
 		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
 	}

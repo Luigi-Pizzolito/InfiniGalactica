@@ -2,8 +2,6 @@
 #include <cmath>
 // #include <iostream>
 
-// todo: add locked camera mode for boss battle mode
-
 CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed, bool locked):window(window),view(view),player(player),c_speed(c_speed),locked(locked) {
     const sf::Sprite* sprite = &player->getSprite();
     // get the player sprite position
