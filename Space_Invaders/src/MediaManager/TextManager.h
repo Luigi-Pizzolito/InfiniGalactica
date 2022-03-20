@@ -37,7 +37,6 @@ class TextManager {
 class FSScrollTextManager {
     private:
         // Constructor vars storage
-        const std::string file;
         sf::RenderWindow* m_window;
         sf::View* m_view;
         bool* s_key;
@@ -55,11 +54,11 @@ class FSScrollTextManager {
         const float hold_s_boost = 4.0f;
 
         // Internal utility methods
-        void loadScene();
+        void loadScene(json obj);
         sf::String addLineWrap(sf::String string);
 
     public:
-        FSScrollTextManager(std::string scene, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key);
+        FSScrollTextManager(json obj, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key);
         ~FSScrollTextManager();
 
         bool tick();

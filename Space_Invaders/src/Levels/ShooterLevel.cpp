@@ -1,9 +1,12 @@
 #include "ShooterLevel.h"
 #include "MediaManager/SFXPlayer.h"
+#include <iostream>
 
-ShooterLevel::ShooterLevel(json cfg) :Level()
+ShooterLevel::ShooterLevel(json cfg) :Level(),cfg(cfg)
 {
-	total_length.x = 50.0f;
+    auto lvlCfg = cfg["levelOptions"];
+
+	total_length.x = (float)lvlCfg["totalLength"];
 	//At the start of any level we can set the basic textures, create the player
 	//Prepare the vectors for the enemies and bullets
 	//Loading textures
@@ -12,22 +15,29 @@ ShooterLevel::ShooterLevel(json cfg) :Level()
 	//Load 
 	loadTextures();
 	//Creating  the player
-	player = new Player(100, 0.5f, 100.0f);
+	player = new Player((int)lvlCfg["player"]["health"], (float)lvlCfg["player"]["speed"], (float)lvlCfg["player"]["fric"]);
+    int* a = NULL;
+    upgrade_points_n = (int)lvlCfg["player"]["upgradePoints"].size();
+    upgrade_points = new int[upgrade_points_n];
+    for (int i=0; i<upgrade_points_n; i++) {
+        upgrade_points[i] = (int)lvlCfg["player"]["upgradePoints"][i];
+    }
 	//Set player Texture
-	player->setTexture(player_textures[0], sf::Vector2f(0.5f,0.5f));
+	player->setTexture(player_textures[(int)lvlCfg["player"]["texture_i"]], sf::Vector2f((float)lvlCfg["player"]["scale"][0],(float)lvlCfg["player"]["scale"][1]));
 	//create the camera
-	camera = new CameraFollowHorzScroll(Scene::s_window,Scene::s_view,player,sf::Vector2f(100.0f,0.0f));
+	camera = new CameraFollowHorzScroll(Scene::s_window,Scene::s_view,player,sf::Vector2f(100.0f,0.0f), (bool)lvlCfg["camera"]["locked"]);
 	//create the starfield
-	starfield = new StarField(Scene::s_window,Scene::s_view,total_length.x,25,1.4f);
+	starfield = new StarField(Scene::s_window,Scene::s_view,total_length.x,(int)lvlCfg["starfield"]["starNum"],(float)lvlCfg["starfield"]["nebulaNum"]);
 	
 	//Set up Timers
 
 	//Music
-	music = new MusicPlayer("song1", true);
+	music = new MusicPlayer(std::string(lvlCfg["music"]["song"]), true);
 
 	//HUD
 	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, world_position,total_length);
 
+    debug_xa = (bool)lvlCfg["debugXa"];
 	// std::cout << "Created Level 1\n";
 }
 
@@ -40,6 +50,9 @@ ShooterLevel::~ShooterLevel()
 	delete camera;
 	delete hud;
 	delete music;
+
+    delete [] upgrade_points;
+    upgrade_points = NULL;
 }
 
 //Level Logic
@@ -50,7 +63,7 @@ void ShooterLevel::update(float delta_time)
 		// Update player score upgrades
 		if (!player_max) {
 			int tex_i =0;
-			for (int i = 0; i<(sizeof(upgrade_points)/sizeof(upgrade_points[0])); i++) {
+			for (int i = 0; i<upgrade_points_n; i++) {
 				if (player_score > upgrade_points[i]) {
 					tex_i=i+1;
 					// std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
@@ -59,7 +72,7 @@ void ShooterLevel::update(float delta_time)
 			// std::cout << "seeting texture to: " << tex_i << "\n";
 			player->upgrade(tex_i);
 			player->setTexture(player_textures[tex_i]);
-			if (player_score > upgrade_points[(sizeof(upgrade_points)/sizeof(upgrade_points[0]))-1]) {
+			if (player_score > upgrade_points[upgrade_points_n-1]) {
 				player_max = true;
 			}
 		}
@@ -135,6 +148,10 @@ void ShooterLevel::update(float delta_time)
 		// scroll camera
 		camera->follow();
 
+        //Update music loops with world position
+        float levelProgress =world_position.x/total_length.x;
+        music->update(levelProgress);
+
 		// Collectors
 		for (auto& collector : collectors) {
 			collector->update();
@@ -149,9 +166,6 @@ void ShooterLevel::update(float delta_time)
 		SceneManagement::goBackToMainMenu();
 	}
 
-	//Update music loops with world position
-	float levelProgress =world_position.x/total_length.x;
-	music->update(levelProgress);
 }
 
 //Render Level Graphics
@@ -178,41 +192,42 @@ void ShooterLevel::render()
 	// displays objects on the screen
 	hud->draw();
 	//Debug
-	xa->draw();
+	if (debug_xa) {xa->draw();};
 }
 
 
 void ShooterLevel::prepareContainers()
 {
+    auto pcCfg = cfg["levelOptions"]["prepareContainers"];
+
 	//Reserving Textures
 	//Player
-	player_textures.reserve(3);
-	projectile_textures.reserve(3);
+	player_textures.reserve((int)pcCfg["textures"]["player"]);
+	projectile_textures.reserve((int)pcCfg["textures"]["projectile"]);
 
 
 	//Reserving Entities and Projectiles
-	player_bullets.reserve(80);
-	world_enemies.reserve(50);
-	world_enemy_bullets.reserve(80);
-	
-
-
+	player_bullets.reserve(pcCfg["bullets"]);
+	world_enemies.reserve(pcCfg["enemies"]);
+	world_enemy_bullets.reserve(pcCfg["enemyBullets"]);
 }
 
 void ShooterLevel::loadTextures()
 {
+    auto ltCfg = cfg["levelOptions"]["loadTextures"];
+
 	//Player Textures
-	player_textures.emplace_back();
-	player_textures.back().loadFromFile("res/Sprites/player/player_base.png");
-	player_textures.emplace_back();
-	player_textures.back().loadFromFile("res/Sprites/player/player_upgrade_1.png");
-	player_textures.emplace_back();
-	player_textures.back().loadFromFile("res/Sprites/player/player_upgrade_2.png");
+    for (auto& tex_p : ltCfg["playerTextures"]) {
+        player_textures.emplace_back();
+        player_textures.back().loadFromFile(std::string(tex_p));
+    }
 
 	//Projectile Textures
 	//Player
-	projectile_textures.emplace_back();
-	projectile_textures.back().loadFromFile("res/Sprites/projectiles/laser_red.png");
+    for (auto& tex_p : ltCfg["projectileTextures"]) {
+        projectile_textures.emplace_back();
+        projectile_textures.back().loadFromFile(std::string(tex_p));
+    }
 }
 
 

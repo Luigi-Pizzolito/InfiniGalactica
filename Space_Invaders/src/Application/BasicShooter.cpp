@@ -1,11 +1,11 @@
 #include "BasicShooter.h"
 #include "Algorithms/MathUtils.h"
-#include "Levels/Level_1.h"
-#include "Levels/ShooterLevel.h"
 #include "Scenes/BasicNovel.h"
 #include "Scenes/Credits.h"
 #include "MediaManager/SFXPlayer.h"
 #include <iostream>
+
+#include "Levels/ShooterLevel.h"
 
 ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_name)
 	// Initializer List
@@ -24,9 +24,10 @@ ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_
 
 	//Register Levels using the menu/SceneManager
 	// m_menu->registerScene<NovelGame>(std::string("Novel Test"));
-	// m_menu->registerScene<Credits>(std::string("Credits"));
+	m_menu->registerScene(std::string("credits"));
 	// m_menu->registerScene<Level1>(std::string("Level1"));
-	m_menu->registerScenePassJSON<ShooterLevel>(std::string("level1"));
+	// m_menu->registerScenePassJSON<ShooterLevel>(std::string("level1"));
+	m_menu->registerScene(std::string("level1"));
 	//Load SFX library
 	SFX::loadLib();
 }

@@ -1,0 +1,100 @@
+"spawners": {
+    "enemySpawners": [
+        {
+            "type": "enemy",
+            "timerDuration": f,
+            "range": [f,f],
+            "enemyTextures": [],
+            "bulletTextures": [],
+            "enemy1": {
+                "texture": tex_i,
+                "scale": [],
+                "speed": int,
+                "health": int,
+                "bulletTexture": tex_i,
+                "bullet": {
+                    "damage": uint8t,
+                    "speed": uint8t,
+                    "texture": tex_i
+                }
+            },
+            "enemy2": {
+
+            }
+        },
+        {
+            "type": "attacker",
+            "timerDuration": f,
+            "range": [f,f],
+            "enemyTextures": [],
+            "bulletTextures": [],
+            "enemy1": {
+                "texture": tex_i,
+                "scale": [],
+                "speed": int,
+                "health": int,
+                "bulletTexture": tex_i,
+                "bullet": {
+                    "damage": uint8t,
+                    "speed": uint8t,
+                    "texture": tex_i
+                }
+            },
+            "enemy2": {
+
+            }
+        },
+        {
+            "type": "furtive",
+            "timerDuration": f,
+            "range": [f,f],
+            "enemyTextures": [],
+            "bulletTextures": [],
+            "enemy1": {
+                "texture": tex_i,
+                "scale": [],
+                "speed": int,
+                "health": int,
+                "bulletTexture": tex_i,
+                "bullet": {
+                    "damage": uint8t,
+                    "speed": uint8t,
+                    "texture": tex_i
+                }
+            },
+            "enemy2": {
+
+            }
+        },
+    ],
+    "itemSpawners": [
+        {
+            "scale": [f,f],
+            "textures": [],
+            "healthPackage": {
+                "timerDuration": f,
+                "range": [f,f],
+                "texture": tex_i,
+                "boost": 25.0f
+            },
+            "firerateBooster": {
+                "timerDuration": f,
+                "range": [f,f],
+                "texture": tex_i,
+                "boost": 1.1f
+            },
+            "damageBooster": {
+                "timerDuration": f,
+                "range": [f,f],
+                "texture": tex_i,
+                "boost": 10f
+            },
+            "bulletUpgrade": {
+                "timerDuration": f,
+                "range": [f,f],
+                "texture": tex_i,
+                "bulletType": "string"
+            }
+        }
+    ],
+}

@@ -53,16 +53,9 @@ namespace SceneManagement {
 		// 	m_Scenes.push_back(std::make_pair(name, []() {return new T(); }));
 
 		// }
-		template <typename T>
-		void registerScenePassJSON(const std::string& json_file)
-		{
-			// std::ifstream ifs(json_file);
-			// json cfg = json::parse(ifs);
-			json cfg2;
-			std::cout << "Scene Manager: Registering Scene by JSON: " << json_file << std::endl;
-			m_Scenes.push_back(std::make_pair(json_file, [](json cfg2) {return new T(cfg2); }));
+		
+		void registerScene(const std::string& json_file);
 
-		}
 		void setScene(const std::string& name);
 		void nextScene();
 
@@ -86,6 +79,15 @@ namespace SceneManagement {
 		//when we register, we register the name and its lambda
 		std::pair<std::string, std::function<Scene* (json cfg)>>* m_sceneElement;
 		friend void goBackToMainMenu();
+
+		template <typename T>
+		void registerScenePassJSON(const std::string& json_file)
+		{
+			json cfg2;
+			std::cout << "Scene Manager: Registering Scene by JSON: " << json_file << std::endl;
+			m_Scenes.push_back(std::make_pair(json_file, [](json cfg2) {return new T(cfg2); }));
+
+		}
 		
 	};
 	void goBackToMainMenu();

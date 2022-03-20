@@ -1,9 +1,10 @@
 #include "Scenes/Credits.h"
+
 bool back = false;
 
-Credits::Credits() {
+Credits::Credits(json cfg) {
     // Load Script
-    fs_text = new FSScrollTextManager("res/credits.json", Scene::s_window, Scene::s_view, &key_space);
+    fs_text = new FSScrollTextManager(cfg, Scene::s_window, Scene::s_view, &key_space);
 
 	// Music
     // music = new MusicPlayer("song3", true);

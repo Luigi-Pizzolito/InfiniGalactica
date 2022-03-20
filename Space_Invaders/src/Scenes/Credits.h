@@ -4,6 +4,9 @@
 #include "Algorithms/StarField.h"
 #include "MediaManager/MusicPlayer.h"
 
+#include <json.hpp>
+using json = nlohmann::json;
+
 class Credits: public SceneManagement::Scene {
     private:
 
@@ -20,7 +23,7 @@ class Credits: public SceneManagement::Scene {
         FSScrollTextManager* fs_text;
 
     public:
-        Credits();
+        Credits(json cfg);
         ~Credits();
 
         void pollEvents()override;

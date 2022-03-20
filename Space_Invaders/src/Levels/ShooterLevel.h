@@ -14,6 +14,11 @@ private:
 	void prepareContainers()override;
 	void loadTextures()override;
 
-	int upgrade_points[2] = {40, 50};
+	json cfg;
+
+	int* upgrade_points = NULL;
+	int upgrade_points_n;
+
+	bool debug_xa = false;
 
 };

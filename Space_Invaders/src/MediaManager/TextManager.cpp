@@ -99,7 +99,7 @@ void TextManager::draw()
 
 
 
-FSScrollTextManager::FSScrollTextManager(std::string scene, sf::RenderWindow *m_window, sf::View *m_view, bool *s_key) : file(scene), m_window(m_window), m_view(m_view), s_key(s_key)
+FSScrollTextManager::FSScrollTextManager(json obj, sf::RenderWindow *m_window, sf::View *m_view, bool *s_key) : m_window(m_window), m_view(m_view), s_key(s_key)
 {
     // Load and set font
     font.loadFromFile("res/Novel/LanaPixel.ttf");
@@ -109,7 +109,7 @@ FSScrollTextManager::FSScrollTextManager(std::string scene, sf::RenderWindow *m_
     fs_text.setLineSpacing(line_spacing);
 
     // Load current scene from JSON files
-    loadScene();
+    loadScene(obj);
 
     // Set initial position
     // t_pos = sf::Vector2f(-vert_margin*1.3f,-horz_margin);
@@ -120,12 +120,12 @@ FSScrollTextManager::FSScrollTextManager(std::string scene, sf::RenderWindow *m_
 FSScrollTextManager::~FSScrollTextManager() {}
 
 
-void FSScrollTextManager::loadScene() {
+void FSScrollTextManager::loadScene(json obj) {
     // Load and parse JSON file
-    std::ifstream ifs(file);
-    json j = json::parse(ifs);
+    // std::ifstream ifs(file);
+    // json j = json::parse(ifs);
     // String format conversion
-    std::string str(j["text"]);
+    std::string str(obj["text"]);
     sf::String sfTmp = sf::String::fromUtf8(str.begin(), str.end());
     // Set text, adding line wrap
     fs_text.setString(addLineWrap(sf::String(sfTmp)));

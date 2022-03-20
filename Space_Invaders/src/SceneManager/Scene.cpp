@@ -3,6 +3,9 @@
 #include <json.hpp>
 using json = nlohmann::json;
 #include <fstream>
+
+#include "Levels/ShooterLevel.h"
+#include "Scenes/Credits.h"
 namespace SceneManagement {
 
 	//static variables initialization 
@@ -65,7 +68,7 @@ namespace SceneManagement {
 
 			} else
 			if (selec == "Credits") {
-				setScene(std::string("Credits"));
+				setScene(std::string("credits"));
 			}
 
 
@@ -124,6 +127,20 @@ namespace SceneManagement {
 		Scene::s_window->draw(title);
 	}
 
+
+	void SceneMenu::registerScene(const std::string& json_file) {
+		//wrapper for loading scene of different base C++ types based on sceneType json key
+		std::ifstream ifs(std::string("res/Scenes/")+json_file+std::string(".json"));
+		json cfg = json::parse(ifs);
+		if (cfg["sceneType"] == "shooterLevel") {
+			registerScenePassJSON<ShooterLevel>(json_file);
+		} else
+		if (cfg["sceneType"] == "credits") {
+			registerScenePassJSON<Credits>(json_file);
+		}
+	}
+
+	
 
 	void SceneMenu::setScene(const std::string& name)
 	{
