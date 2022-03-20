@@ -8,7 +8,7 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 	//set basic variables to their default state
 	// Initialize key press states
 	//Initialize the spawners
-	
+	//todo: deifne and load these spawners from json
 	spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies,world_position,total_length));
 	item_spawners.emplace_back(new MemoryManagement::BaseItemSpawner(world_items));
 	//Initialize collectors
