@@ -16,15 +16,29 @@ void Entity::move(DIRECTIONS dir)
 
 
 }
-void Entity::setTexture(const sf::Texture& texture)
+void Entity::setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec)
 {
-	//This function must bind the Entity with an external texture
+	//set the texture
+	m_sprite.setTexture(texture);
+	//recenter
+	m_sprite.setOrigin(getSize() / 2.0f);
+	//set scale
+	m_sprite.setScale(scalevec);
+	 
+
 }
 const sf::Vector2f Entity::getSize()const
 {
 	return sf::Vector2f(m_sprite.getTextureRect().width * m_sprite.getScale().x, m_sprite.getTextureRect().height * m_sprite.getScale().y);
 }
-const sf::Vector2f& Entity::getTopLeftPos()const 
+
+
+const sf::Vector2f Entity::getTopLeftPos()const
+{
+	return(getCenterPos() - getSize()/2.0f);
+}
+
+const sf::Vector2f& Entity::getCenterPos() const
 {
 	return m_sprite.getPosition();
 }

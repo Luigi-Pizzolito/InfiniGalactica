@@ -49,18 +49,14 @@ float VectorMath::getAngleinRadians(const sf::Vector2f& vectorfromOrigin)
 {
 	return degreeToRadians(getAngleinDegrees(vectorfromOrigin));
 }
-sf::Vector2f VectorMath::getAABBMidFront(const sf::Vector2f& topleftpos, const sf::Vector2f& size)
+sf::Vector2f VectorMath::getAABBMidFront(const sf::Vector2f& center, const sf::Vector2f& size)
 {
-	return (sf::Vector2f(topleftpos.x + size.x, topleftpos.y + size.y/2.0f));
+	return (center+sf::Vector2f(size.x/2.0f,0));
 
 }
-sf::Vector2f VectorMath::getAABBMidBack(const sf::Vector2f& topleftpos, const sf::Vector2f& size)
+sf::Vector2f VectorMath::getAABBMidBack(const sf::Vector2f& center, const sf::Vector2f& size)
 {
-	return (sf::Vector2f(topleftpos.x , topleftpos.y + size.y / 2.0f));
-}
-sf::Vector2f VectorMath::getAABBCenter(const sf::Vector2f& topleftpos, const sf::Vector2f& size)
-{
-	return (sf::Vector2f(topleftpos.x + size.x/2.0f, topleftpos.y + size.y / 2.0f));
+	return (center - sf::Vector2f(size.x / 2.0f, 0));
 }
 
 sf::Vector2f VectorMath::getViewPortTopLeftPos()

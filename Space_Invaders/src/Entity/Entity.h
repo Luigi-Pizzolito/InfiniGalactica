@@ -17,8 +17,9 @@ public:
 	virtual ~Entity();
 	//this is called every single frame
 	virtual void move(DIRECTIONS dir);
-	virtual void setTexture(const sf::Texture& texture);
+	virtual void setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec);
 	const sf::Vector2f getSize()const;
-	const sf::Vector2f& getTopLeftPos()const;
+	const sf::Vector2f getTopLeftPos()const;
+	const sf::Vector2f& getCenterPos()const;
 };
 

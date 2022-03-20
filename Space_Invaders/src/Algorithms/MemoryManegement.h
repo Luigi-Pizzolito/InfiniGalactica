@@ -3,15 +3,20 @@
 #include "Algorithms/Utilities.h"
 #include "Algorithms/MathUtils.h"
 #include "SceneManager/Scene.h"
+#include "GameItems/GameItem.h"
 //Forward declaration
 class Enemy;
-
+class GameItem;
 namespace MemoryManagement {
 	class BaseEnemySpawner {
 	protected:
 		std::vector<Enemy*>& buffer_alias;
+		sf::Vector2f& m_world_pos;
+		sf::Vector2f& m_total_length;
 	public: 
-		BaseEnemySpawner(std::vector<Enemy*>& enemy_buffer) :buffer_alias(enemy_buffer) {
+		BaseEnemySpawner(std::vector<Enemy*>& enemy_buffer,sf::Vector2f& world_pos,sf::Vector2f& total_length) :
+			buffer_alias(enemy_buffer),m_world_pos(world_pos),m_total_length(total_length)
+		{
 	
 		}
 		virtual ~BaseEnemySpawner(){}
@@ -23,36 +28,50 @@ namespace MemoryManagement {
 	class EnemySpawner:public BaseEnemySpawner {
 		
 	public:
-		//prototype of the enemy later move this to their respective classes
-		//Type-1 small
-		sf::Texture enemy_texture1;
-		sf::Texture projectile_texture1;
+		//own members
+		//Remember to set the duration of the timer
+		Control::GameTimer timer;
+		float timer_duration = 1.0f;
+		//Type-1 enemy
+		sf::Texture t1_enemy_texture;
+		sf::Vector2f t1_enemy_scale;
 		uint8_t t1_speed = 10;
 		uint16_t t1_health = 20;
-		//Type-2 big
-		sf::Texture enemy_texture2;
-		sf::Texture projectile_texture2;
+		sf::Texture t1_bullet_texture;
+		sf::Vector2f t1_bullet_scale;
+		uint8_t t1_bullet_damage = 10;
+		uint8_t t1_bullet_speed = 15;
+		//Type-2 enemy
+		sf::Texture t2_enemy_texture;
+		sf::Vector2f t2_enemy_scale;
 		uint8_t t2_speed = 5;
 		uint16_t t2_health = 30;
-		float timer_duration = 1.0f;
-		//Control- Remember to set the duration of the timer
-		//Todo
-		//Add a bullet type, so it can know what kind of bullet it needs to spawn
-		//or specify the bullet type withing a function for that enemy class
-		Control::GameTimer timer;
-		EnemySpawner(std::vector<Enemy*>& enemy_buffer):BaseEnemySpawner(enemy_buffer){
+		sf::Texture t2_bullet_texture;
+		sf::Vector2f t2_bullet_scale;
+		uint8_t t2_bullet_damage = 20;
+		uint8_t t2_bullet_speed = 15;
+		EnemySpawner(std::vector<Enemy*>& enemy_buffer, sf::Vector2f& world_pos, sf::Vector2f& total_length) :BaseEnemySpawner(enemy_buffer,world_pos,total_length) {
 			timer.setDuration(timer_duration);
-			std::string path_texture_1("res/Sprites/enemy1.png");
-			std::string path_texture_2("res/Sprites/enemy2.png");
-			std::string path_projectile_texture1("res/Sprites/bullet.png");
-			std::string path_projectile_texture2("res/Sprites/bullet2.png");
-			///json
+			//default values
+			//Type-1
+			std::string path_texture_1("res/Sprites/enemies/recon.png");
+			t1_enemy_scale = { 0.5f,0.5f };
+			std::string path_projectile_texture1("res/Sprites/projectiles/laser_red.png");
+			t1_bullet_scale = { 0.4f,0.3f };
+			//Type
+			std::string path_projectile_texture2("res/Sprites/projectiles/laser_blue.png");
+			t2_enemy_scale = { 0.5f,0.5f };
+			std::string path_texture_2("res/Sprites/enemies/recon_v2.png");
+			t2_bullet_scale = { 0.4f,0.3f };
+			///json data values
+	
 
-			//
-			enemy_texture1.loadFromFile(path_texture_1);
-			enemy_texture2.loadFromFile(path_texture_2);
-			projectile_texture1.loadFromFile(path_projectile_texture1);
-			projectile_texture2.loadFromFile(path_projectile_texture2);
+			//enemy textures
+			t1_enemy_texture.loadFromFile(path_texture_1);
+			t2_enemy_texture.loadFromFile(path_texture_2);
+			//projectile textures
+			t1_bullet_texture.loadFromFile(path_projectile_texture1);
+			t2_bullet_texture.loadFromFile(path_projectile_texture2);
 
 		}
 
@@ -64,30 +83,114 @@ namespace MemoryManagement {
 				
 		}
 		void spawn()override {
-			//health,speed,direction
-			int range = 1 - 0 + 1;
-			int type = rand() % range + 0;
+			float percent_of_progress=(m_world_pos.x/m_total_length.x)*100.0f;
 
-			//Only two types
-			if (type == 0) {
-				buffer_alias.emplace_back(new T(t1_health,t1_speed, VectorMath::Vdirection::LEFT));
-				buffer_alias.back()->setTexture(enemy_texture1);
-				//buffer_alias.back()->setProjectileTexture(enemy_texture1);
-				buffer_alias.back()->setProjectileTexture(projectile_texture1);
-				
+			if (percent_of_progress<20.0f) {
+
+				buffer_alias.emplace_back(new T(t1_health, t1_speed, VectorMath::Vdirection::LEFT));
+				//set the texture
+				buffer_alias.back()->setTexture(t1_enemy_texture, t1_enemy_scale);
+				//set the projectile texture
+				buffer_alias.back()->setProjectileTexture(t1_bullet_texture, t1_bullet_scale);
+				//call set bullet parameters
+				buffer_alias.back()->setBulletParameters(t1_bullet_damage, t1_bullet_speed);
+			}
+			else if (percent_of_progress < 40.0f) {
+				buffer_alias.emplace_back(new T(t2_health, t2_speed, VectorMath::Vdirection::LEFT));
+				buffer_alias.back()->setTexture(t2_enemy_texture, t2_enemy_scale);
+				buffer_alias.back()->setProjectileTexture(t2_bullet_texture, t2_bullet_scale);
+				buffer_alias.back()->setBulletParameters(t2_bullet_damage, t2_bullet_speed);
+
 			}
 			else {
-	
-				buffer_alias.emplace_back(new T(t2_health, t2_speed, VectorMath::Vdirection::LEFT));
-				buffer_alias.back()->setTexture(enemy_texture2);
-				//buffer_alias.back()->setSprite().setScale(0.3, 0.3);
-				buffer_alias.back()->setProjectileTexture(projectile_texture2);
+				int range = 1 - 0 + 1;
+				int type = rand() % range + 0;
 
+				if (type == 0) {
+					//create the enemy
+					buffer_alias.emplace_back(new T(t1_health, t1_speed, VectorMath::Vdirection::LEFT));
+					//set the texture
+					buffer_alias.back()->setTexture(t1_enemy_texture, t1_enemy_scale);
+					//set the projectile texture
+					buffer_alias.back()->setProjectileTexture(t1_bullet_texture, t1_bullet_scale);
+					//call set bullet parameters
+					buffer_alias.back()->setBulletParameters(t1_bullet_damage, t1_bullet_speed);
+				}
+				else {
+
+					buffer_alias.emplace_back(new T(t2_health, t2_speed, VectorMath::Vdirection::LEFT));
+					buffer_alias.back()->setTexture(t2_enemy_texture, t2_enemy_scale);
+					buffer_alias.back()->setProjectileTexture(t2_bullet_texture, t2_bullet_scale);
+					buffer_alias.back()->setBulletParameters(t2_bullet_damage, t2_bullet_speed);
+
+				}
 			}
+
 		
 			buffer_alias.back()->setPosition(sf::Vector2f(VectorMath::getViewportLowerRightPos().x,SceneManagement::Scene::s_view->getSize().y));
 		}
 	};
+	//change this later
+	class BaseItemSpawner{
+	protected:
+		std::vector<GameItem*>& buffer_alias;
+		Control::GameTimer timer;
+		sf::Texture health_package_texture;
+		sf::Texture fire_rate_booster_texture;
+		sf::Texture damage_booster_texture;
+		//only one scale because our current textures have the same size
+		//if we change to different textures, then set different scales
+		sf::Vector2f general_scale = { 1.0f,1.0f };
+	public:
+		BaseItemSpawner(std::vector<GameItem*>& item_buffer) :buffer_alias(item_buffer) {
+			timer.setDuration(10.0f);
+			std::string health_package_path("res/Sprites/items/health_package.png");
+			std::string fire_rate_booster_path("res/Sprites/items/fire_rate_booster.png");
+			std::string damage_booster_path("res/Sprites/items/damage_booster.png");
+			//json 
+
+			health_package_texture.loadFromFile(health_package_path);
+			fire_rate_booster_texture.loadFromFile(fire_rate_booster_path);
+			damage_booster_texture.loadFromFile(damage_booster_path);
+		}
+		//make it virtual later
+		~BaseItemSpawner() {}
+		void update() {
+			timer.start();
+			if (timer.timeOut()) {
+				spawn();
+			}
+		}
+		void spawn() {
+			//change laters
+			static int x = 0;
+			if (x == 0) {
+				buffer_alias.emplace_back(new HealthPackage(25.0f));
+				buffer_alias.back()->setTexture(health_package_texture,general_scale);
+			}
+			else if (x == 1) {
+				buffer_alias.emplace_back(new FireRateBooster(20.0f));
+				buffer_alias.back()->setTexture(fire_rate_booster_texture,general_scale);
+			}
+			else {
+				buffer_alias.emplace_back(new DamageBooster(10.0f));
+				buffer_alias.back()->setTexture(damage_booster_texture,general_scale);
+				
+			}
+			x++;
+			if (x > 2) {
+				x = 0;
+			}
+			buffer_alias.back()->setPosition(sf::Vector2f(VectorMath::getViewportLowerRightPos().x, SceneManagement::Scene::s_view->getSize().y));
+			
+		}
+
+	};
+
+
+
+
+
 	class BasicCollector {
 	public:
 		BasicCollector(){}

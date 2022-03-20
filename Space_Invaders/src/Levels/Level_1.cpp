@@ -3,6 +3,7 @@
 
 Level1::Level1() :Level()
 {
+	total_length.x = 200.0f;
 	//At the start of any level we can set the basic textures, create the player
 	//Prepare the vectors for the enemies and bullets
 	//Loading textures
@@ -13,7 +14,7 @@ Level1::Level1() :Level()
 	//Creating  the player
 	player = new Player(100, 0.5f, 100.0f);
 	//Set player Texture
-	player->setTexture(player_textures[0]);
+	player->setTexture(player_textures[0], sf::Vector2f(0.5f,0.5f));
 	//create the camera
 	camera = new CameraFollowHorzScroll(Scene::s_window,Scene::s_view,player,sf::Vector2f(100.0f,0.0f));
 	//create the starfield
@@ -32,8 +33,7 @@ Level1::Level1() :Level()
 	music = new MusicPlayer("song1", true);
 
 	//HUD
-	float level_p = 0.68f;
-	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, &level_p);
+	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, world_position,total_length);
 
 	// std::cout << "Created Level 1\n";
 }
@@ -54,23 +54,23 @@ void Level1::update(float delta_time)
 {
 	pollEvents();
 	if (player->getHP() > 0) {
-		if (player_score > 50 && !player_max) {
-			player->setTexture(player_textures[1]);
+		if (player_score > 40 && !player_max) {
+			player->setTexture(player_textures[1], sf::Vector2f(0.5f, 0.5f));
 			player_max = true;
+			player->upgrade();
 		}
-		else if (player_score > 100) {
-			//we finished the level
-			m_finished = true;
-		}
+		
 		// Update Player physics
 		player->updatePhysics();
-
+		updateWorldPosition();
 
 		// Update spawners, enemies and bullets
 		for (auto& spawner : spawners) {
 			spawner->update();
 		}
-
+		for (auto& itemspawner : item_spawners) {
+			itemspawner->update();
+		}
 		//Entities and projectiles actions
 		for (auto& playerbullet : player_bullets) {
 
@@ -112,6 +112,13 @@ void Level1::update(float delta_time)
 			}
 
 			return is_dead; }), world_enemies.end());
+		//items
+		world_items.erase(remove_if(world_items.begin(), world_items.end(), [&](GameItem* item_) {
+			bool collided=player->collidesWith(item_);
+			if (collided) {
+				item_->applyEffect(player);
+			}
+			return collided; }),world_items.end());
 		//Player
 		world_enemy_bullets.erase(std::remove_if(world_enemy_bullets.begin(), world_enemy_bullets.end(), [&](EnemyBullet* enemy_bullet) {
 			bool collided = player->collidesWith(enemy_bullet);
@@ -133,6 +140,10 @@ void Level1::update(float delta_time)
 		// Collectors
 		for (auto& collector : collectors) {
 			collector->update();
+		}
+		//check if reached EOL
+		if (world_position.x >= total_length.x) {
+			m_finished = true;
 		}
 	}
 	else {
@@ -157,6 +168,9 @@ void Level1::render()
 	for (auto& playerbullet : player_bullets) {
 		Scene::s_window->draw(playerbullet->getSprite());
 	}
+	for (auto& item_ : world_items) {
+		Scene::s_window->draw(item_->getSprite());
+	}
 	for (auto& enemybullet : world_enemy_bullets) {
 		Scene::s_window->draw(enemybullet->getSprite());
 	}
@@ -175,7 +189,7 @@ void Level1::prepareContainers()
 	//Player
 	player_textures.reserve(3);
 	projectile_textures.reserve(3);
-	enemy_projectile_texture.reserve(2);
+
 
 	//Reserving Entities and Projectiles
 	player_bullets.reserve(80);
@@ -190,19 +204,16 @@ void Level1::loadTextures()
 {
 	//Player Textures
 	player_textures.emplace_back();
-	player_textures.back().loadFromFile("res/Sprites/player1.png");
+	player_textures.back().loadFromFile("res/Sprites/player/player_base.png");
 	player_textures.emplace_back();
-	player_textures.back().loadFromFile("res/Sprites/player2.png");
+	player_textures.back().loadFromFile("res/Sprites/player/player_upgrade_1.png");
 
 	//Projectile Textures
 	//Player
 	projectile_textures.emplace_back();
-	projectile_textures.back().loadFromFile("res/Sprites/bullet.png");
-	//Enemy
-	enemy_projectile_texture.emplace_back();
-	enemy_projectile_texture.back().loadFromFile("res/Sprites/bullet.png");
+	projectile_textures.back().loadFromFile("res/Sprites/projectiles/laser_red.png");
 	//Screen Effect
-	broken_screen_texture.loadFromFile("res/Sprites/brokenscreen.png");
+	broken_screen_texture.loadFromFile("res/Sprites/effects/brokenscreen.png");
 }
 
 

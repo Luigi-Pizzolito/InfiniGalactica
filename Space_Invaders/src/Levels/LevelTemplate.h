@@ -13,19 +13,20 @@
 #include "Algorithms/Utilities.h"
 #include "Algorithms/MathUtils.h"
 #include "Algorithms/MemoryManegement.h"
-
+#include "GameItems/GameItem.h"
 class Level :public SceneManagement::Scene {
 protected:
 	//variables
 	size_t player_score;
 	size_t enemy_death_count;
 	bool player_max;
+	sf::Vector2f world_position;
+	sf::Vector2f total_length;
 	//Textures,since we aren't sure how many types of enemies we need per level,
 	//it is more convenient to use a vector
 	std::vector<sf::Texture> player_textures;
 
 	std::vector<sf::Texture> projectile_textures;
-	std::vector<sf::Texture> enemy_projectile_texture;
 
 	//Entities
 	Player* player;
@@ -34,9 +35,12 @@ protected:
 	//In the future subdivide this into enemy type1 type2
 	std::vector<Enemy*> world_enemies;
 	std::vector<MemoryManagement::BaseEnemySpawner*> spawners;
+	std::vector<MemoryManagement::BaseItemSpawner* > item_spawners;
 	//Projectiles
 	std::vector<PlayerBullet*> player_bullets;
 	std::vector<EnemyBullet*> world_enemy_bullets;
+	//Items
+	std::vector<GameItem*>world_items;
 	//Collectors
 	std::vector<MemoryManagement::BasicCollector*> collectors;
 
@@ -78,6 +82,7 @@ protected:
 	void switchSlot();
 	void spawnPlayerBullet();
 	void spawnEnemyBullet(Enemy* enemy);
+	void updateWorldPosition();
 
 public:
 	Level();

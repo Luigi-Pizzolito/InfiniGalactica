@@ -21,20 +21,23 @@ void Enemy::rotate(float angle)
 	m_sprite.setRotation(angle);
 
 }
-void Enemy::setTexture(const sf::Texture& texture)
-{
-	m_sprite.setScale(0.4, 0.4f);
-	m_sprite.setTexture(texture);
-	
-}
-void Enemy::setProjectileTexture(sf::Texture& texture) {
+
+void Enemy::setProjectileTexture(sf::Texture& texture,const sf::Vector2f& scalevec) {
 	m_projectile_texture = &texture;
+	m_projectile_scale = scalevec;
 }
+
+void Enemy::setBulletParameters(uint8_t bullet_damage, uint8_t bullet_speed)
+{
+	m_bullet_damage = bullet_damage;
+	m_bullet_speed = bullet_speed;
+}
+
 void Enemy::setPosition(const sf::Vector2f& position)
 {
 	//m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y - m_sprite.getTextureRect().height * m_sprite.getScale().y));
 
-	m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y- getSize().y));
+	m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y- getSize().y)+getSize().y/2.0f);
 
 }
 bool Enemy::canShoot()
@@ -59,7 +62,7 @@ int Enemy::getHP()
 EnemyBullet* Enemy::spawnBullet()
 {
 	
-	EnemyBullet* bullet= new EnemyBullet(VectorMath::getAABBMidBack(getTopLeftPos(), getSize()), VectorMath::Vdirection::LEFT);
-	bullet->setTexture(*m_projectile_texture);
+	EnemyBullet* bullet= new EnemyBullet(m_bullet_damage,m_bullet_speed,VectorMath::getAABBMidBack(getCenterPos(), getSize()), VectorMath::Vdirection::LEFT);
+	bullet->setTexture(*m_projectile_texture,m_projectile_scale);
 	return bullet;
 }

@@ -2,7 +2,10 @@
 #include <cmath>
 #include <iostream>
 
-HUDPanel::HUDPanel(sf::RenderWindow* window, const sf::View* view, Player* player, const size_t* player_score, const float* level_p):m_window(window),c_view(view),player(player),player_score(player_score),level_p(level_p) {
+HUDPanel::HUDPanel(sf::RenderWindow* window, const sf::View* view, Player* player, const size_t* player_score, 
+    sf::Vector2f & position, const sf::Vector2f& total_length) :m_window(window), c_view(view), player(player), 
+    player_score(player_score),m_total_length(total_length),m_progress(position)
+{
     // Initialise drawing elements
     font.loadFromFile("res/Novel/LanaPixel.ttf");
     // score text
@@ -58,7 +61,8 @@ void HUDPanel::draw() {
     h_bar.setFillColor(sf::Color(180,0,0,hud_a));
     m_window->draw(h_bar);
     //todo link lvl p%
-    float l = 0.86f;
+    //world displacement/totallength
+    float l =m_progress.x/m_total_length.x ;
     l_bar.setPosition(c_view->getCenter() - c_view->getSize()/2.0f + sf::Vector2f(border, 0.0f) + sf::Vector2f(0.0f,((padding+fontSize/2)/2)));
     l_bar.setSize(sf::Vector2f((c_view->getSize().x - hs_w - fontSize - 2*border)*l, ((padding+fontSize/2)/2)));
     l_bar.setFillColor(sf::Color(0,0,180,hud_a));

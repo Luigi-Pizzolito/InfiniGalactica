@@ -24,6 +24,7 @@ namespace Control {
 		GameTimer(float duration);
 		~GameTimer();
 		void setDuration(float duration);
+		float getDuration() { return m_cycleduration; }
 		void start();
 		bool timeOut();
 	};

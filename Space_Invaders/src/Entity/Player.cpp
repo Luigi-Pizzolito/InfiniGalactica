@@ -2,18 +2,35 @@
 #include "Enemy.h"
 #include "Projectiles/Projectile.h"
 #include "MediaManager/SFXPlayer.h"
-
+#include "GameItems/GameItem.h"
 
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
+	m_bullet_damage = 15;
+	m_bullet_speed = 15;
 	player_bullet_timer.setDuration(0.5f);
-	m_sprite.setScale(0.5f, 0.5f);
+
 }
 
 Player::~Player()
 {
 	SFX::play(SFXlib::EnemyDestroy);
 }
+
+void Player::setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec)
+{
+	if (!m_centered) {
+		//set the texture
+		m_sprite.setTexture(texture);
+		//recenter
+		m_sprite.setOrigin(getSize() / 2.0f);
+		//set scale
+		m_sprite.setScale(scalevec);
+		m_centered = true;
+	}
+	m_sprite.setTexture(texture);
+}
+
 void Player::move(DIRECTIONS dir)
 {
 	//A player and Enemy version of the function was created just in case we want to add
@@ -44,24 +61,21 @@ void Player::applyExtForce(sf::Vector2f force) {
 }
 
 
-
-void Player::setTexture(const sf::Texture& texture)
-{
-	m_sprite.setTexture(texture);
-	
-}
 bool Player::collidesWith(Enemy* enemy)
 {
+
 	return m_sprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds());
 }
 bool Player::collidesWith(EnemyBullet* enemybullet)
 {
 	return m_sprite.getGlobalBounds().intersects(enemybullet->getSprite().getGlobalBounds());
 }
-bool Player::collidesWith(Item_* iem)
+
+
+bool Player::collidesWith(GameItem* item_)
 {
-	//placeholder
-	return true;
+
+	return m_sprite.getGlobalBounds().intersects(item_->getSprite().getGlobalBounds());
 }
 void Player::hurt(EnemyBullet* bullet)
 {
@@ -74,4 +88,34 @@ bool Player::canShoot()
 	
 	player_bullet_timer.start();
 	return player_bullet_timer.timeOut();
+}
+
+void Player::upgrade()
+{
+	m_MaxHP *= (1 + 0.25);
+	m_HP *= (1 + 0.25);
+	m_bullet_speed *= (1 + 0.1);
+	m_bullet_damage *= (1 + 0.1);
+}
+
+void Player::heal(float quantity)
+{
+	m_HP += quantity;
+	if (m_HP > m_MaxHP) {
+		m_HP = m_MaxHP;}
+}
+
+void Player::boostFireRate(float percent_increment)
+{
+	player_bullet_timer.setDuration(player_bullet_timer.getDuration() * (1-percent_increment/100.0f));
+}
+
+void Player::increaseBulletDamage(float increment)
+{
+	m_bullet_damage += increment;
+}
+
+void Player::increaseBulletSpeed(float increment)
+{
+	m_bullet_speed += increment;
 }

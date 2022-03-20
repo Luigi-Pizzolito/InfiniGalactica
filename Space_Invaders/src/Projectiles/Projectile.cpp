@@ -3,28 +3,23 @@
 #include <cmath>
 #include <iostream>
 
-Projectile::Projectile(const sf::Vector2f& position, const sf::Vector2f& direction)
-{
-	m_initpos = position;
-	//m_sprite.setPosition(position);
-	m_dir = direction;
-}
+Projectile::Projectile(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction)
+	:m_initpos(position),m_dir(direction),m_speed(speed),m_damage(damage)
+{}
 
 Projectile::~Projectile()
-{
-	//virtual destructor for polymorphic behavior
-}
+{}
 
 void Projectile::move()
 {
 	m_sprite.move(m_dir * m_speed);
 }
-void Projectile::setTexture(const sf::Texture& texture)
+void Projectile::setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec)
 {
 	m_sprite.setTexture(texture);
 	m_sprite.setOrigin(getSize() / 2.0f);
 	m_sprite.setPosition(m_initpos);
-	m_sprite.setScale(0.2f, 0.2f);
+	m_sprite.setScale(scalevec);
 }
 
 const sf::Vector2f Projectile::getSize() const
@@ -32,16 +27,20 @@ const sf::Vector2f Projectile::getSize() const
 	return sf::Vector2f(m_sprite.getTextureRect().width * m_sprite.getScale().x, m_sprite.getTextureRect().height * m_sprite.getScale().y);
 }
 
-const sf::Vector2f& Projectile::getTopLeftPos() const
+const sf::Vector2f& Projectile::getCenterPos() const
 {
 	return m_sprite.getPosition();
 }
 
-PlayerBullet::PlayerBullet(const sf::Vector2f& position, const sf::Vector2f& direction)
-	:Projectile(position,direction)
+const sf::Vector2f Projectile::getTopLeftPos()const
 {
-	m_speed = 20.0f;
-	m_damage = 20.0f;
+	return(getCenterPos() - getSize() / 2.0f);
+}
+
+PlayerBullet::PlayerBullet(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction)
+	:Projectile(damage,speed,position,direction)
+{
+	
 }
 
 PlayerBullet::~PlayerBullet()
@@ -49,12 +48,9 @@ PlayerBullet::~PlayerBullet()
 	
 }
 
-EnemyBullet::EnemyBullet(const sf::Vector2f& position, const sf::Vector2f& direction)
-	:Projectile(position, direction)
-{
-	m_speed = 20.0f;
-	m_damage = 15.0f;
-}
+EnemyBullet::EnemyBullet(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction)
+	:Projectile(damage, speed, position, direction)
+{}
 
 EnemyBullet::~EnemyBullet()
 {
