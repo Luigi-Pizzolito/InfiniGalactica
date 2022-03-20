@@ -47,10 +47,21 @@ void Level1::update(float delta_time)
 {
 	pollEvents();
 	if (player->getHP() > 0) {
-		if (player_score > 40 && !player_max) {
-			player->setTexture(player_textures[1], sf::Vector2f(0.5f, 0.5f));
-			player_max = true;
-			player->upgrade();
+		// Update player score upgrades
+		if (!player_max) {
+			int tex_i =0;
+			for (int i = 0; i<(sizeof(upgrade_points)/sizeof(upgrade_points[0])); i++) {
+				if (player_score > upgrade_points[i]) {
+					tex_i=i+1;
+					// std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
+				}
+			}
+			// std::cout << "seeting texture to: " << tex_i << "\n";
+			player->upgrade(tex_i);
+			player->setTexture(player_textures[tex_i]);
+			if (player_score > upgrade_points[(sizeof(upgrade_points)/sizeof(upgrade_points[0]))-1]) {
+				player_max = true;
+			}
 		}
 		
 		// Update Player physics
@@ -195,6 +206,8 @@ void Level1::loadTextures()
 	player_textures.back().loadFromFile("res/Sprites/player/player_base.png");
 	player_textures.emplace_back();
 	player_textures.back().loadFromFile("res/Sprites/player/player_upgrade_1.png");
+	player_textures.emplace_back();
+	player_textures.back().loadFromFile("res/Sprites/player/player_upgrade_2.png");
 
 	//Projectile Textures
 	//Player

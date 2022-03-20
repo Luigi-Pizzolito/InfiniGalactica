@@ -3,11 +3,18 @@
 #include "Projectiles/Projectile.h"
 #include "MediaManager/SFXPlayer.h"
 #include "GameItems/GameItem.h"
+#include <cmath>
 
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
 	m_bullet_damage = 15;
 	m_bullet_speed = 15;
+
+	b_m_bullet_damage = m_bullet_damage;
+	b_m_bullet_speed = m_bullet_speed;
+	b_m_HP = m_HP;
+	b_m_MaxHP = m_MaxHP;
+
 	player_bullet_timer.setDuration(0.5f);
 
 }
@@ -27,6 +34,17 @@ void Player::setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec
 		//set scale
 		m_sprite.setScale(scalevec);
 		m_centered = true;
+	}
+	m_sprite.setTexture(texture);
+}
+
+void Player::setTexture(const sf::Texture& texture)
+{
+	if (!m_centered) {
+		//set the texture
+		m_sprite.setTexture(texture);
+		//recenter
+		m_sprite.setOrigin(getSize() / 2.0f);
 	}
 	m_sprite.setTexture(texture);
 }
@@ -90,12 +108,12 @@ bool Player::canShoot()
 	return player_bullet_timer.timeOut();
 }
 
-void Player::upgrade()
+void Player::upgrade(int upgrade_lvl)
 {
-	m_MaxHP *= (1 + 0.25);
-	m_HP *= (1 + 0.25);
-	m_bullet_speed *= (1 + 0.1);
-	m_bullet_damage *= (1 + 0.1);
+	m_MaxHP 		= b_m_MaxHP 		*std::pow(1.25f, upgrade_lvl);
+	m_HP 			= b_m_HP			*std::pow(1.25f, upgrade_lvl);
+	m_bullet_speed 	= b_m_bullet_speed	*std::pow(1.1f , upgrade_lvl);
+	m_bullet_damage = b_m_bullet_damage	*std::pow(1.1f , upgrade_lvl);
 }
 
 void Player::heal(float quantity)

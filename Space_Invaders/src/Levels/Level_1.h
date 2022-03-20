@@ -12,6 +12,6 @@ private:
 	void prepareContainers()override;
 	void loadTextures()override;
 
-
+	int upgrade_points[2] = {40, 50};
 
 };
