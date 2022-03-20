@@ -34,7 +34,7 @@ ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_
 		filename_noext.replace(filename_noext.find(std::string(file.extension())),std::string(file.extension()).length(),std::string(""));
 
 		if (std::string(file.extension()) == ".json") {
-			std::cout << "Scene Manager: Found file: " << filename_noext << " extension: " << file.extension() << std::endl;
+			std::cout << "Scene Manager: Found file: " << filename_noext << file.extension() << "\n";
 			m_menu->registerScene(filename_noext);
 		}
 

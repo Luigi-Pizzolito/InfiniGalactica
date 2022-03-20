@@ -49,7 +49,7 @@ namespace SceneManagement {
 		// void registerScene(const std::string& name)
 		// {
 
-		// 	std::cout << "Scene Manager: Registering Scene " << name << std::endl;
+		// 	std::cout << "Scene Manager: Registering Scene " << name << "\n";
 		// 	m_Scenes.push_back(std::make_pair(name, []() {return new T(); }));
 
 		// }
@@ -84,7 +84,7 @@ namespace SceneManagement {
 		void registerScenePassJSON(const std::string& json_file)
 		{
 			json cfg2;
-			std::cout << "Scene Manager: Registering Scene by JSON: " << json_file << std::endl;
+			std::cout << "Scene Manager: Registering Scene by JSON: " << json_file << "\n";
 			m_Scenes.push_back(std::make_pair(json_file, [](json cfg2) {return new T(cfg2); }));
 
 		}
