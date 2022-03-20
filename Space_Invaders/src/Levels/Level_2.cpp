@@ -21,15 +21,9 @@ Level2::Level2() :Level()
 	camera = new CameraFollowHorzScroll(Scene::s_window, Scene::s_view, player, sf::Vector2f(100.0f, 0.0f));
 	//create the starfield
 	starfield = new StarField(Scene::s_window, Scene::s_view, 25, 1.4f);
-	//Screen Effect
 
 	//Set up Timers
 
-	screen_effect.setSize(sf::Vector2f(Scene::s_window->getSize().x, Scene::s_window->getSize().y));
-	screen_effect.setOrigin(screen_effect.getSize().x / 2, screen_effect.getSize().y / 2);
-	screen_effect.setPosition(Scene::s_view->getCenter());
-	screen_effect.setFillColor(sf::Color(255, 255, 255, 0));
-	screen_effect.setTexture(&broken_screen_texture);
 
 	//Music
 	music = new MusicPlayer("song2", true);
@@ -146,8 +140,6 @@ void Level2::update(float delta_time)
 	}
 	else {
 
-		screen_effect.setPosition(Scene::s_view->getCenter());
-		screen_effect.setFillColor(sf::Color(255, 255, 255, 255));
 		SceneManagement::goBackToMainMenu();
 
 	}
@@ -177,7 +169,7 @@ void Level2::render()
 		Scene::s_window->draw(enemybullet->getSprite());
 	}
 	Scene::s_window->draw(player->getSprite());
-	Scene::s_window->draw(screen_effect);
+
 	// displays objects on the screen
 	hud->draw();
 
