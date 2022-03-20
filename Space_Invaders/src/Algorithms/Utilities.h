@@ -55,8 +55,10 @@ namespace Debug
 			sf::RenderWindow* m_window;
 			const sf::View* c_view;
 			sf::VertexArray* lines;
+			sf::Vector2f* total_length;
+			bool ready = false;
 		public:
-			XAxis(sf::RenderWindow* window, const sf::View* view, int divisions, int total);
+			XAxis(sf::RenderWindow* window, const sf::View* view, sf::Vector2f* total_length);
 			~XAxis();
 			void draw();
 	};

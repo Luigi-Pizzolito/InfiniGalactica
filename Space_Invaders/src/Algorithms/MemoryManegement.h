@@ -128,6 +128,8 @@ namespace MemoryManagement {
 
 		
 			buffer_alias.back()->setPosition(sf::Vector2f(VectorMath::getViewportLowerRightPos().x,SceneManagement::Scene::s_view->getSize().y));
+			// std::cout << m_world_pos << ", " << buffer_alias.back()->getCenterPos() << "\n";
+			// std::cin.get();
 		}
 	};
 	//change this later

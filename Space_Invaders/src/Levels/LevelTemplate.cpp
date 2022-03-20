@@ -25,7 +25,7 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 	player_max = false;
 
 	//Debug
-	xa = new Debug::XAxis(Scene::s_window, Scene::s_view, 100, Scene::s_view->getSize().x*4);
+	xa = new Debug::XAxis(Scene::s_window, Scene::s_view, &total_length);
 }
 
 

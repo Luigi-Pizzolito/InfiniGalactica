@@ -14,7 +14,8 @@ class CameraFollowHorzScroll {
         // float max_player_speed;
         float mapF(float value, float istart, float istop, float ostart, float ostop);
     public:
-        CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed);
+        CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed, bool locked = false);
         ~CameraFollowHorzScroll();
         void follow();
+        bool locked;
 };

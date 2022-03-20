@@ -4,7 +4,7 @@
 
 // todo: add locked camera mode for boss battle mode
 
-CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed):window(window),view(view),player(player),c_speed(c_speed) {
+CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed, bool locked):window(window),view(view),player(player),c_speed(c_speed) {
     const sf::Sprite* sprite = &player->getSprite();
     // get the player sprite position
     sf::Vector2f s_pos = sprite->getScale();                //first get the sprite texture center, starting by getting the scale
@@ -55,28 +55,30 @@ void CameraFollowHorzScroll::follow() {
         player->applyExtForce(sf::Vector2f(-repulse_force, 0.0f));
     }
 
-    // Get the vector the camera should move in
-    sf::Vector2f move = last_p + c_speed/60.0f;
+    if (!locked) {
+        // Get the vector the camera should move in
+        sf::Vector2f move = last_p + c_speed/60.0f;
 
-    // Get the position of the player, if in the last band to the right of the screen, move the camera extra in proportion to the player position and curent player speed
-    // aka. player pushes the camera.
-    const sf::Sprite* sprite = &player->getSprite();
-    const float player_x = sprite->getPosition().x+((float)sprite->getTextureRect().width/2.0f);
-    const float push_boundary = view->getCenter().x+(view->getSize().x/2.5f); // band size defined here
-    if ( player_x >= push_boundary) {
-        float player_push = ((sprite->getPosition() - p_last_p)).x;
-        float c_border =  player_x/(view->getSize().x+last_p.x);
-        // relation to camera push amount
-        float c_push = 0.5f + (c_border*c_border*c_border/5.5f);
-        // std::cout << c_push << "\n";
-        // only push the camera forwards in x direction.
-        move.x += (player_push > 0) ? player_push*c_push : 0;
+        // Get the position of the player, if in the last band to the right of the screen, move the camera extra in proportion to the player position and curent player speed
+        // aka. player pushes the camera.
+        const sf::Sprite* sprite = &player->getSprite();
+        const float player_x = sprite->getPosition().x+((float)sprite->getTextureRect().width/2.0f);
+        const float push_boundary = view->getCenter().x+(view->getSize().x/2.5f); // band size defined here
+        if ( player_x >= push_boundary) {
+            float player_push = ((sprite->getPosition() - p_last_p)).x;
+            float c_border =  player_x/(view->getSize().x+last_p.x);
+            // relation to camera push amount
+            float c_push = 0.5f + (c_border*c_border*c_border/5.5f);
+            // std::cout << c_push << "\n";
+            // only push the camera forwards in x direction.
+            move.x += (player_push > 0) ? player_push*c_push : 0;
+        }
+
+
+        view->setCenter(move + (view->getSize() / 2.0f)); //compensate for setCenter instead of setOffset func.
+        window->setView(*view);
+        last_p = view->getCenter() - (view->getSize() / 2.0f);
+        p_last_p = sprite->getPosition();
+        p_last_p.y = 0;
     }
-
-
-    view->setCenter(move + (view->getSize() / 2.0f)); //compensate for setCenter instead of setOffset func.
-    window->setView(*view);
-    last_p = view->getCenter() - (view->getSize() / 2.0f);
-    p_last_p = sprite->getPosition();
-    p_last_p.y = 0;
 }

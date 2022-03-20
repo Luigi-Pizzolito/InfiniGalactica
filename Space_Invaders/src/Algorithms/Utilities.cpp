@@ -91,13 +91,8 @@ namespace Debug {
 
 
 
-	XAxis::XAxis(sf::RenderWindow* window, const sf::View* view, int division, int total):m_window(window),c_view(view) {
-		int divs = total/division;
-		lines = new sf::VertexArray(sf::LinesStrip,divs*2);
-		for (int i = 0; i < divs; i+=2) {
-			(*lines)[i].position   = sf::Vector2f(i*division,0);
-			(*lines)[i+1].position = sf::Vector2f(i*division,view->getSize().y);
-		}
+	XAxis::XAxis(sf::RenderWindow* window, const sf::View* view, sf::Vector2f* total_length):m_window(window),c_view(view),total_length(total_length) {
+		
 	}
 
 	XAxis::~XAxis() {
@@ -105,6 +100,16 @@ namespace Debug {
 	}
 
 	void XAxis::draw() {
+		if (!ready) {
+			float divs = 100.0f;
+			lines = new sf::VertexArray(sf::LinesStrip,divs*2);
+			for (int i = 0; i < divs; i+=2) {
+				float p1 = (total_length->x/100.0f)*100.0f;
+				(*lines)[i].position   = sf::Vector2f(i*p1,0);
+				(*lines)[i+1].position = sf::Vector2f(i*p1,c_view->getSize().y);
+			}
+			ready = true;
+		}
 		m_window->draw(*lines);
 	}
 }
