@@ -3,6 +3,8 @@
 #include "MediaManager/SFXPlayer.h"
 #include <iostream>
 
+#include <filesystem>
+
 // #include "Levels/ShooterLevel.h"
 // #include "Scenes/ShooterLevel.h"
 
@@ -28,6 +30,17 @@ ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_
 	m_menu->registerScene(std::string("novel1"));
 	m_menu->registerScene(std::string("level1"));
 	m_menu->registerScene(std::string("level1"));
+
+	for (auto& dirEntry: std::__fs::filesystem::recursive_directory_iterator("res/Scenes")) {
+		if (!dirEntry.is_regular_file()) {
+			std::cout << "Directory: " << dirEntry.path() << std::endl;
+			continue;
+		}
+		std::__fs::filesystem::path file = dirEntry.path();
+		std::cout << "Filename: " << file.filename() << " extension: " << file.extension() << std::endl;
+
+	}
+	
 	//Load SFX library
 	SFX::loadLib();
 }
