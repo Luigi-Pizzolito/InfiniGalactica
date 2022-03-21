@@ -125,7 +125,7 @@ void ShooterLevel::update(float delta_time)
 				delete enemy;
 				player_score += 10;
 
-				SFX::play(SFXlib::EnemyDestroy);
+				SFX::play(SFXlib::EnemyDestroy, 25.0f);
 			}
 
 			return is_dead; }), world_enemies.end());
@@ -162,7 +162,7 @@ void ShooterLevel::update(float delta_time)
 		}
 	}
 	else {
-		
+		SFX::play(SFXlib::GameOver, 100.0f);
 		SceneManagement::goBackToMainMenu();
 	}
 
@@ -193,6 +193,9 @@ void ShooterLevel::render()
 	hud->draw();
 	//Debug
 	if (debug_xa) {xa->draw();};
+
+	//Transition
+	f_in->draw();
 }
 
 

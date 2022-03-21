@@ -169,6 +169,7 @@ bool Attacker::canShoot()
 	if (time_out) { 
 		(current_slot == 0) ? current_slot++ : current_slot = 0;
 		m_sprite.setTexture(*m_textures[current_slot]);
+		if (current_slot==0) SFX::play(SFXlib::BulletReload, 40.0f);
 	}
 	return time_out;
 }

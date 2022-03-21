@@ -17,7 +17,7 @@ MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
     }
 
     // set initial loop
-    player.setVolume(100);
+    player.setVolume(100.0f);
     if (cfg["loop_points"].size() > 0) {
         setLoop(0);
     } else {

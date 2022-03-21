@@ -1,7 +1,7 @@
 {
     "sceneType": "shooterLevel",
     "levelOptions": {
-        "totalLength": 75.0,
+        "totalLength": 200.0,
         "prepareContainers": {
             "textures": {
                 "player": 3,
@@ -37,7 +37,7 @@
             "nebulaNum": 1.4
         },
         "music": {
-            "song": "song1"
+            "song": "song2"
         },
         "spawners": {
             "enemySpawners": [

@@ -14,6 +14,7 @@
 #include "Algorithms/MathUtils.h"
 #include "Algorithms/MemoryManegement.h"
 #include "GameItems/GameItem.h"
+#include "SceneManager/SceneUtils/Composit.h"
 class Level :public SceneManagement::Scene {
 protected:
 	//variables
@@ -63,6 +64,9 @@ protected:
 
 	//Music
 	MusicPlayer* music;
+
+	//Transition
+	Composit::Fade* f_in;
 
 	//Debug
 	Debug::XAxis* xa;

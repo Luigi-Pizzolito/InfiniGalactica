@@ -26,6 +26,8 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 	key_r = false;
 	key_s = false;
 	player_max = false;
+	f_in = new Composit::Fade(s_window, s_view, false, 4);
+	f_in->trigger();
 
 	//Debug
 	xa = new Debug::XAxis(Scene::s_window, Scene::s_view, &total_length);
@@ -36,6 +38,7 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 Level::~Level()
 {
 	//Delete the collectors and spawners
+	delete f_in;
 }
 void Level::pollEvents()
 {

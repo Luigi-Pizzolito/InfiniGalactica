@@ -2,18 +2,26 @@
 #include <iostream>
 
 
+
+
 NovelLevel::NovelLevel(json cfg)
 {
 	// Load Script
 	text_panel = new TextManager(std::string("res/Novel/Scenes/")+std::string(cfg["novelScene"])+std::string(".json"), Scene::s_window, Scene::s_view, &key_space);
 
 	music = new MusicPlayer(std::string(cfg["music"]), true);
+
+	f_in = new Composit::Fade(s_window, s_view, false, 4);
+	f_out = new Composit::Fade(s_window, s_view, true, 4);
+	f_in->trigger();
 }
 
 NovelLevel::~NovelLevel()
 {
 	delete text_panel;
 	delete music;
+	delete f_in;
+	delete f_out;
 }
 
 void NovelLevel::pollEvents()
@@ -36,7 +44,8 @@ void NovelLevel::pollEvents()
 			{
 				key_space = true;
 				if (text_panel->next()) {
-					m_return = true;
+					// m_return = true;
+					f_out->trigger();
 				};
 			}
 
@@ -73,5 +82,9 @@ void NovelLevel::update(float delta_time)
 void NovelLevel::render()
 {
 	text_panel->draw();
+	f_in->draw();
+	if (f_out->draw()) {
+		m_return = true;
+	}
 }
 

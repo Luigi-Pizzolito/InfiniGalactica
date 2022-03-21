@@ -23,9 +23,9 @@ namespace SceneManagement {
 		 music("song3", true)
 	{
 		m_CurrentScenePtr = this;
-		m_texture.loadFromFile("res/Sprites/Cutscenes/menu_background.png");
-		m_background.setSize(sf::Vector2f(Scene::s_window->getSize().x, Scene::s_window->getSize().y));
-		m_background.setTexture(&m_texture);
+		// m_texture.loadFromFile("res/Sprites/Cutscenes/menu_background.png");
+		// m_background.setSize(sf::Vector2f(Scene::s_window->getSize().x, Scene::s_window->getSize().y));
+		// m_background.setTexture(&m_texture);
 		// Music pos update for looping
 		music.update(0.6f);
 		title.setString("InfiniGalactica");
@@ -44,6 +44,9 @@ namespace SceneManagement {
 		//todo: use another while loop to get vertical spacing bounds for selection on smaller screens
 		selection.addOptions(std::string("Continue"));
 		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
+
+		f_in = new Composit::Fade(s_window, s_view, false, 2);
+		f_in->trigger();
 	}
 
 	void SceneMenu::handleSelection() {
@@ -126,6 +129,7 @@ namespace SceneManagement {
 		rstarfield.draw();
 		selection.draw();
 		Scene::s_window->draw(title);
+		f_in->draw();
 	}
 
 

@@ -7,6 +7,8 @@
 #include <json.hpp>
 using json = nlohmann::json;
 
+#include "SceneManager/SceneUtils/Composit.h"
+
 class NovelLevel :public SceneManagement::Scene {
 
 private:
@@ -14,7 +16,8 @@ private:
 	float lvl_p = 0.0f;
     //Fonts
     // sf::Font font;
-
+	Composit::Fade* f_in;
+	Composit::Fade* f_out;
 	//Textures
 	// sf::Texture dialog_overlay;
 

@@ -1,5 +1,6 @@
 #include "SelectionMenu.h"
 #include <iostream>
+#include "MediaManager/SFXPlayer.h"
 
 //todo: use this class to create pause and game over menu scenes
 
@@ -51,9 +52,11 @@ void SelectionMenu::handleInput(sf::Event event) {
     // Increase or decrease selection, no looping.
     if ((event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)&& selection_i < options.size()-1) {
         selection_i++;
+        SFX::play(SFXlib::Selec, 20.0f);
     } else
     if ((event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)&& selection_i != 0) {
         selection_i--;
+        SFX::play(SFXlib::Selec, 20.0f);
     }
     updateLayout();
 
@@ -61,5 +64,6 @@ void SelectionMenu::handleInput(sf::Event event) {
         // std::cout << "Selected " << options[selection_i] << "\n";
         // func_ptr(options[selection_i]);
         selected = true;
+        SFX::play(SFXlib::Enter, 60.0f);
     }
 }

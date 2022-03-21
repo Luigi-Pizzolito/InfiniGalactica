@@ -1,5 +1,5 @@
 PNAME=Space_Invaders
-SRCD=$(PNAME)/src/**/*.cpp $(PNAME)/src/*.cpp
+SRCD=$(PNAME)/src/*.cpp $(PNAME)/src/**/*.cpp $(PNAME)/src/**/**/*.cpp
 ODIR=bin/Darwin-Release-x86
 ODIRL=bin/Linux-Release-x86
 

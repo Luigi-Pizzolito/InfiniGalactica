@@ -1,5 +1,9 @@
 {
     "BulletShoot":  "res/Music/sfx/ogg/DefiniteShot5.ogg",
+    "BulletReload": "res/Music/sfx/ogg/BulletSnappin.ogg",
     "BulletHit":    "res/Music/sfx/ogg/DefiniteHit.ogg",
-    "EnemyDestroy": "res/Music/sfx/ogg/DestroyMonster2.ogg"
+    "EnemyDestroy": "res/Music/sfx/ogg/DestroyMonster2.ogg",
+    "Selec":        "res/Music/sfx/ogg/DataComputed.ogg",
+    "Enter":        "res/Music/sfx/ogg/ElasticShieldAttack2.ogg",
+    "GameOver":     "res/Music/sfx/ogg/game_over.ogg"
 }

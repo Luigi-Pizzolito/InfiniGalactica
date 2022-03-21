@@ -20,7 +20,7 @@ class SFX {
     public:
         // declare loadLib and play functions
         static void loadLib();
-        static void play(const std::string fx, float volume = 10.0f, sf::Vector2f position = sf::Vector2f(0.0f, 0.0f), float z = 0.0f);
+        static void play(const std::string fx, float volume = 8.0f, sf::Vector2f position = sf::Vector2f(0.0f, 0.0f), float z = 0.0f);
     private:
         // instantiator for singleton class and private con/destructor
         SFX();
@@ -36,6 +36,10 @@ class SFX {
 // utility namespace for easily accesing SFXlib sfx with IntelliSense
 namespace SFXlib {
     const std::string BulletShoot  (    "BulletShoot"    );
+    const std::string BulletReload  (   "BulletReload"   );
     const std::string BulletHit    (    "BulletHit"      );
     const std::string EnemyDestroy (    "EnemyDestroy"   );
+    const std::string Selec        (    "Selec"          );
+    const std::string Enter        (    "Enter"          );
+    const std::string GameOver     (    "GameOver"       );
 };

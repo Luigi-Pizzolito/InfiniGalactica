@@ -10,9 +10,11 @@
 #include <json.hpp>
 using json = nlohmann::json;
 
-#include "SceneManager/SelectionMenu.h"
+#include "SceneManager/SceneUtils/SelectionMenu.h"
 #include "MediaManager/MusicPlayer.h"
 #include "Algorithms/StarField.h"
+
+#include "SceneManager/SceneUtils/Composit.h"
 namespace SceneManagement {
 
 	class SceneMenu;
@@ -66,7 +68,8 @@ namespace SceneManagement {
 		// Background
         RadialStarField rstarfield;
 		MusicPlayer music;
-		sf::RectangleShape m_background;
+		// sf::RectangleShape m_background;
+		Composit::Fade* f_in;
 		sf::Texture m_texture;
 		sf::Font title_font;
 		sf::Text title;
