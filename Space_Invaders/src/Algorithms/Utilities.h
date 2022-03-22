@@ -26,6 +26,7 @@ namespace Control {
 		void setDuration(float duration);
 		float getDuration() { return m_cycleduration; }
 		void start();
+		void restart();
 		bool timeOut();
 	};
 

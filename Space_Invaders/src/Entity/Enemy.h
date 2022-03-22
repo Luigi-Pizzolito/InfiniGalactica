@@ -24,6 +24,8 @@ public:
 	void rotate(float angle);
 	void setProjectileTexture(sf::Texture& texture, const sf::Vector2f& scalevec);
 	void setPosition(const sf::Vector2f& position);
+	//the y value is random, useful for scrolling levels
+	void setPosition(float x_pos);
 	const sf::Sprite& getSprite()const { return m_sprite; }
 	sf::Sprite& setSprite() { return m_sprite; }
 
@@ -31,7 +33,8 @@ public:
 	bool collidesWith(const PlayerBullet* bullet);
 	void hurt(const PlayerBullet* bullet);
 	int getHP();
-
+	virtual void idle(){}
+	virtual void lookAt(const sf::Vector2f& target_pos){}
 	//bullet related methods
 	virtual EnemyBullet* spawnBullet();
 	virtual EnemyBullet* spawnBullet(int bullet_index);
@@ -60,7 +63,6 @@ class Attacker :public Enemy {
 protected:
 	sf::Vector2f points[2];
 	sf::Texture* m_textures[2];
-	bool m_ready=false;
 	Control::GameTimer bullet_timer;
 	uint8_t current_slot;
 public:
@@ -74,5 +76,38 @@ public:
 	
 protected:
 	void setPoints();
+
+};
+
+class Starminator:public Enemy{
+
+protected:
+	sf::Vector2f points[4];
+	sf::Texture* m_textures;
+	Control::GameTimer bullet_timer;
+	float m_rotation_angle;
+	int m_iteration;
+public:
+	Starminator(int health, float speed,float rotation_speed, const sf::Vector2f& dir);
+	~Starminator();
+	EnemyBullet* spawnBullet(int bullet_index)override;
+	void move()override;
+
+protected:
+	void setPoints();
+
+
+};
+
+class Spinner :public Enemy {
+	float m_rotation_angle;
+	sf::Vector2f m_target_pos_dir;
+public:
+	Spinner(int health, float speed, float rotation_speed, const sf::Vector2f& dir);
+	~Spinner();
+	void lookAt(const sf::Vector2f& target_pos)override;
+	void move()override;
+	void idle()override;
+	EnemyBullet* spawnBullet(int bullet_index)override;
 
 };

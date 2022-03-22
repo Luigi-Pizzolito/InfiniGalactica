@@ -12,6 +12,7 @@ class HUDPanel {
         const size_t* player_score;
         sf::Vector2f m_total_length;
         sf::Vector2f& m_progress;
+        float zoom;
 
         // Drawing vars
         sf::Font font;
@@ -30,7 +31,7 @@ class HUDPanel {
 
     public:
         HUDPanel(sf::RenderWindow* window, const sf::View* view, Player* player, const size_t* player_score,
-            sf::Vector2f& position, const sf::Vector2f& total_length);
+            sf::Vector2f& position, const sf::Vector2f& total_length, float zoom = 1.0f);
         ~HUDPanel();
 
         void draw();

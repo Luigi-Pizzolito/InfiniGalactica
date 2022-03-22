@@ -5,6 +5,7 @@ using json = nlohmann::json;
 #include <fstream>
 
 #include "Levels/ShooterLevel.h"
+#include "Levels/BossLevel1.h"
 #include "Scenes/Credits.h"
 #include "Scenes/NovelScene.h"
 namespace SceneManagement {
@@ -66,7 +67,7 @@ namespace SceneManagement {
 				setScene(std::string("level1"));
 			} else
 			if (selec == "Endless Mode") {
-
+				setScene(std::string("commanderlevel"));
 			} else
 			if (selec == "Options") {
 
@@ -145,6 +146,9 @@ namespace SceneManagement {
 		} else
 		if (cfg["sceneType"] == "credits") {
 			registerScenePassJSON<Credits>(json_file);
+		} else
+		if (cfg["sceneType"] == "bossLevel1") {
+			registerScenePassJSON<BossLevel1>(json_file);
 		}
 	}
 

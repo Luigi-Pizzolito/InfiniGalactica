@@ -1,5 +1,7 @@
 #include "GameItem.h"
 #include "Entity/Player.h"
+#include "SceneManager/Scene.h"
+
 GameItem::GameItem(float q_effect):m_buffQuantity(q_effect)
 {
 
@@ -17,8 +19,15 @@ void GameItem::setTexture(const sf::Texture& texture,const sf::Vector2f scalevec
 
 void GameItem::setPosition(const sf::Vector2f& position)
 {
-	m_sprite.setPosition(position.x, rand() % static_cast<int>(position.y - getSize().y));
+	m_sprite.setPosition(position);
 	
+}
+
+
+void GameItem::setPosition(float x_pos)
+{
+	m_sprite.setPosition(x_pos, rand() % static_cast<int>(SceneManagement::Scene::s_view->getSize().y - getSize().y));
+
 }
 
 const sf::Vector2f GameItem::getSize() const

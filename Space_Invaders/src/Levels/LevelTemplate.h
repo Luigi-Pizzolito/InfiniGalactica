@@ -83,6 +83,10 @@ protected:
 	void spawnPlayerBullet();
 	void spawnEnemyBullet(Enemy* enemy);
 	void updateWorldPosition();
+	//Separated to make debugging easier
+	virtual void updateEntityCollisions();
+	virtual void updateEntities();
+
 
 public:
 	Level();

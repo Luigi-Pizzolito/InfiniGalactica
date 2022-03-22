@@ -9,9 +9,11 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 	// Initialize key press states
 	//Initialize the spawners
 	
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies,world_position,total_length));
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Furtive>(world_enemies, world_position, total_length));
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Attacker>(world_enemies, world_position, total_length));
+	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies,world_position,total_length));
+	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Furtive>(world_enemies, world_position, total_length));
+	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Attacker>(world_enemies, world_position, total_length));
+	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Starminator>(world_enemies, world_position, total_length));
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
 
 	item_spawners.emplace_back(new MemoryManagement::BaseItemSpawner(world_items));
 	//Initialize collectors
@@ -134,7 +136,7 @@ void Level::spawnPlayerBullet()
 	player_bullets.emplace_back(new PlayerBullet(player->getBulletDamage(),player->getBulletSpeed(),VectorMath::getAABBMidFront(player->getCenterPos(),
 		player->getSize()), VectorMath::Vdirection::RIGHT));
 
-	player_bullets.back()->setTexture(projectile_textures[selected_slot], sf::Vector2f(0.5f, 0.3f));
+	player_bullets.back()->setTexture(projectile_textures[selected_slot], sf::Vector2f(0.3f, 0.3f));
 
 	SFX::play(SFXlib::BulletShoot);
 }
@@ -162,6 +164,79 @@ void Level::updateWorldPosition()
 		world_position = viewport_topleftpos;
 	}
 	
+
+}
+
+void Level::updateEntityCollisions()
+{
+	//Collisions
+	//Enemies
+	world_enemies.erase(std::remove_if(world_enemies.begin(), world_enemies.end(), [&](Enemy* enemy) {
+		//check for collisions with playerbullets
+		bool is_dead = false;
+		for (size_t i = 0; i < player_bullets.size(); i++) {
+			if (enemy->collidesWith(player_bullets[i])) {
+				enemy->hurt(player_bullets[i]);
+				//deletes the object in the heap
+				delete player_bullets[i];
+				//deletes the slot that was used for it in the array of bullets
+				player_bullets.erase(player_bullets.begin() + i);
+			}
+
+		}
+		if (enemy->getHP() <= 0) {
+			is_dead = true;
+			//delete the memory in the heap
+			delete enemy;
+			player_score += 10;
+
+			SFX::play(SFXlib::EnemyDestroy);
+		}
+
+		return is_dead; }), world_enemies.end());
+	//items
+	world_items.erase(remove_if(world_items.begin(), world_items.end(), [&](GameItem* item_) {
+		bool collided = player->collidesWith(item_);
+		if (collided) {
+			item_->applyEffect(player);
+		}
+		return collided; }), world_items.end());
+	//Player
+	world_enemy_bullets.erase(std::remove_if(world_enemy_bullets.begin(), world_enemy_bullets.end(), [&](EnemyBullet* enemy_bullet) {
+		bool collided = player->collidesWith(enemy_bullet);
+		if (collided) {
+			player->hurt(enemy_bullet);
+
+
+			// for testing music access
+			if (player->getHP() <= 0) {
+				music->stop();
+			}
+		}
+
+		return collided; }), world_enemy_bullets.end());
+}
+
+void Level::updateEntities()
+{
+	// Update Player physics
+	player->updatePhysics();
+	updateWorldPosition();
+	//Entities and projectiles actions
+	for (auto& playerbullet : player_bullets) {
+
+		playerbullet->move();
+
+	}
+	for (auto& enemy : world_enemies) {
+		enemy->move();
+		if (enemy->canShoot()) {
+			spawnEnemyBullet(enemy);
+		}
+	}
+	for (auto& enemybullet : world_enemy_bullets) {
+		enemybullet->move();
+	}
 
 }
 

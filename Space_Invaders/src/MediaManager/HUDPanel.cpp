@@ -3,8 +3,8 @@
 #include <iostream>
 
 HUDPanel::HUDPanel(sf::RenderWindow* window, const sf::View* view, Player* player, const size_t* player_score, 
-    sf::Vector2f & position, const sf::Vector2f& total_length) :m_window(window), c_view(view), player(player), 
-    player_score(player_score),m_total_length(total_length),m_progress(position)
+    sf::Vector2f & position, const sf::Vector2f& total_length, float zoom) :m_window(window), c_view(view), player(player), 
+    player_score(player_score),m_total_length(total_length),m_progress(position),zoom(zoom)
 {
     // Initialise drawing elements
     font.loadFromFile("res/Novel/LanaPixel.ttf");
@@ -38,7 +38,9 @@ HUDPanel::~HUDPanel() {
 
 void HUDPanel::draw() {
     // hide hud alpha
-    int hud_a = (player->getSprite().getPosition().y <= 3*fontSize+2*padding) ? std::floor(2*(player->getSprite().getPosition().y-(fontSize+2*padding))) : 255 ;  // threshold and scale player proximity to hud
+    float thres1 = (3*fontSize+2*padding);
+    float mapper = std::floor(2*(player->getSprite().getPosition().y-(fontSize+2*padding)));
+    int hud_a = (player->getSprite().getPosition().y <= thres1) ? mapper : 255 ;  // threshold and scale player proximity to hud
     hud_a = hud_a > 255 ? 255 : (hud_a < 0 ? 0 : hud_a);  // Clamp to 0-255
     // hud bg
     hud_bg.setPosition(c_view->getCenter() - c_view->getSize()/2.0f);

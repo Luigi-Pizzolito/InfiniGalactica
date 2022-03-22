@@ -1,7 +1,7 @@
 {
     "sceneType": "shooterLevel",
     "levelOptions": {
-        "totalLength": 200.0,
+        "totalLength": 20.0,
         "prepareContainers": {
             "textures": {
                 "player": 3,

@@ -12,6 +12,7 @@ public:
 	virtual void applyEffect(Player* player){}
 	void setTexture(const sf::Texture& texture, const sf::Vector2f scalevec);
 	void setPosition(const sf::Vector2f& position);
+	void setPosition(float x_pos);
 	const sf::Vector2f getSize()const;
 	const sf::Vector2f& getTopLeftPos()const;
 	const sf::Sprite& getSprite()const { return m_sprite; }

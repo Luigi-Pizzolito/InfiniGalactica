@@ -54,5 +54,31 @@ EnemyBullet::EnemyBullet(int damage, float speed, const sf::Vector2f& position, 
 
 EnemyBullet::~EnemyBullet()
 {
+	std::cout << "Destroyed" << std::endl;
+}
 
+DeviatedProjectile::DeviatedProjectile(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction,float deviation_angle)
+	:EnemyBullet(damage,speed,position,direction),m_deviation_angle(deviation_angle)
+{
+	
+}
+
+DeviatedProjectile::~DeviatedProjectile()
+{
+
+}
+
+void DeviatedProjectile::move()
+{
+	//std::cout << m_deviation_angle << std::endl;
+	m_sprite.rotate(m_deviation_angle/20.0f);
+	sf::Transform rot_matrix;
+	rot_matrix.rotate(m_deviation_angle/20.0f);
+	if (m_deviation_angle != 0) {
+
+			}
+	m_dir=rot_matrix.transformPoint(m_dir);
+	iteration_++;
+	m_sprite.move(m_dir * m_speed);
+	
 }

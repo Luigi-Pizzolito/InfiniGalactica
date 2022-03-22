@@ -36,6 +36,12 @@ namespace Control {
 			m_counting = true;
 		}
 	}
+
+	void GameTimer::restart()
+	{
+		m_counting = false;
+	}
+
 	bool GameTimer::timeOut()
 	{
 		bool timeout = false;

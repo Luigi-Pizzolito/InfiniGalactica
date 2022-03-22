@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+//Base
 class Projectile {
 	
 protected:
@@ -12,7 +12,7 @@ protected:
 public:
 	Projectile(int damage,float speed,const sf::Vector2f& position,const sf::Vector2f& direction);
 	virtual ~Projectile();
-	void move();
+	virtual void move();
 	void setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec);
 	int getDamage() const { return m_damage; }
 	const sf::Vector2f getSize()const;
@@ -20,16 +20,30 @@ public:
 	const sf::Vector2f getTopLeftPos()const;
 };
 
-
+//Player 
 class PlayerBullet:public Projectile {
 public:
 	PlayerBullet(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction);
 	~PlayerBullet();
 	const sf::Sprite& getSprite()const { return m_sprite; }
 };
+
+
+
+//Enemy
 class EnemyBullet:public Projectile {
 public:
 	EnemyBullet(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction);
 	~EnemyBullet();
 	const sf::Sprite& getSprite()const { return m_sprite; }
+};
+
+class DeviatedProjectile :public EnemyBullet {
+private:
+	float m_deviation_angle;
+	int iteration_ = 0;
+public:
+	DeviatedProjectile(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction, float deviation_angle);
+	~DeviatedProjectile();
+	void move()override;
 };

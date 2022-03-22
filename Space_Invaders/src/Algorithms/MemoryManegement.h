@@ -144,8 +144,7 @@ namespace MemoryManagement {
 			}
 
 		
-			buffer_alias.back()->setPosition(sf::Vector2f(VectorMath::getViewportLowerRightPos().x,SceneManagement::Scene::s_view->getSize().y));
-	
+			buffer_alias.back()->setPosition(VectorMath::getViewportLowerRightPos().x);
 		}
 	};
 	//delete!!!!!!!!!!!!!!!!!!!!!
@@ -243,7 +242,7 @@ namespace MemoryManagement {
 		}
 	};
 	
-
+	//attacker
 	template<> class EnemySpawner<Attacker> :public BaseEnemySpawner {
 	public:
 
@@ -332,12 +331,199 @@ namespace MemoryManagement {
 			}
 
 
-			buffer_alias.back()->setPosition(sf::Vector2f(VectorMath::getViewportLowerRightPos().x, SceneManagement::Scene::s_view->getSize().y));
+			buffer_alias.back()->setPosition(VectorMath::getViewportLowerRightPos().x);
+		}
+	};
+	//starminator
+	template<> class EnemySpawner<Starminator> :public BaseEnemySpawner {
+		float t1_rot_speed = 5.0f;
+		float t2_rot_speed = 1.0f;
+	public:
+
+		EnemySpawner(std::vector<Enemy*>& enemy_buffer, sf::Vector2f& world_pos, sf::Vector2f& total_length) :BaseEnemySpawner(enemy_buffer, world_pos, total_length) {
+			//set the textures
+			timer.setDuration(5.0f);
+			//default values
+
+			//Type-1
+			std::string path_texture_1("res/Sprites/enemies/starminator_red.png");
+			t1_enemy_scale = { 0.3f,0.3f };
+			std::string path_projectile_texture1("res/Sprites/projectiles/laser_ball_red.png");
+			t1_bullet_scale = { 0.4f,0.4f };
+			
+			//Type
+			std::string path_texture_2("res/Sprites/enemies/starminator_blue.png");
+			t2_enemy_scale = { 0.4f,0.4f };
+			std::string path_projectile_texture2("res/Sprites/projectiles/laser_ball_purple.png");
+			t2_bullet_scale = { 0.4f,0.3f };
+			///json data values
+			sf::Texture t1_enemy_texture;
+			t1_enemy_texture.loadFromFile(path_texture_1);
+			sf::Texture t2_enemy_texture;
+			t2_enemy_texture.loadFromFile(path_texture_2);
+			//projectile textures
+			sf::Texture t1_bullet_texture;
+			t1_bullet_texture.loadFromFile(path_projectile_texture1);
+			sf::Texture t2_bullet_texture;
+			t2_bullet_texture.loadFromFile(path_projectile_texture2);
+
+			enemy_textures.emplace_back(t1_enemy_texture);
+			enemy_textures.emplace_back(t2_enemy_texture);
+			bullet_textures.emplace_back(t1_bullet_texture);
+			bullet_textures.emplace_back(t2_bullet_texture);
+
+			t1_speed = 1;
+			t2_speed = 1;
+		}
+		void spawn()override {
+			float percent_of_progress = (m_world_pos.x / m_total_length.x) * 100.0f;
+		
+			if (percent_of_progress < 20.0f) {
+
+				buffer_alias.emplace_back(new Starminator(t1_health, t1_speed,t1_rot_speed, VectorMath::Vdirection::LEFT));
+				//set the texture
+				buffer_alias.back()->setTexture(enemy_textures[0], t1_enemy_scale);
+
+				//buffer_alias.back()->setTexture(t1_enemy_texture, t1_enemy_scale);
+				//set the projectile texture
+				buffer_alias.back()->setProjectileTexture(bullet_textures[0], t1_bullet_scale);
+				//call set bullet parameters
+				buffer_alias.back()->setBulletParameters(t1_bullet_damage, t1_bullet_speed);
+
+			}
+			else if (percent_of_progress < 40.0f) {
+				buffer_alias.emplace_back(new Starminator(t2_health, t2_speed, t2_rot_speed, VectorMath::Vdirection::LEFT));
+				buffer_alias.back()->setTexture(enemy_textures[1], t2_enemy_scale);
+				buffer_alias.back()->setProjectileTexture(bullet_textures[1], t2_bullet_scale);
+				buffer_alias.back()->setBulletParameters(t2_bullet_damage, t2_bullet_speed);
+
+			}
+			else {
+				int range = 1 - 0 + 1;
+				int type = rand() % range + 0;
+
+				if (type == 0) {
+
+					buffer_alias.emplace_back(new Starminator(t1_health, t1_speed, t1_rot_speed, VectorMath::Vdirection::LEFT));
+					//set the texture
+					buffer_alias.back()->setTexture(enemy_textures[0], t1_enemy_scale);
+
+					//buffer_alias.back()->setTexture(t1_enemy_texture, t1_enemy_scale);
+					//set the projectile texture
+					buffer_alias.back()->setProjectileTexture(bullet_textures[0], t1_bullet_scale);
+					//call set bullet parameters
+					buffer_alias.back()->setBulletParameters(t1_bullet_damage, t1_bullet_speed);
+				}
+				else {
+
+					buffer_alias.emplace_back(new Starminator(t2_health, t2_speed, t2_rot_speed, VectorMath::Vdirection::LEFT));
+					buffer_alias.back()->setTexture(enemy_textures[1], t2_enemy_scale);
+					buffer_alias.back()->setProjectileTexture(bullet_textures[1], t2_bullet_scale);
+					buffer_alias.back()->setBulletParameters(t2_bullet_damage, t2_bullet_speed);
+
+				}
+			}
+
+
+			buffer_alias.back()->setPosition(VectorMath::getViewportLowerRightPos().x);
 
 		}
 	};
+	//spinner
+	template<> class EnemySpawner<Spinner> :public BaseEnemySpawner {
+		float t1_rot_speed = 5.0f;
+		float t2_rot_speed = 5.0f;
+	public:
+
+		EnemySpawner(std::vector<Enemy*>& enemy_buffer, sf::Vector2f& world_pos, sf::Vector2f& total_length) :BaseEnemySpawner(enemy_buffer, world_pos, total_length) {
+			//set the textures
+			timer.setDuration(7.0f);
+			//default values
+
+			//Type-1
+			std::string path_texture_1("res/Sprites/enemies/spinner_purple.png");
+			t1_enemy_scale = { 0.4f,0.4f };
+			std::string path_projectile_texture1("res/Sprites/projectiles/laser_ball_purple.png");
+			t1_bullet_scale = { 0.4f,0.4f };
+
+			//Type
+			std::string path_texture_2("res/Sprites/enemies/spinner_red.png");
+			t2_enemy_scale = { 0.4f,0.4f };
+			std::string path_projectile_texture2("res/Sprites/projectiles/laser_ball_red.png");
+			t2_bullet_scale = { 0.4f,0.4f };
+			///json data values
+			sf::Texture t1_enemy_texture;
+			t1_enemy_texture.loadFromFile(path_texture_1);
+			sf::Texture t2_enemy_texture;
+			t2_enemy_texture.loadFromFile(path_texture_2);
+			//projectile textures
+			sf::Texture t1_bullet_texture;
+			t1_bullet_texture.loadFromFile(path_projectile_texture1);
+			sf::Texture t2_bullet_texture;
+			t2_bullet_texture.loadFromFile(path_projectile_texture2);
+
+			enemy_textures.emplace_back(t1_enemy_texture);
+			enemy_textures.emplace_back(t2_enemy_texture);
+			bullet_textures.emplace_back(t1_bullet_texture);
+			bullet_textures.emplace_back(t2_bullet_texture);
+
+			t1_speed = 7;
+			t2_speed = 7;
+		}
+		void spawn()override {
+			float percent_of_progress = (m_world_pos.x / m_total_length.x) * 100.0f;
+
+			if (percent_of_progress < 20.0f) {
+
+				buffer_alias.emplace_back(new Spinner(t1_health, t1_speed, t1_rot_speed, VectorMath::Vdirection::LEFT));
+				//set the texture
+				buffer_alias.back()->setTexture(enemy_textures[0], t1_enemy_scale);
+
+				//buffer_alias.back()->setTexture(t1_enemy_texture, t1_enemy_scale);
+				//set the projectile texture
+				buffer_alias.back()->setProjectileTexture(bullet_textures[0], t1_bullet_scale);
+				//call set bullet parameters
+				buffer_alias.back()->setBulletParameters(t1_bullet_damage, t1_bullet_speed);
+
+			}
+			else if (percent_of_progress < 40.0f) {
+				buffer_alias.emplace_back(new Spinner(t2_health, t2_speed, t2_rot_speed, VectorMath::Vdirection::LEFT));
+				buffer_alias.back()->setTexture(enemy_textures[1], t2_enemy_scale);
+				buffer_alias.back()->setProjectileTexture(bullet_textures[1], t2_bullet_scale);
+				buffer_alias.back()->setBulletParameters(t2_bullet_damage, t2_bullet_speed);
+
+			}
+			else {
+				int range = 1 - 0 + 1;
+				int type = rand() % range + 0;
+
+				if (type == 0) {
+
+					buffer_alias.emplace_back(new Spinner(t1_health, t1_speed, t1_rot_speed, VectorMath::Vdirection::LEFT));
+					//set the texture
+					buffer_alias.back()->setTexture(enemy_textures[0], t1_enemy_scale);
+
+					//buffer_alias.back()->setTexture(t1_enemy_texture, t1_enemy_scale);
+					//set the projectile texture
+					buffer_alias.back()->setProjectileTexture(bullet_textures[0], t1_bullet_scale);
+					//call set bullet parameters
+					buffer_alias.back()->setBulletParameters(t1_bullet_damage, t1_bullet_speed);
+				}
+				else {
+
+					buffer_alias.emplace_back(new Spinner(t2_health, t2_speed, t2_rot_speed, VectorMath::Vdirection::LEFT));
+					buffer_alias.back()->setTexture(enemy_textures[1], t2_enemy_scale);
+					buffer_alias.back()->setProjectileTexture(bullet_textures[1], t2_bullet_scale);
+					buffer_alias.back()->setBulletParameters(t2_bullet_damage, t2_bullet_speed);
+
+				}
+			}
 
 
+			buffer_alias.back()->setPosition(VectorMath::getViewportLowerRightPos().x);
+
+		}
+	};
 
 
 	//change this later
@@ -391,8 +577,7 @@ namespace MemoryManagement {
 			if (x > 2) {
 				x = 0;
 			}
-			buffer_alias.back()->setPosition(sf::Vector2f(VectorMath::getViewportLowerRightPos().x, SceneManagement::Scene::s_view->getSize().y));
-			
+			buffer_alias.back()->setPosition(VectorMath::getViewportLowerRightPos().x);
 		}
 
 	};
