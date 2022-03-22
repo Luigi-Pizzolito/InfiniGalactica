@@ -31,7 +31,8 @@ class SFX {
 // utility namespace for easily accesing SFXlib sfx with IntelliSense
 namespace SFXlib {
     const std::string BulletShoot  (    "BulletShoot"    );
-    const std::string BulletReload (   "BulletReload"    );
+    const std::string MissleLaunch (    "MissleLaunch"   );
+    const std::string BulletReload (    "BulletReload"   );
     const std::string BulletHit    (    "BulletHit"      );
     const std::string EnemyDestroy (    "EnemyDestroy"   );
     const std::string Selec        (    "Selec"          );

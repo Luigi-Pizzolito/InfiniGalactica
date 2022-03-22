@@ -24,6 +24,26 @@ $(ODIR)/$(PNAME): $(SRCD)
 	$(CC) $^ -o $(ODIR)/$(PNAME) $(CFLAGS) $(LIBS)
 	@echo "\033[0m\033[1;32mProject Compiled Successfully.\033[0m"
 
+debug-build: $(SRCD)
+	@[ -d $(ODIR) ] || mkdir -p $(ODIR)
+	@echo "\033[0m\033[1;31mBuilding Project for Debug..........................\033[0m\033[2m"
+	$(CC) $^ -o $(ODIR)/$(PNAME) -g -O0 $(CFLAGS) $(LIBS)
+	@echo "\033[0m\033[1;31mProject Compiled Successfully.\033[0m"
+	@echo "\033[1;31mRunning Debug Project..........................\033[0m\033[2m\033[39;2m"
+	cd Space_Invaders; lldb ../$(ODIR)/$(PNAME)
+
+debug-build-run: $(SRCD)
+	@[ -d $(ODIR) ] || mkdir -p $(ODIR)
+	@echo "\033[0m\033[1;31mBuilding Project for Debug..........................\033[0m\033[2m"
+	$(CC) $^ -o $(ODIR)/$(PNAME) -g -O0 $(CFLAGS) $(LIBS)
+	@echo "\033[0m\033[1;31mProject Compiled Successfully.\033[0m"
+	@echo "\033[1;31mRunning Debug Project..........................\033[0m\033[2m\033[39;2m"
+	cd Space_Invaders; lldb -o run ../$(ODIR)/$(PNAME)
+
+debug:
+	@echo "\033[1;31mRunning Debug Project..........................\033[0m\033[2m\033[39;2m"
+	cd Space_Invaders; lldb ../$(ODIR)/$(PNAME)
+
 .PHONY: clean
 
 clean:

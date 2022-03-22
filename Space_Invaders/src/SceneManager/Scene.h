@@ -15,6 +15,7 @@ using json = nlohmann::json;
 #include "Algorithms/StarField.h"
 
 #include "SceneManager/SceneUtils/Composit.h"
+
 namespace SceneManagement {
 
 	class SceneMenu;
@@ -24,6 +25,7 @@ namespace SceneManagement {
 		static sf::View* s_view;
 		static sf::Event s_events;
 		static SceneMenu* s_main_menu;
+
 	protected:
 		bool m_finished;
 		//sf::RenderWindow* m_window = nullptr;
@@ -94,6 +96,6 @@ namespace SceneManagement {
 		
 	};
 	void goBackToMainMenu();
-
+	void goToGameOver();
 
 }

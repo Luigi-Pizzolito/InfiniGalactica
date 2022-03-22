@@ -14,6 +14,9 @@ private:
 	void prepareContainers()override;
 	void loadTextures()override;
 
+	void updateEntityCollisions()override;
+	void updateEntities()override;
+
 	json cfg;
 
 	int* upgrade_points = NULL;

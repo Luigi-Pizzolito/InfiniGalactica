@@ -1,0 +1,8 @@
+{
+    "sceneName": "gameover",
+    "sceneType": "gameover",
+    "rstarfield": {
+        "starNum": 350,
+        "speed": 0.65
+    }
+}

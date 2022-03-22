@@ -11,6 +11,7 @@ NovelLevel::NovelLevel(json cfg)
 
 	music = new MusicPlayer(std::string(cfg["music"]), true, 80.0f);
 
+	pSc = new PauseSc(s_window, s_view, &paused, cfg["sceneName"]);
 	f_in = new Composit::Fade(s_window, s_view, false, 4);
 	f_out = new Composit::Fade(s_window, s_view, true, 4);
 	f_in->trigger();
@@ -22,6 +23,7 @@ NovelLevel::~NovelLevel()
 	delete music;
 	delete f_in;
 	delete f_out;
+	delete pSc;
 }
 
 void NovelLevel::pollEvents()
@@ -32,21 +34,27 @@ void NovelLevel::pollEvents()
 		switch (Scene::s_events.type)
 		{
 		case sf::Event::Closed:
-			Scene::s_window->close();
+			pSc->pre();
+			paused = true;
 			break;
 		case sf::Event::KeyPressed:
-			if (Scene::s_events.key.code == sf::Keyboard::Escape)
-			{
-				m_return = true;
-			}
+			if (!paused) {
+				if (Scene::s_events.key.code == sf::Keyboard::Escape)
+				{
+					pSc->pre();
+					paused = true;
+				}
 
-			if (Scene::s_events.key.code == sf::Keyboard::Space)
-			{
-				key_space = true;
-				if (text_panel->next()) {
-					// m_return = true;
-					f_out->trigger();
-				};
+				if (Scene::s_events.key.code == sf::Keyboard::Space)
+				{
+					key_space = true;
+					if (text_panel->next()) {
+						// m_return = true;
+						f_out->trigger();
+					};
+				}
+			} else {
+				pSc->handleInput(s_events);
 			}
 
 			break;
@@ -70,9 +78,8 @@ void NovelLevel::update(float delta_time)
 {
 	pollEvents();
 	text_panel->tick();
-
 	music->update(text_panel->scene_p());
-
+	pSc->update();
 	if (m_return) {
 		m_return = false;
 		SceneManagement::goBackToMainMenu();
@@ -85,6 +92,11 @@ void NovelLevel::render()
 	f_in->draw();
 	if (f_out->draw()) {
 		m_return = true;
+	}
+	if (paused) {
+		if (pSc->draw()) {
+			m_return = true;
+		}
 	}
 }
 

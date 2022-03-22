@@ -19,4 +19,16 @@ namespace Composit {
             void trigger();
             bool draw();
     };
+
+    class Portal {
+        private:
+            sf::RenderWindow* window;
+            const sf::View* view;
+            sf::Texture p_tex;
+            sf::RectangleShape portal;
+        public:
+            Portal(sf::RenderWindow* window, const sf::View* view, float lvl_length);
+            ~Portal();
+            void draw();
+    };
 }

@@ -290,6 +290,7 @@ EnemyBullet* Spinner::spawnBullet(int bullet_index)
 
 	EnemyBullet* bullet = new EnemyBullet(m_bullet_damage, m_bullet_speed, getCenterPos(),m_target_pos_dir);
 	bullet->setTexture(*m_projectile_texture, m_projectile_scale);
+	SFX::play(SFXlib::MissleLaunch, 25.0f);
 	return bullet;
 }
 

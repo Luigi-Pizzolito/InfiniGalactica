@@ -8,6 +8,7 @@
 using json = nlohmann::json;
 
 #include "SceneManager/SceneUtils/Composit.h"
+#include "SceneManager/SaveSys.h"
 
 class NovelLevel :public SceneManagement::Scene {
 
@@ -18,6 +19,9 @@ private:
     // sf::Font font;
 	Composit::Fade* f_in;
 	Composit::Fade* f_out;
+
+	PauseSc* pSc;
+	bool paused = false;
 	//Textures
 	// sf::Texture dialog_overlay;
 

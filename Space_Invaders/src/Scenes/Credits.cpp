@@ -27,7 +27,8 @@ void Credits::pollEvents() {
 		switch (Scene::s_events.type)
 		{
 		case sf::Event::Closed:
-			Scene::s_window->close();
+			// Scene::s_window->close();
+			m_return = true;
 			break;
 		case sf::Event::KeyPressed:
 			if (Scene::s_events.key.code == sf::Keyboard::Escape)

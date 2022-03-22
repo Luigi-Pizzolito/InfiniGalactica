@@ -7,6 +7,7 @@ using json = nlohmann::json;
 #include "Levels/ShooterLevel.h"
 #include "Levels/BossLevel1.h"
 #include "Scenes/Credits.h"
+#include "Scenes/GameOver.h"
 #include "Scenes/NovelScene.h"
 namespace SceneManagement {
 
@@ -44,7 +45,7 @@ namespace SceneManagement {
 		title.setFillColor(sf::Color::White);
 		//todo: use another while loop to get vertical spacing bounds for selection on smaller screens
 		selection.addOptions(std::string("Continue"));
-		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Credits", "Exit"});
+		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
 
 		f_in = new Composit::Fade(s_window, s_view, false, 2);
 		f_in->trigger();
@@ -70,7 +71,7 @@ namespace SceneManagement {
 				setScene(std::string("commanderlevel"));
 			} else
 			if (selec == "Options") {
-
+				setScene(std::string("gameover"));
 			} else
 			if (selec == "Credits") {
 				setScene(std::string("credits"));
@@ -147,6 +148,9 @@ namespace SceneManagement {
 		if (cfg["sceneType"] == "credits") {
 			registerScenePassJSON<Credits>(json_file);
 		} else
+		if (cfg["sceneType"] == "gameover") {
+			registerScenePassJSON<GameOver>(json_file);
+		}
 		if (cfg["sceneType"] == "bossLevel1") {
 			registerScenePassJSON<BossLevel1>(json_file);
 		}
@@ -232,6 +236,9 @@ namespace SceneManagement {
 		
 	}
 
+	void goToGameOver() {
+		Scene::s_main_menu->setScene(std::string("gameover"));
+	}
 
 }
 

@@ -1,4 +1,6 @@
 {
     "file": "res/Music/ogg/bosseroo.ogg",
-    "loop_points": []
+    "loop_points": [
+        { "off": 5.917, "len": 81.583 }
+    ]
 }

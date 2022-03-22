@@ -9,11 +9,11 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 	// Initialize key press states
 	//Initialize the spawners
 	
-	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies,world_position,total_length));
-	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Furtive>(world_enemies, world_position, total_length));
-	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Attacker>(world_enemies, world_position, total_length));
-	//spawners.emplace_back(new MemoryManagement::EnemySpawner<Starminator>(world_enemies, world_position, total_length));
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies,world_position,total_length));
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Furtive>(world_enemies, world_position, total_length));
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Attacker>(world_enemies, world_position, total_length));
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Starminator>(world_enemies, world_position, total_length));
+	// spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
 
 	item_spawners.emplace_back(new MemoryManagement::BaseItemSpawner(world_items));
 	//Initialize collectors
@@ -30,6 +30,7 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 	player_max = false;
 	f_in = new Composit::Fade(s_window, s_view, false, 4);
 	f_in->trigger();
+	
 
 	//Debug
 	xa = new Debug::XAxis(Scene::s_window, Scene::s_view, &total_length);
@@ -52,15 +53,22 @@ void Level::pollEvents()
 		switch (Scene::s_events.type)
 		{
 		case sf::Event::Closed:
-			Scene::s_window->close();
+			// Scene::s_window->close();
+			pSc->pre();
+			paused = true;
 			break;
 		case sf::Event::KeyPressed:
-			playerInputStates(STATES::PRESSED);
-			if (Scene::s_events.key.code == sf::Keyboard::Q) {
-				switchSlot();
-			}
-			if (Scene::s_events.key.code == sf::Keyboard::Escape) {
-				Scene::s_window->close();
+			if (!paused) {
+				playerInputStates(STATES::PRESSED);
+				if (Scene::s_events.key.code == sf::Keyboard::Q) {
+					switchSlot();
+				}
+				if (Scene::s_events.key.code == sf::Keyboard::Escape) {
+					pSc->pre();
+					paused = true;
+				}
+			} else {
+				pSc->handleInput(s_events);
 			}
 			break;
 		case sf::Event::KeyReleased:
@@ -81,13 +89,15 @@ void Level::pollEvents()
 		}
 	}
 	// States Update
-	if (key_u) { player->move(DIRECTIONS::UP); }
-	else if (key_d) { player->move(DIRECTIONS::DOWN); }
+	if (!paused) {
+		if (key_u) { player->move(DIRECTIONS::UP); }
+		else if (key_d) { player->move(DIRECTIONS::DOWN); }
 
-	if (key_l) { player->move(DIRECTIONS::LEFT); }
-	else if (key_r) { player->move(DIRECTIONS::RIGHT); }
-	if (key_s) {
-		if (player->canShoot()) {spawnPlayerBullet(); }
+		if (key_l) { player->move(DIRECTIONS::LEFT); }
+		else if (key_r) { player->move(DIRECTIONS::RIGHT); }
+		if (key_s) {
+			if (player->canShoot()) {spawnPlayerBullet(); }
+		}
 	}
 }
 

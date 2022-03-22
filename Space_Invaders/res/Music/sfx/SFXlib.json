@@ -1,5 +1,6 @@
 {
     "BulletShoot":  "res/Music/sfx/ogg/DefiniteShot5.ogg",
+    "MissleLaunch": "res/Music/sfx/ogg/MissileLaunchMini2.ogg",
     "BulletReload": "res/Music/sfx/ogg/BulletSnappin.ogg",
     "BulletHit":    "res/Music/sfx/ogg/DefiniteHit.ogg",
     "EnemyDestroy": "res/Music/sfx/ogg/DestroyMonster2.ogg",

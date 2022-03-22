@@ -15,6 +15,8 @@
 #include "Algorithms/MemoryManegement.h"
 #include "GameItems/GameItem.h"
 #include "SceneManager/SceneUtils/Composit.h"
+#include "SceneManager/SaveSys.h"
+
 class Level :public SceneManagement::Scene {
 protected:
 	//variables
@@ -67,6 +69,10 @@ protected:
 
 	//Transition
 	Composit::Fade* f_in;
+	Composit::Portal* portal;
+
+	PauseSc* pSc;
+	bool paused = false;
 
 	//Debug
 	Debug::XAxis* xa;

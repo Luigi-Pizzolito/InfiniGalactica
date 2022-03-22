@@ -17,16 +17,22 @@ BossLevel1::BossLevel1(json cfg)
 	camera = new CameraFollowHorzScroll(Scene::s_window, Scene::s_view, player, sf::Vector2f(100.0f, 0.0f), true);
 	//create the starfield
 	// starfield = new starfield(Scene::s_window, Scene::s_view, s_view->getSize().x, 25, 1.4f);
-	r_starfield = new RadialStarField(Scene::s_window, Scene::s_view, 350, 8);
+	r_starfield = new RadialStarField(Scene::s_window, Scene::s_view, 300, 8);
 	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, boss_health, boss_health, 0.8f);
 	//Music
 	music = new MusicPlayer("song5", true);
 
+	pSc = new PauseSc(s_window, s_view, &paused, cfg["sceneName"]);
+
+	// Boss
 	boss_texture.loadFromFile("res/Sprites/enemies/bosses/BossCommander_2.png");
 	boss->setTexture(boss_texture, sf::Vector2f(0.6f, 0.6f));
 	boss->setPosition(VectorMath::getViewportLowerRightPos() - sf::Vector2f(boss->getSize().x, Scene::s_view->getSize().y) / 2.0f);
 	boss->setProjectileTexture(boss_projectile_texture, sf::Vector2f(0.6f, 0.6f));
 	boss->setBulletParameters(10, 20);
+
+	// Minion Spawner
+	spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
 
 	f_in = new Composit::Fade(s_window, s_view, false, 4);
 	f_in->trigger();
@@ -41,45 +47,49 @@ BossLevel1::~BossLevel1()
 	delete hud;
 	delete music;
 	delete boss;
+	delete pSc;
 }
 
 void BossLevel1::update(float delta_time)
 {
 	pollEvents();
 	if (player->getHP() > 0) {
-		if (boss->getHP() <= 0) {
-			//placeholder for finishing the level
-			Scene::s_view->zoom(1.0f / 1.8f);
-			//Scene::s_view->setSize(640*2,480*2);
-			Scene::s_window->setView(*Scene::s_view);
-			SceneManagement::goBackToMainMenu();
-		}
-		else {
-			updateEntityCollisions();
-			updateEntities();
+		if (!paused) {
+			
+			if (boss->getHP() <= 0) {
+				//? next lvl
+				//!placeholder for finishing the level
+				// Scene::s_view->zoom(1.0f/1.8f);
+				// Scene::s_window->setView(*Scene::s_view);
+				// m_finished = true; //? goto next level
+				m_return = true;
+			} else {
+				camera->follow();
+				updateEntityCollisions();
+				updateEntities();
+			}
 			
 		}
-		//spawners
-		for (auto& spawner : spawners) {
-			spawner->update();
-		}
 		
-	
-		for (auto& collector : collectors) {
-			collector->update();
-		}
+		pSc->update();
 
-		camera->follow();
 	}
 	else {
-
+		//!game over
 		Scene::s_view->zoom(1.0f/1.8f);
-		//Scene::s_view->setSize(640*2,480*2);
 		Scene::s_window->setView(*Scene::s_view);
-		SceneManagement::goBackToMainMenu();
+		SFX::play(SFXlib::GameOver, 100.0f);
+		SceneManagement::goToGameOver();
+		// SceneManagement::goBackToMainMenu();
 
 	}
-	
+	if (m_return) {
+		//! exit level
+		m_return = false;
+		Scene::s_view->zoom(1.0f / 1.8f);
+		Scene::s_window->setView(*Scene::s_view);
+		SceneManagement::goBackToMainMenu();
+	}
 }
 
 void BossLevel1::render()
@@ -102,6 +112,12 @@ void BossLevel1::render()
 	Scene::s_window->draw(player->getSprite());
 	// displays objects on the screen
 	hud->draw();
+
+	if (paused) {
+		if (pSc->draw()) {
+			m_return = true;
+		}
+	}
 
 	//Transition
 	f_in->draw();
@@ -226,6 +242,16 @@ void BossLevel1::updateEntities()
 	}
 	for (auto& bullet : world_enemy_bullets) {
 		bullet->move();
+	}
+
+	//spawners
+	for (auto& spawner : spawners) {
+		spawner->update();
+	}
+
+
+	for (auto& collector : collectors) {
+		collector->update();
 	}
 
 }

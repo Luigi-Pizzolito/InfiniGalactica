@@ -2,8 +2,6 @@
 #include <iostream>
 #include "MediaManager/SFXPlayer.h"
 
-//todo: use this class to create pause and game over menu scenes
-
 SelectionMenu::SelectionMenu(sf::RenderWindow* window, const sf::View* view):m_window(window),c_view(view) {
     // selection_t.setString("Continue\nNew Game\nEndless Mode\nOptions");
     font.loadFromFile("res/Novel/LanaPixel.ttf");
@@ -43,7 +41,9 @@ void SelectionMenu::updateLayout() {
     pointer_t.setOrigin(sf::Vector2f((-c_view->getSize().x/2)+(selection_t.getGlobalBounds().width/4)+pointer_t.getGlobalBounds().width+10, (-c_view->getSize().y/2)-selection_i*selec_off));
 }
 
-void SelectionMenu::draw() {
+void SelectionMenu::draw(sf::Vector2f trans) {
+    selection_t.setPosition(trans);
+    pointer_t.setPosition(trans);
     m_window->draw(selection_t);
     m_window->draw(pointer_t);
 }

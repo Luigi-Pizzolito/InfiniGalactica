@@ -18,12 +18,10 @@ class SelectionMenu {
         
         std::vector<std::string> options;
 
-        void updateLayout();
-
     public:
         SelectionMenu(sf::RenderWindow* window, const sf::View* view);
         ~SelectionMenu();
-        void draw();
+        void draw(sf::Vector2f trans = sf::Vector2f(0.0f,0.0f));
         void addOptions(std::string single_option);
         void addOptions(std::vector<std::string> multiple_option);
         void clearOptions() { options.clear(); }
@@ -31,5 +29,6 @@ class SelectionMenu {
         int lastOpt() { return options.size()-1; }
         std::string selection() { return options[selection_i]; }
         void handleInput(sf::Event event);
+        void updateLayout();
         bool selected = false;
 };

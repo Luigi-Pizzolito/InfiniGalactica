@@ -1,7 +1,7 @@
 #include "ShooterLevel.h"
 #include "MediaManager/SFXPlayer.h"
 #include <iostream>
-
+//todo: fix bug where player cannot take damage until score 90
 ShooterLevel::ShooterLevel(json cfg) :Level(),cfg(cfg)
 {
     auto lvlCfg = cfg["levelOptions"];
@@ -37,6 +37,10 @@ ShooterLevel::ShooterLevel(json cfg) :Level(),cfg(cfg)
 	//HUD
 	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, world_position,total_length);
 
+	portal = new Composit::Portal(s_window, s_view, total_length.x);
+
+	pSc = new PauseSc(s_window, s_view, &paused, cfg["sceneName"]);
+
     debug_xa = (bool)lvlCfg["debugXa"];
 	// std::cout << "Created Level 1\n";
 }
@@ -50,7 +54,8 @@ ShooterLevel::~ShooterLevel()
 	delete camera;
 	delete hud;
 	delete music;
-
+	delete pSc;
+	delete portal;
     delete [] upgrade_points;
     upgrade_points = NULL;
 }
@@ -60,112 +65,30 @@ void ShooterLevel::update(float delta_time)
 {
 	pollEvents();
 	if (player->getHP() > 0) {
-		// Update player score upgrades
-		if (!player_max) {
-			int tex_i =0;
-			for (int i = 0; i<upgrade_points_n; i++) {
-				if (player_score > upgrade_points[i]) {
-					tex_i=i+1;
-					// std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
-				}
-			}
-			// std::cout << "seeting texture to: " << tex_i << "\n";
-			player->upgrade(tex_i);
-			player->setTexture(player_textures[tex_i]);
-			if (player_score > upgrade_points[upgrade_points_n-1]) {
-				player_max = true;
+		if (!paused) {
+			
+			updateEntities();
+			updateEntityCollisions();
+			// scroll camera
+			camera->follow();
+
+			//check if reached EOL
+			if (world_position.x >= total_length.x) {
+				m_finished = true;
 			}
 		}
-		
-		// Update Player physics
-		player->updatePhysics();
-		updateWorldPosition();
 
-		// Update spawners, enemies and bullets
-		for (auto& spawner : spawners) {
-			spawner->update();
-		}
-		for (auto& itemspawner : item_spawners) {
-			itemspawner->update();
-		}
-		//Entities and projectiles actions
-		for (auto& playerbullet : player_bullets) {
-
-			playerbullet->move();
-
-		}
-		for (auto& enemy : world_enemies) {
-			enemy->move();
-			if (enemy->canShoot()) {
-				spawnEnemyBullet(enemy);
-			}
-		}
-		for (auto& enemybullet : world_enemy_bullets) {
-			enemybullet->move();
-		}
-
-		//Collisions
-		//Enemies
-		world_enemies.erase(std::remove_if(world_enemies.begin(), world_enemies.end(), [&](Enemy* enemy) {
-			//check for collisions with playerbullets
-			bool is_dead = false;
-			for (size_t i = 0; i < player_bullets.size(); i++) {
-				if (enemy->collidesWith(player_bullets[i])) {
-					enemy->hurt(player_bullets[i]);
-					//deletes the object in the heap
-					delete player_bullets[i];
-					//deletes the slot that was used for it in the array of bullets
-					player_bullets.erase(player_bullets.begin() + i);
-				}
-
-			}
-			if (enemy->getHP() <= 0) {
-				is_dead = true;
-				//delete the memory in the heap
-				delete enemy;
-				player_score += 10;
-
-				SFX::play(SFXlib::EnemyDestroy, 25.0f);
-			}
-
-			return is_dead; }), world_enemies.end());
-		//items
-		world_items.erase(remove_if(world_items.begin(), world_items.end(), [&](GameItem* item_) {
-			bool collided=player->collidesWith(item_);
-			if (collided) {
-				item_->applyEffect(player);
-			}
-			return collided; }),world_items.end());
-		//Player
-		world_enemy_bullets.erase(std::remove_if(world_enemy_bullets.begin(), world_enemy_bullets.end(), [&](EnemyBullet* enemy_bullet) {
-			bool collided = player->collidesWith(enemy_bullet);
-			if (collided) {
-				player->hurt(enemy_bullet);
-			}
-
-			return collided; }), world_enemy_bullets.end());
-
-		// scroll camera
-		camera->follow();
-
-        //Update music loops with world position
-        float levelProgress =world_position.x/total_length.x;
-        music->update(levelProgress);
-
-		// Collectors
-		for (auto& collector : collectors) {
-			collector->update();
-		}
-		//check if reached EOL
-		if (world_position.x >= total_length.x) {
-			m_finished = true;
-		}
+		pSc->update();
 	}
 	else {
 		SFX::play(SFXlib::GameOver, 100.0f);
+		SceneManagement::goToGameOver();
+		// SceneManagement::goBackToMainMenu();
+	}
+	if (m_return) {
+		m_return = false;
 		SceneManagement::goBackToMainMenu();
 	}
-
 }
 
 //Render Level Graphics
@@ -189,10 +112,19 @@ void ShooterLevel::render()
 	}
 	Scene::s_window->draw(player->getSprite());
 
+	// EOL Portal
+	portal->draw();
+
 	// displays objects on the screen
 	hud->draw();
 	//Debug
 	if (debug_xa) {xa->draw();};
+
+	if (paused) {
+		if (pSc->draw()) {
+			m_return = true;
+		}
+	}
 
 	//Transition
 	f_in->draw();
@@ -234,3 +166,100 @@ void ShooterLevel::loadTextures()
 }
 
 
+void ShooterLevel::updateEntityCollisions() {
+	//Collisions
+	//Enemies
+	world_enemies.erase(std::remove_if(world_enemies.begin(), world_enemies.end(), [&](Enemy* enemy) {
+		//check for collisions with playerbullets
+		bool is_dead = false;
+		for (size_t i = 0; i < player_bullets.size(); i++) {
+			if (enemy->collidesWith(player_bullets[i])) {
+				enemy->hurt(player_bullets[i]);
+				//deletes the object in the heap
+				delete player_bullets[i];
+				//deletes the slot that was used for it in the array of bullets
+				player_bullets.erase(player_bullets.begin() + i);
+			}
+
+		}
+		if (enemy->getHP() <= 0) {
+			is_dead = true;
+			//delete the memory in the heap
+			delete enemy;
+			player_score += 10;
+
+			SFX::play(SFXlib::EnemyDestroy, 25.0f);
+		}
+
+		return is_dead; }), world_enemies.end());
+	//items
+	world_items.erase(remove_if(world_items.begin(), world_items.end(), [&](GameItem* item_) {
+		bool collided=player->collidesWith(item_);
+		if (collided) {
+			item_->applyEffect(player);
+		}
+		return collided; }),world_items.end());
+	//Player
+	world_enemy_bullets.erase(std::remove_if(world_enemy_bullets.begin(), world_enemy_bullets.end(), [&](EnemyBullet* enemy_bullet) {
+		bool collided = player->collidesWith(enemy_bullet);
+		if (collided) {
+			player->hurt(enemy_bullet);
+		}
+
+		return collided; }), world_enemy_bullets.end());
+}
+
+void ShooterLevel::updateEntities() {
+	// Update player score upgrades
+	if (!player_max) {
+		int tex_i =0;
+		for (int i = 0; i<upgrade_points_n; i++) {
+			if (player_score > upgrade_points[i]) {
+				tex_i=i+1;
+				// std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
+			}
+		}
+		// std::cout << "seeting texture to: " << tex_i << "\n";
+		player->upgrade(tex_i);
+		player->setTexture(player_textures[tex_i]);
+		if (player_score > upgrade_points[upgrade_points_n-1]) {
+			player_max = true;
+		}
+	}
+
+	// Update Player physics
+	player->updatePhysics();
+	updateWorldPosition();
+
+	// Update spawners, enemies and bullets
+	for (auto& spawner : spawners) {
+		spawner->update();
+	}
+	for (auto& itemspawner : item_spawners) {
+		itemspawner->update();
+	}
+	//Entities and projectiles actions
+	for (auto& playerbullet : player_bullets) {
+
+		playerbullet->move();
+
+	}
+	for (auto& enemy : world_enemies) {
+		enemy->move();
+		if (enemy->canShoot()) {
+			spawnEnemyBullet(enemy);
+		}
+	}
+	for (auto& enemybullet : world_enemy_bullets) {
+		enemybullet->move();
+	}
+
+	//Update music loops with world position
+	float levelProgress =world_position.x/total_length.x;
+	music->update(levelProgress);
+
+	// Collectors
+	for (auto& collector : collectors) {
+		collector->update();
+	}
+}
