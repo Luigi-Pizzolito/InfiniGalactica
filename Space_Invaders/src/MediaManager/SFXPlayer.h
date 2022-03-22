@@ -10,11 +10,6 @@ class SFX {
         // internal variables for keeping loaded samples, players, sfxlib
         std::map<std::string, sf::SoundBuffer> samples;
         std::vector<sf::Sound> players;
-        const std::map<std::string, std::string> lib {
-            {"BulletShoot"  , "DefiniteShot5"},
-            {"BulletHit"    , "DefiniteHit"},
-            {"EnemyDestroy" , "DestroyMonster2"}
-        };
         // internal method for fetching available player
         static sf::Sound* getAvailPlayer();
     public:
@@ -36,10 +31,15 @@ class SFX {
 // utility namespace for easily accesing SFXlib sfx with IntelliSense
 namespace SFXlib {
     const std::string BulletShoot  (    "BulletShoot"    );
-    const std::string BulletReload  (   "BulletReload"   );
+    const std::string BulletReload (   "BulletReload"    );
     const std::string BulletHit    (    "BulletHit"      );
     const std::string EnemyDestroy (    "EnemyDestroy"   );
     const std::string Selec        (    "Selec"          );
     const std::string Enter        (    "Enter"          );
     const std::string GameOver     (    "GameOver"       );
+    // const std::string Miku_L1      (    "Miku_L1"        );
+    // const std::string Miku_L2      (    "Miku_L2"        );
+    // const std::string Miku_L3      (    "Miku_L3"        );
+    // const std::string Miku_L4      (    "Miku_L4"        );
+    // const std::string Miku_L5      (    "Miku_L5"        );
 };

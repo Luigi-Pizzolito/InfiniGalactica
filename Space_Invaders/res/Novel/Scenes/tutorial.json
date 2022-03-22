@@ -1,0 +1,42 @@
+[
+    {
+        "text": "Hello darling, I am your spaceship's A.I.",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "line": "Miku_L1",
+        "background": "res/Novel/Backgrounds/popipo.jpg"
+    },
+    {
+        "text": "Move with A, W, S, D or the arrow keys",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "line": "Miku_L2",
+        "background": "res/Novel/Backgrounds/ievan.jpg"
+    },
+    {
+        "text": "Shoot with space bar or click",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "line": "Miku_L3",
+        "background": "res/Novel/Backgrounds/popipo.jpg"
+    },
+    {
+        "text": "Destroy all the enemies",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "line": "Miku_L4",
+        "background": "res/Novel/Backgrounds/ievan.jpg"
+    },
+    {
+        "text": "and most importantly: Don't dissapoint me.",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/zatsune.png",
+        "color": "B30400",
+        "line": "Miku_L5",
+        "background": "res/Novel/Backgrounds/hagane.jpg"
+    }
+]

@@ -1,7 +1,8 @@
 #include "TextPanel.h"
 #include <iostream>
+#include "MediaManager/SFXPlayer.h"
 
-TextPanel::TextPanel(sf::String string, const sf::String actor, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold):font(font), actor(actor), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key) {
+TextPanel::TextPanel(sf::String string, const sf::String actor, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, std::string a_line, std::string actor_img_p, std::string background_p, bool bold):font(font), actor(actor), fontSize(fontSize),highlight(highlight),m_window(m_window),m_view(m_view),s_key(s_key),line(a_line),actor_img_p(actor_img_p),background_p(background_p) {
 	// Word wrap algorithim, finding the display length and adding \n or \31 alternatively, to add line breaks and separator \31 to indicate next panel
 	unsigned width = m_view->getSize().x - 2*(margin+border+padding);
 	unsigned currentOffset = 0;
@@ -88,6 +89,29 @@ TextPanel::TextPanel(sf::String string, const sf::String actor, const sf::Color 
 	actor_box.setFillColor(sf::Color::Black);
 	actor_box.setOutlineThickness(border);
 	actor_box.setOutlineColor(highlight);
+	//actor img
+	loadTex();
+	// actor_img.setTextureRect()
+	sf::Vector2f a_size(m_view->getSize().x/4.5,m_view->getSize().y/2);
+	// actor_img.setFillColor(sf::Color::White);
+	actor_img.setSize(a_size);
+	actor_img.setPosition(sf::Vector2f(margin-border, m_view->getSize().y-(margin+padding+ 3*fontSize + line_padding + 5*border)-a_size.y));
+	// actor_img.setFillColor(sf::Color(255, 255, 255, 0));
+	
+	//background
+	
+	background.setSize(sf::Vector2f(m_window->getSize().x, m_window->getSize().y));
+	background.setOrigin(background.getSize().x / 2, background.getSize().y / 2);
+	background.setPosition(m_view->getCenter());
+	background.setFillColor(sf::Color(255, 255, 255, 255));
+	
+}
+
+void TextPanel::loadTex() {
+	actor_img_tex.loadFromFile(actor_img_p);
+	actor_img.setTexture(&actor_img_tex);
+	background_texture.loadFromFile(background_p);
+	background.setTexture(&background_texture);
 }
 
 TextPanel::~TextPanel() {
@@ -146,6 +170,11 @@ void TextPanel::tick() {
 }
 
 void TextPanel::draw() {
+	// Draw background
+	if (background_p != "") {
+		m_window->draw(background);
+	}
+
 	// Draw dialog box
 	m_window->draw(dialog_box);
 
@@ -182,6 +211,16 @@ void TextPanel::draw() {
 		// Draw actor box and text
 		m_window->draw(actor_box);
 		m_window->draw(actor_t);
+	}
+
+	if (actor_img_p != "") {
+		//draw actor img
+		m_window->draw(actor_img);
+	}
+
+	if (line != "" && !line_p && !(*s_key)) {
+		line_p = true;
+		SFX::play(line, 80.0f);
 	}
 
 	// draw main text

@@ -30,6 +30,9 @@ void TextManager::loadScene()
         std::string text;
         std::string color;
         std::string actor = "";
+        std::string actor_img_p = "";
+        std::string bg_p = "";
+        std::string line = "";
         // Iterate over key-value pairs and set variables
         for (auto &[key, val] : j[i].items())
         {
@@ -42,6 +45,12 @@ void TextManager::loadScene()
                 color = val;
             } else if (key == "actor") {
                 actor = val;
+            } else if (key == "actor_img") {
+                actor_img_p = val;
+            } else if (key == "line") {
+                line = val;
+            } else if (key == "background") {
+                bg_p = val;
             }
         }
 
@@ -56,11 +65,12 @@ void TextManager::loadScene()
         std::string str2(actor);
         sf::String sfTmp2 = sf::String::fromUtf8(str2.begin(), str2.end());
         // Create text panel and push to array
-        TextPanel test(sf::String(sfTmp), sf::String(sfTmp2), sf::Color(r, g, b), font, fontSize, m_window, m_view, s_key);
+        TextPanel test(sf::String(sfTmp), sf::String(sfTmp2), sf::Color(r, g, b), font, fontSize, m_window, m_view, s_key, line, actor_img_p, bg_p);
         scenes_p.push_back(test);
 
         // std::cout << "[#" << color << "] " << text << "\n";
     }
+    scenes_p[0].loadTex();
 }
 
 bool TextManager::next()
@@ -70,6 +80,7 @@ bool TextManager::next()
         if (scene_i + 1 < scenes_p.size())
         {
             scene_i++;
+            scenes_p[scene_i].loadTex();
             return false;
         }
         else

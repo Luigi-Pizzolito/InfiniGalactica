@@ -5,5 +5,11 @@
     "EnemyDestroy": "res/Music/sfx/ogg/DestroyMonster2.ogg",
     "Selec":        "res/Music/sfx/ogg/DataComputed.ogg",
     "Enter":        "res/Music/sfx/ogg/ElasticShieldAttack2.ogg",
-    "GameOver":     "res/Music/sfx/ogg/game_over.ogg"
+    "GameOver":     "res/Music/sfx/ogg/game_over.ogg",
+    
+    "Miku_L1":      "res/Music/sfx/ogg/miku/miku_line1.ogg",
+    "Miku_L2":      "res/Music/sfx/ogg/miku/miku_line2.ogg",
+    "Miku_L3":      "res/Music/sfx/ogg/miku/miku_line3.ogg",
+    "Miku_L4":      "res/Music/sfx/ogg/miku/miku_line4.ogg",
+    "Miku_L5":      "res/Music/sfx/ogg/miku/miku_line5.ogg"
 }

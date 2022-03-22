@@ -2,7 +2,7 @@
 #include <cmath>
 // #include <iostream>
 
-CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed, bool locked):window(window),view(view),player(player),c_speed(c_speed),locked(locked) {
+CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::View* view, Player* player, sf::Vector2f c_speed, bool locked, float zoom):window(window),view(view),player(player),c_speed(c_speed),locked(locked) {
     const sf::Sprite* sprite = &player->getSprite();
     // get the player sprite position
     sf::Vector2f s_pos = sprite->getScale();                //first get the sprite texture center, starting by getting the scale
@@ -15,6 +15,7 @@ CameraFollowHorzScroll::CameraFollowHorzScroll(sf::RenderWindow* window, sf::Vie
     last_p = s_pos + view_offset;
 
     view->setCenter(last_p + (view->getSize() / 2.0f)); //compensate for setCenter instead of setOffset func.
+    view->zoom(zoom);
     window->setView(*view);
 }
 

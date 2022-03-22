@@ -10,6 +10,8 @@ class TextPanel {
         const sf::Font font;
         const unsigned fontSize;
         const sf::String actor;
+        const std::string line;
+        const std::string actor_img_p;
         const sf::Color highlight;
         sf::RenderWindow* m_window;
         sf::View* m_view;
@@ -24,12 +26,18 @@ class TextPanel {
         size_t tick_be = 0; 
         bool blink_b = false;
         size_t reveal_b = 0;
+        bool line_p = false;
         // Internal drawing vars
         sf::RectangleShape dialog_box;
         sf::Text textn;
         sf::Text text_d;
         sf::Text actor_t;
         sf::RectangleShape actor_box;
+        sf::RectangleShape actor_img;
+        sf::RectangleShape background;
+        sf::Texture actor_img_tex;
+        sf::Texture background_texture;
+        std::string background_p = "res/";
 
         // Layout parameters
         const float margin = 20;
@@ -48,8 +56,9 @@ class TextPanel {
         sf::String text();
 
     public:
-        TextPanel(sf::String string, const sf::String actor, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, bool bold = false);
+        TextPanel(sf::String string, const sf::String actor, const sf::Color highlight, const sf::Font &font, unsigned fontSize, sf::RenderWindow* m_window, sf::View* m_view, bool* s_key, std::string a_line = "", std::string actor_img_p = "", std::string background_p = "", bool bold = false);
         ~TextPanel();
+        void loadTex();
          
         bool next();
         void tick();

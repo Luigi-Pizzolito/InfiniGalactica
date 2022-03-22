@@ -9,7 +9,7 @@ NovelLevel::NovelLevel(json cfg)
 	// Load Script
 	text_panel = new TextManager(std::string("res/Novel/Scenes/")+std::string(cfg["novelScene"])+std::string(".json"), Scene::s_window, Scene::s_view, &key_space);
 
-	music = new MusicPlayer(std::string(cfg["music"]), true);
+	music = new MusicPlayer(std::string(cfg["music"]), true, 80.0f);
 
 	f_in = new Composit::Fade(s_window, s_view, false, 4);
 	f_out = new Composit::Fade(s_window, s_view, true, 4);

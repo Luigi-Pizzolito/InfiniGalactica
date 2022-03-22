@@ -13,7 +13,7 @@ class MusicPlayer {
         void noLoop();
 
     public:
-        MusicPlayer(const std::string song, bool autoPlay = false);
+        MusicPlayer(const std::string song, bool autoPlay = false, float vol = 100.0f);
         ~MusicPlayer();
 
         void play();

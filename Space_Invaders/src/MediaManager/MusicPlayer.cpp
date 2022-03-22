@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
+MusicPlayer::MusicPlayer(const std::string song, bool autoPlay, float vol) {
     // load song parameters from JSON
     // Read JSON file info and parse to store in internal object
     std::ifstream ifs(std::string("res/Music/")+song+std::string(".json"));
@@ -17,7 +17,7 @@ MusicPlayer::MusicPlayer(const std::string song, bool autoPlay) {
     }
 
     // set initial loop
-    player.setVolume(100.0f);
+    player.setVolume(vol);
     if (cfg["loop_points"].size() > 0) {
         setLoop(0);
     } else {
