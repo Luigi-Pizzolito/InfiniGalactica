@@ -43,7 +43,7 @@ namespace SceneManagement {
 		title.setFillColor(sf::Color::White);
 		//todo: use another while loop to get vertical spacing bounds for selection on smaller screens
 		selection.addOptions(std::string("Continue"));
-		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
+		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Credits", "Exit"});
 
 		f_in = new Composit::Fade(s_window, s_view, false, 2);
 		f_in->trigger();
