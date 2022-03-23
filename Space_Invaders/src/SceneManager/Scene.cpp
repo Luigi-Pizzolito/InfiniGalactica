@@ -9,6 +9,8 @@ using json = nlohmann::json;
 #include "Scenes/Credits.h"
 #include "Scenes/GameOver.h"
 #include "Scenes/NovelScene.h"
+
+#include "SceneManager/SaveSys.h"
 namespace SceneManagement {
 
 	//static variables initialization 
@@ -49,6 +51,7 @@ namespace SceneManagement {
 
 		f_in = new Composit::Fade(s_window, s_view, false, 2);
 		f_in->trigger();
+
 	}
 
 	void SceneMenu::handleSelection() {
@@ -62,13 +65,20 @@ namespace SceneManagement {
 				s_window->close();
 			} else
 			if (selec == "Continue") {
-				setScene(std::string("novel1"));
+				// std::cout << "SaveSys: last scene was: " << SaveSys::restoreState() << "\n";
+				setScene(SaveSys::restoreState());
+				// setScene(std::string("novel1"));
+				// setScene(std::string("level1"));
 			} else
 			if (selec == "New Game") {
-				setScene(std::string("level1"));
+				SaveSys::clearState();
+				//! needed to set nullptr to the first scene for when calling nextScene()
+				// nextScene();
+				m_finished = true;
 			} else
 			if (selec == "Endless Mode") {
-				setScene(std::string("commanderlevel"));
+				// setScene(std::string("commanderlevel"));
+				setScene(std::string("level1"));
 			} else
 			if (selec == "Options") {
 				setScene(std::string("gameover"));
@@ -194,6 +204,17 @@ namespace SceneManagement {
 			//this is just to avoid deleting the menu
 			delete m_CurrentScenePtr;
 			m_CurrentScenePtr = nullptr;
+		} else {
+			//? added by Luigi
+			// we're calling next scene from the menu, set to scene 1
+			m_sceneElement = &m_Scenes[0];
+			std::ifstream ifs(std::string("res/Scenes/")+m_Scenes[0].first+std::string(".json"));
+			json cfg = json::parse(ifs);
+			m_CurrentScenePtr = m_Scenes[0].second(cfg);
+			music.pause();
+			Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
+			Scene::s_window->setView(*Scene::s_view);
+			return;
 		}
 		//for extra safety, if someone for some reason sets a scene that is not the 1st one as
 		//the 1st scene
@@ -217,7 +238,7 @@ namespace SceneManagement {
 
 	void goBackToMainMenu()
 	{
-		std::cout << "Scene Menu: going back to main menu from : " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
+		//std::cout << "Scene Menu: going back to main menu from : " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n"; //!causes segfault
 		if (Scene::s_main_menu->m_CurrentScenePtr&& (Scene::s_main_menu->m_CurrentScenePtr!= Scene::s_main_menu)) {
 			//delete the current scene
 			delete Scene::s_main_menu->m_CurrentScenePtr;
@@ -237,11 +258,17 @@ namespace SceneManagement {
 	}
 
 	void goToGameOver() {
+		goBackToMainMenu();
+
+
 		Scene::s_main_menu->setScene(std::string("gameover"));
 	}
 
+
+	// void dbgScenes() {
+	// 	std::cout << "\n\nCurrent Scene: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n";
+	// 	std::cout << 
+	// }
+
 }
-
-	
-
 	

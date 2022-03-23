@@ -82,7 +82,8 @@ void NovelLevel::update(float delta_time)
 	pSc->update();
 	if (m_return) {
 		m_return = false;
-		SceneManagement::goBackToMainMenu();
+		// s_main_menu->nextScene();
+		m_finished=true;
 	}
 }
 

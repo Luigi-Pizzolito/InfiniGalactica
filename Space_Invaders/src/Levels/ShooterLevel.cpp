@@ -3,6 +3,8 @@
 #include "Entity/SimpleSpawner.h"
 #include <iostream>
 
+#include "SceneManager/SaveSys.h"
+
 ShooterLevel::ShooterLevel(json cfg) :Level(),cfg(cfg)
 {
     auto lvlCfg = cfg["levelOptions"];
@@ -86,6 +88,7 @@ void ShooterLevel::update(float delta_time)
 
 			//check if reached EOL
 			if (world_position.x >= total_length.x) {
+				SaveSys::saveLevel(cfg["sceneName"], player_score);
 				m_finished = true;
 			}
 		}

@@ -3,7 +3,7 @@
 #include <json.hpp>
 using json = nlohmann::json;
 
-BossLevel1::BossLevel1(json cfg)
+BossLevel1::BossLevel1(json cfg):cfg(cfg)
 {
 	boss = new Commander(50, 10, VectorMath::Vdirection::UP);
 	boss_health = sf::Vector2f(boss->getHP(), 0.0f);
@@ -35,7 +35,6 @@ BossLevel1::BossLevel1(json cfg)
 	boss->setBulletParameters(10, 20);
 
 	// Minion Spawner
-	//! transition this to new system
 	json spawner_cfg1 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":20,\"speed\":7,\"timer\":7.0,\"scale\":[0.3,0.3],\"rot_speed\":5.0,\"bullet\":{\"damage\":20,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_purple.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_purple.png\"]}}"_json;
 	json spawner_cfg2 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":30,\"speed\":7,\"timer\":7.0,\"scale\":[0.4,0.4],\"rot_speed\":1.0,\"bullet\":{\"damage\":10,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_red.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_red.png\"]}}"_json;
 	spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg1));
@@ -69,8 +68,9 @@ void BossLevel1::update(float delta_time)
 				//!placeholder for finishing the level
 				// Scene::s_view->zoom(1.0f/1.8f);
 				// Scene::s_window->setView(*Scene::s_view);
-				// m_finished = true; //? goto next level
-				m_return = true;
+				SaveSys::saveLevel(cfg["sceneName"], player_score);
+				m_finished = true; //? goto next level
+				// m_return = true;
 			} else {
 				camera->follow();
 				updateEntityCollisions();

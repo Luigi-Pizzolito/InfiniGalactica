@@ -25,6 +25,8 @@ private:
 	void updateEntityCollisions()override;
 	void updateEntities()override;
 
+	json cfg;
+
 	//Transition
 	Composit::Fade* f_in;
 	RadialStarField* r_starfield;

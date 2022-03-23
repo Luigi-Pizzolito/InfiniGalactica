@@ -85,6 +85,7 @@ namespace SceneManagement {
 		std::pair<std::string, std::function<Scene* (json cfg)>>* m_sceneElement;
 		friend void goBackToMainMenu();
 
+
 		template <typename T>
 		void registerScenePassJSON(const std::string& json_file)
 		{

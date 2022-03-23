@@ -38,7 +38,7 @@ debug-build-run: $(SRCD)
 	$(CC) $^ -o $(ODIR)/$(PNAME) -g -O0 $(CFLAGS) $(LIBS)
 	@echo "\033[0m\033[1;31mProject Compiled Successfully.\033[0m"
 	@echo "\033[1;31mRunning Debug Project..........................\033[0m\033[2m\033[39;2m"
-	cd Space_Invaders; lldb -o run ../$(ODIR)/$(PNAME)
+	cd Space_Invaders; lldb -o run ../$(ODIR)/$(PNAME) 2> /dev/null
 
 debug:
 	@echo "\033[1;31mRunning Debug Project..........................\033[0m\033[2m\033[39;2m"
