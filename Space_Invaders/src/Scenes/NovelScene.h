@@ -20,6 +20,8 @@ private:
 	Composit::Fade* f_in;
 	Composit::Fade* f_out;
 
+	json cfg;
+
 	PauseSc* pSc;
 	bool paused = false;
 	//Textures

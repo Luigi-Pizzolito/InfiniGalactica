@@ -4,7 +4,7 @@
 
 
 
-NovelLevel::NovelLevel(json cfg)
+NovelLevel::NovelLevel(json cfg):cfg(cfg)
 {
 	// Load Script
 	text_panel = new TextManager(std::string("res/Novel/Scenes/")+std::string(cfg["novelScene"])+std::string(".json"), Scene::s_window, Scene::s_view, &key_space);
@@ -50,6 +50,8 @@ void NovelLevel::pollEvents()
 					key_space = true;
 					if (text_panel->next()) {
 						// m_return = true;
+						// finished all text panels
+						SaveSys::saveLevel(cfg["sceneName"], 0);
 						f_out->trigger();
 					};
 				}
@@ -80,11 +82,11 @@ void NovelLevel::update(float delta_time)
 	text_panel->tick();
 	music->update(text_panel->scene_p());
 	pSc->update();
-	if (m_return) {
-		m_return = false;
+	// if (m_return) {
+		// m_return = false;
 		// s_main_menu->nextScene();
-		m_finished=true;
-	}
+		// m_finished=true;
+	// }
 }
 
 void NovelLevel::render()
@@ -92,11 +94,12 @@ void NovelLevel::render()
 	text_panel->draw();
 	f_in->draw();
 	if (f_out->draw()) {
-		m_return = true;
+		m_finished = true;
 	}
 	if (paused) {
 		if (pSc->draw()) {
-			m_return = true;
+			// m_return = true;
+			SceneManagement::goBackToMainMenu();
 		}
 	}
 }

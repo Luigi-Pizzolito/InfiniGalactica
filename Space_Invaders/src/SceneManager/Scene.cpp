@@ -72,9 +72,7 @@ namespace SceneManagement {
 			} else
 			if (selec == "New Game") {
 				SaveSys::clearState();
-				//! needed to set nullptr to the first scene for when calling nextScene()
-				// nextScene();
-				m_finished = true;
+				s_main_menu->nextScene();
 			} else
 			if (selec == "Endless Mode") {
 				// setScene(std::string("commanderlevel"));
