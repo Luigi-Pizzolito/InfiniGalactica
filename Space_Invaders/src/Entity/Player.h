@@ -19,6 +19,7 @@ protected:
 	int b_m_MaxHP;
 	int b_m_bullet_damage;
 	float b_m_bullet_speed;
+	int last_up_lvl;
 public:
 	Player(int health, float speed, float fric); // Player initialiser also includes a friction parameter now
 	~Player();
@@ -40,7 +41,6 @@ public:
 	bool canShoot();
 	//Buffs
 	void upgrade(int upgrade_lvl);
-	void upgradeHP(int upgrade_lvl);
 	void heal(float quantity);
 	void boostFireRate(float percent_increment);
 	void increaseBulletDamage(float increment);

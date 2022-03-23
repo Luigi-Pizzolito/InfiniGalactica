@@ -262,7 +262,7 @@
             "itemSpawners": [
                 {
                     "spawn_type": "base_items",
-                    "timer": 10.0,
+                    "timer": 8.0,
                     "spawn_range": [0.0,100.0],
                     "item_scale": [0.8, 0.8]
                 }

@@ -110,15 +110,16 @@ void ShooterLevel::render()
 	starfield->draw();
 
 	// renders objects
+	for (auto& item_ : world_items) {
+		Scene::s_window->draw(item_->getSprite());
+	}
 	for (auto& enemy : world_enemies) {
 		Scene::s_window->draw(enemy->getSprite());
 	}
 	for (auto& playerbullet : player_bullets) {
 		Scene::s_window->draw(playerbullet->getSprite());
 	}
-	for (auto& item_ : world_items) {
-		Scene::s_window->draw(item_->getSprite());
-	}
+	
 	for (auto& enemybullet : world_enemy_bullets) {
 		Scene::s_window->draw(enemybullet->getSprite());
 	}
@@ -228,8 +229,7 @@ void ShooterLevel::updateEntities() {
 		for (int i = 0; i<upgrade_points_n; i++) {
 			if (player_score > upgrade_points[i]) {
 				tex_i=i+1;
-				player->upgradeHP(tex_i);
-				std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
+				// std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
 			}
 		}
 		// std::cout << "seeting texture to: " << tex_i << "\n";

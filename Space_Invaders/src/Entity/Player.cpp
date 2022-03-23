@@ -4,6 +4,7 @@
 #include "MediaManager/SFXPlayer.h"
 #include "GameItems/GameItem.h"
 #include <cmath>
+#include <iostream>
 
 Player::Player(int health, float speed, float fric):PhysicsEntity(health,speed,fric),player_speed(speed),player_friction(fric)
 {
@@ -111,13 +112,13 @@ bool Player::canShoot()
 void Player::upgrade(int upgrade_lvl)
 {
 	m_MaxHP 		= b_m_MaxHP 		*std::pow(1.25f, upgrade_lvl);
-	
 	m_bullet_speed 	= b_m_bullet_speed	*std::pow(1.1f , upgrade_lvl);
 	m_bullet_damage = b_m_bullet_damage	*std::pow(1.1f , upgrade_lvl);
-}
-
-void Player::upgradeHP(int upgrade_lvl) {
-	m_HP 			= getHP()			*std::pow(1.25f, upgrade_lvl);
+	if (upgrade_lvl != last_up_lvl) {
+		//only if actual change in level scale up hp accordingly
+		m_HP 			= getHP()			*std::pow(1.25f, upgrade_lvl);
+	}
+	last_up_lvl = upgrade_lvl;
 }
 
 void Player::heal(float quantity)

@@ -6,7 +6,7 @@
 #include "Algorithms/MathUtils.h"
 #include "GameItems/GameItem.h"
 #include "Entity/Enemy.h"
-#include <iostream>
+// #include <iostream>
 
 class Enemy;
 class GameItem;
@@ -39,7 +39,7 @@ class SimpleSpawner {
     public:
         SimpleSpawner(std::vector<Enemy*>& enemy_buffer,sf::Vector2f& world_pos,sf::Vector2f& total_length, json cfg) :
         buffer_alias(enemy_buffer),m_world_pos(world_pos),m_total_length(total_length),cfg(cfg) {
-            std::cout << "new spawner with: " << cfg.dump() << "\n";
+            // std::cout << "new spawner with: " << cfg.dump() << "\n";
             //initilise from JSON + spawn range
             spawn_type = std::string(cfg["spawn_type"]);
             spawn_range = sf::Vector2f((float)cfg["spawn_range"][0], (float)cfg["spawn_range"][1]);
