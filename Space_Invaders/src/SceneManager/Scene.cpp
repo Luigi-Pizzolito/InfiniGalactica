@@ -263,7 +263,7 @@ namespace SceneManagement {
 		//set the scene pointer to the first scene(not needed but elegant)
 		Scene::s_main_menu->m_sceneElement = Scene::s_main_menu->m_Scenes.data();
 		Scene::s_main_menu->m_CurrentScenePtr = Scene::s_main_menu;
-		Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
+		Scene::s_view->setCenter(Scene::s_view->getSize().x / 2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
 		Scene::s_window->setView(*Scene::s_view);
 
 		std::cout << "Scene Menu: Current scene is: " << Scene::s_main_menu->m_sceneElement->first.c_str() << "\n"; 

@@ -1,8 +1,8 @@
 {
-    "sceneName": "test",
+    "sceneName": "level3",
     "sceneType": "shooterLevel",
     "levelOptions": {
-        "totalLength": 40.0,
+        "totalLength": 150.0,
         "prepareContainers": {
             "textures": {
                 "player": 3,
@@ -18,7 +18,7 @@
             "fric": 100,
             "texture_i": 0,
             "scale": [0.5, 0.5],
-            "upgradePoints": [40, 60]
+            "upgradePoints": [100, 200]
         },
         "loadTextures": {
             "playerTextures": [
@@ -34,7 +34,7 @@
             "locked": false
         },
         "starfield": {
-            "starNum": 25,
+            "starNum": 45,
             "nebulaNum": 1.4
         },
         "music": {
@@ -43,26 +43,48 @@
         "spawners": {
             "enemySpawners": [
                 {
-                    "spawn_type": "Enemy",
-                    "spawn_range": [90.0,0.0],
+                    "spawn_type": "Furtive",
+                    "spawn_range": [1.5, 60.0],
                     "member": {
-                        "health": 30,
-                        "speed": 5,
-                        "timer": 1.0,
-                        "scale": [0.5,0.5],
+                        "health": 20,
+                        "speed": 1.0,
+                        "timer": 3.0,
+                        "scale": [0.4,0.4],
                         "bullet": {
-                            "damage": 20,
+                            "damage": 2,
                             "speed": 15,
                             "scale": [0.4,0.3], 
                             "textures": [
-                                "res/Sprites/projectiles/laser_blue.png"
+                                "res/Sprites/projectiles/laser_ball_purple.png"
                             ]
                         },
                         "textures": [
-                            "res/Sprites/enemies/recon_v2.png"
+                            "res/Sprites/enemies/furtive_emerald.png"
+                        ]
+                    }
+                },
+                {
+                    "spawn_type": "Furtive",
+                    "spawn_range": [60.0, 100.0],
+                    "member": {
+                        "health": 15,
+                        "speed": 6,
+                        "timer": 2.0,
+                        "scale": [0.3,0.3],
+                        "bullet": {
+                            "damage": 1,
+                            "speed": 15,
+                            "scale": [0.4,0.3], 
+                            "textures": [
+                                "res/Sprites/projectiles/laser_ball_red.png"
+                            ]
+                        },
+                        "textures": [
+                            "res/Sprites/enemies/furtive_pink.png"
                         ]
                     }
                 }
+   
             ],
             "itemSpawners": [
                 {

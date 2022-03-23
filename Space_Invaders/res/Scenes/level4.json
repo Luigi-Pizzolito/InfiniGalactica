@@ -1,0 +1,145 @@
+{
+    "sceneName": "level4",
+    "sceneType": "shooterLevel",
+    "levelOptions": {
+        "totalLength": 300.0,
+        "prepareContainers": {
+            "textures": {
+                "player": 3,
+                "projectile": 3
+            },
+            "bullets": 80,
+            "enemies": 50,
+            "enemyBullets":80
+        },
+        "player" : {
+            "health": 100,
+            "speed": 0.5,
+            "fric": 100,
+            "texture_i": 0,
+            "scale": [0.5, 0.5],
+            "upgradePoints": [160, 320]
+        },
+        "loadTextures": {
+            "playerTextures": [
+                "res/Sprites/player/player_base.png",
+                "res/Sprites/player/player_upgrade_1.png",
+                "res/Sprites/player/player_upgrade_2.png"
+            ],
+            "projectileTextures": [
+                "res/Sprites/projectiles/laser_red.png"
+            ]
+        },
+        "camera": {
+            "locked": false
+        },
+        "starfield": {
+            "starNum": 80.0,
+            "nebulaNum": 1.9
+        },
+        "music": {
+            "song": "song6"
+        },
+        "spawners": {
+            "enemySpawners": [
+                {
+                    "spawn_type": "Furtive",
+                    "spawn_range": [1.5, 30.0],
+                    "member": {
+                        "health": 20,
+                        "speed": 2.0,
+                        "timer": 5.0,
+                        "scale": [0.4,0.4],
+                        "bullet": {
+                            "damage": 2,
+                            "speed": 15,
+                            "scale": [0.4,0.3], 
+                            "textures": [
+                                "res/Sprites/projectiles/laser_ball_purple.png"
+                            ]
+                        },
+                        "textures": [
+                            "res/Sprites/enemies/furtive_emerald.png"
+                        ]
+                    }
+                },
+                {
+                    "spawn_type": "Furtive",
+                    "spawn_range": [30.0, 50.0],
+                    "member": {
+                        "health": 15,
+                        "speed": 6,
+                        "timer": 2.0,
+                        "scale": [0.3,0.3],
+                        "bullet": {
+                            "damage": 1,
+                            "speed": 15,
+                            "scale": [0.4,0.3], 
+                            "textures": [
+                                "res/Sprites/projectiles/laser_ball_red.png"
+                            ]
+                        },
+                        "textures": [
+                            "res/Sprites/enemies/furtive_pink.png"
+                        ]
+                    }
+                },
+                {
+                    "spawn_type": "Attacker",
+                    "spawn_range": [40.0, 80.0],
+                    "member": {
+                        "health": 20,
+                        "speed": 1.0,
+                        "timer": 3.0,
+                        "scale": [0.5,0.5],
+                        "bullet": {
+                            "damage": 20,
+                            "speed": 15,
+                            "scale": [0.5,0.5], 
+                            "textures": [
+                                "res/Sprites/projectiles/attacker_red_projectile.png"
+                            ]
+                        },
+                        "textures": [
+                            "res/Sprites/enemies/attacker_red_1.png",
+                            "res/Sprites/enemies/attacker_red_2.png"
+                        ]
+                    }
+                },
+                {
+                    "spawn_type": "Attacker",
+                    "spawn_range": [80.0, 100.0],
+                    "member": {
+                        "health": 30,
+                        "speed": 5.0,
+                        "timer": 3.0,
+                        "scale": [0.5,0.5],
+                        "bullet": {
+                            "damage": 10,
+                            "speed": 15,
+                            "scale": [0.5,0.5], 
+                            "textures": [
+                                "res/Sprites/projectiles/attacker_blue_projectile.png"
+                            ]
+                        },
+                        "textures": [
+                            "res/Sprites/enemies/attacker_blue_1.png",
+                            "res/Sprites/enemies/attacker_blue_2.png"
+                        ]
+                    }
+                }
+            
+   
+            ],
+            "itemSpawners": [
+                {
+                    "spawn_type": "base_items",
+                    "timer": 8.0,
+                    "spawn_range": [0.0,100.0],
+                    "item_scale": [0.8, 0.8]
+                }
+            ]
+        },
+        "debugXa": false
+    }
+}

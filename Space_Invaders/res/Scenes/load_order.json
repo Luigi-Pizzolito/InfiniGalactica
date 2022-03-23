@@ -1,11 +1,15 @@
 [
-    "test",
-    "tutorial",
+    "level1",
+    "novel1",
+    "level2",
     "bossLevel1",
+    "level3",
+    "level4",
     "bossLevel2",
+    "level5",
+    "level6",
     "bossLevel3",
-    
-    
     "credits",
-    "gameover"
+    "gameover",
+    "test"
 ]

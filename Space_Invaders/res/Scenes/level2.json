@@ -1,8 +1,8 @@
 {
-    "sceneName": "level1",
+    "sceneName": "level2",
     "sceneType": "shooterLevel",
     "levelOptions": {
-        "totalLength": 150.0,
+        "totalLength": 250.0,
         "prepareContainers": {
             "textures": {
                 "player": 3,
@@ -13,12 +13,12 @@
             "enemyBullets":80
         },
         "player" : {
-            "health": 100,
+            "health": 125,
             "speed": 0.5,
             "fric": 100,
             "texture_i": 0,
             "scale": [0.5, 0.5],
-            "upgradePoints": [90, 160]
+            "upgradePoints": [120, 350]
         },
         "loadTextures": {
             "playerTextures": [
@@ -35,7 +35,7 @@
         },
         "starfield": {
             "starNum": 100,
-            "nebulaNum": 1.9
+            "nebulaNum": 2.1
         },
         "music": {
             "song": "song6"
@@ -46,13 +46,13 @@
                     "spawn_type": "Enemy",
                     "spawn_range": [2.0,100.0],
                     "member": {
-                        "health": 20,
+                        "health": 45,
                         "speed": 4,
-                        "timer": 2.0,
+                        "timer": 1.1,
                         "scale": [0.5,0.5],
                         "bullet": {
-                            "damage": 10,
-                            "speed": 15,
+                            "damage": 12,
+                            "speed": 16,
                             "scale": [0.4,0.3], 
                             "textures": [
                                 "res/Sprites/projectiles/laser_red.png"
@@ -67,12 +67,12 @@
                     "spawn_type": "Enemy",
                     "spawn_range": [40.0,100.0],
                     "member": {
-                        "health": 15,
-                        "speed": 8,
-                        "timer": 1.3,
+                        "health": 16,
+                        "speed": 9,
+                        "timer": 0.9,
                         "scale": [0.4,0.4],
                         "bullet": {
-                            "damage": 7,
+                            "damage": 6,
                             "speed": 15,
                             "scale": [0.3,0.2], 
                             "textures": [
@@ -89,7 +89,7 @@
             "itemSpawners": [
                 {
                     "spawn_type": "base_items",
-                    "timer": 9.0,
+                    "timer": 12.0,
                     "spawn_range": [0.0,100.0],
                     "item_scale": [0.8, 0.8]
                 }

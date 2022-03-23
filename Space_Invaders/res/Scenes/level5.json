@@ -1,8 +1,8 @@
 {
-    "sceneName": "level1",
+    "sceneName": "level5",
     "sceneType": "shooterLevel",
     "levelOptions": {
-        "totalLength": 150.0,
+        "totalLength": 200.0,
         "prepareContainers": {
             "textures": {
                 "player": 3,
@@ -13,18 +13,18 @@
             "enemyBullets":80
         },
         "player" : {
-            "health": 100,
+            "health": 125,
             "speed": 0.5,
             "fric": 100,
             "texture_i": 0,
             "scale": [0.5, 0.5],
-            "upgradePoints": [90, 160]
+            "upgradePoints": [80, 170]
         },
         "loadTextures": {
             "playerTextures": [
-                "res/Sprites/player/player_base.png",
                 "res/Sprites/player/player_upgrade_1.png",
-                "res/Sprites/player/player_upgrade_2.png"
+                "res/Sprites/player/player_upgrade_2.png",
+                "res/Sprites/player/player_upgrade_3.png"
             ],
             "projectileTextures": [
                 "res/Sprites/projectiles/laser_red.png"
@@ -34,7 +34,7 @@
             "locked": false
         },
         "starfield": {
-            "starNum": 100,
+            "starNum": 80.0,
             "nebulaNum": 1.9
         },
         "music": {
@@ -43,53 +43,55 @@
         "spawners": {
             "enemySpawners": [
                 {
-                    "spawn_type": "Enemy",
-                    "spawn_range": [2.0,100.0],
+                    "spawn_type": "Starminator",
+                    "spawn_range": [1.6,40.0],
                     "member": {
-                        "health": 20,
-                        "speed": 4,
-                        "timer": 2.0,
-                        "scale": [0.5,0.5],
+                        "health": 40,
+                        "speed": 0,
+                        "timer": 4.0,
+                        "scale": [0.3,0.3],
+                        "rot_speed": 5.0,
                         "bullet": {
-                            "damage": 10,
-                            "speed": 15,
-                            "scale": [0.4,0.3], 
+                            "damage": 2,
+                            "speed": 5,
+                            "scale": [0.4,0.4], 
                             "textures": [
-                                "res/Sprites/projectiles/laser_red.png"
+                                "res/Sprites/projectiles/laser_ball_red.png"
                             ]
                         },
                         "textures": [
-                            "res/Sprites/enemies/recon.png"
+                            "res/Sprites/enemies/starminator_red.png"
                         ]
                     }
                 },
                 {
-                    "spawn_type": "Enemy",
+                    "spawn_type": "Starminator",
                     "spawn_range": [40.0,100.0],
                     "member": {
-                        "health": 15,
-                        "speed": 8,
-                        "timer": 1.3,
+                        "health": 30,
+                        "speed": 5,
+                        "timer": 3.0,
                         "scale": [0.4,0.4],
+                        "rot_speed": 1.0,
                         "bullet": {
-                            "damage": 7,
+                            "damage": 5,
                             "speed": 15,
-                            "scale": [0.3,0.2], 
+                            "scale": [0.5,0.5], 
                             "textures": [
-                                "res/Sprites/projectiles/laser_blue.png"
+                                "res/Sprites/projectiles/laser_ball_purple.png"
                             ]
                         },
                         "textures": [
-                            "res/Sprites/enemies/recon_v2.png"
+                            "res/Sprites/enemies/starminator_blue.png"
                         ]
                     }
                 }
- 
+   
             ],
             "itemSpawners": [
                 {
                     "spawn_type": "base_items",
-                    "timer": 9.0,
+                    "timer": 8.0,
                     "spawn_range": [0.0,100.0],
                     "item_scale": [0.8, 0.8]
                 }

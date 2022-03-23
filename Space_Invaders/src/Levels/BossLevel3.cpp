@@ -3,7 +3,7 @@
 BossLevel3::BossLevel3(json cfg):cfg(cfg)
 {
 	
-	boss = new CommanderStarminator(300, 10, 5, VectorMath::Vdirection::UP);
+	boss = new CommanderStarminator(800, 10, 5, VectorMath::Vdirection::UP);
 	mines_timer.setDuration(5.0f);
 	//Reserve Vectors
 	boss_health.x = boss->getHP();
@@ -12,11 +12,12 @@ BossLevel3::BossLevel3(json cfg):cfg(cfg)
 	loadTextures();
 	//spawnMines();
 	Scene::s_window->setView(*Scene::s_view);
-	player = new Player(100, 0.5f, 100.0f);
+	player = new Player(120, 0.5f, 100.0f);
 	//Set player Texture
 	player->setTexture(player_textures[0], sf::Vector2f(0.5f, 0.5f));
 	//create the camera
-	Scene::s_view->zoom(1.8f);
+	Scene::s_view->zoom(2.0f);
+
 	camera = new CameraFollowHorzScroll(Scene::s_window, Scene::s_view, player, sf::Vector2f(100.0f, 0.0f), true);
 	//create the starfield
 	// starfield = new starfield(Scene::s_window, Scene::s_view, s_view->getSize().x, 25, 1.4f);
@@ -31,7 +32,7 @@ BossLevel3::BossLevel3(json cfg):cfg(cfg)
 	boss->setTexture(boss_texture, sf::Vector2f(0.7f, 0.7f));
 	boss->setPosition(VectorMath::getViewportLowerRightPos() - sf::Vector2f(boss->getSize().x, Scene::s_view->getSize().y) / 2.0f);
 	boss->setProjectileTexture(boss_projectile_texture, sf::Vector2f(1.0f, 1.0f));
-	boss->setBulletParameters(1,20);
+	boss->setBulletParameters(10,20);
 
 	f_in = new Composit::Fade(s_window, s_view, false, 4);
 	f_in->trigger();
@@ -57,7 +58,7 @@ void BossLevel3::update(float delta_time)
 		if (!paused) {
 		if (boss_health.x <= 0) {
 			//? next lvl
-			Scene::s_view->zoom(1.0f/1.8f);
+			Scene::s_view->zoom(1.0f/2.0f);
 			Scene::s_window->setView(*Scene::s_view);
 			SaveSys::saveLevel(cfg["sceneName"], player_score);
 			m_finished = true; //? goto next level
@@ -68,44 +69,46 @@ void BossLevel3::update(float delta_time)
 			if (mines_timer.timeOut()) {
 				spawnMines();
 			}
+			for (auto& collector : collectors) {
+				collector->update();
+			}
 			camera->follow();
 			updateEntityCollisions();
 			updateEntities();
 
 		}
 
-		//spawners
-		//for (auto& spawner : spawners) {
-		//	spawner->update();
-		//}
 
-
-		for (auto& collector : collectors) {
-			collector->update();
-		}
 
 		}
 
 		pSc->update();
-
+		//!need to call here because sometimes m_return is checked even after the player died
+		if (m_return) {
+			//! exit level
+			m_return = false;
+				Scene::s_view->zoom(1.0f / 2.0f);
+				Scene::s_window->setView(*Scene::s_view);
+			SceneManagement::goBackToMainMenu();
+		}
 	}
 	else {
 
 		//!game over
-		Scene::s_view->zoom(1.0f/1.8f);
+		Scene::s_view->zoom(1.0f / 2.0f);
 		Scene::s_window->setView(*Scene::s_view);
 		SaveSys::saveState(cfg["sceneName"]);
 		SFX::play(SFXlib::GameOver, 100.0f);
 		SceneManagement::goToGameOver();
 
 	}
-	if (m_return) {
-		//! exit level
-		m_return = false;
-		Scene::s_view->zoom(1.0f / 1.8f);
-		Scene::s_window->setView(*Scene::s_view);
-		SceneManagement::goBackToMainMenu();
-	}
+	//if (m_return) {
+	//	//! exit level
+	//	m_return = false;
+	///*	Scene::s_view->zoom(1.0f / 2.0f);
+	//	Scene::s_window->setView(*Scene::s_view);*/
+	//	SceneManagement::goBackToMainMenu();
+	//}
 }
 
 void BossLevel3::render()

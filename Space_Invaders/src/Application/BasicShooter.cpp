@@ -22,26 +22,6 @@ ShooterGame::ShooterGame(const sf::Vector2i &screen_dimensions, const char *app_
 	m_menu = new SceneManagement::SceneMenu(m_currentScene);
 	SceneManagement::Scene::s_main_menu = m_menu;
 	//In order to let any Scene/Level access events we
-
-	//Register Levels using the menu/SceneManager
-	// m_menu->registerScene(std::string("credits"));
-	// m_menu->registerScene<Level1>(std::string("Level1"));
-	// m_menu->registerScenePassJSON<ShooterLevel>(std::string("level1"));
-	// m_menu->registerScene(std::string("novel1"));
-	// m_menu->registerScene(std::string("level1"));
-	// m_menu->registerScene(std::string("level1"));
-	// for (auto& dirEntry: std::filesystem::recursive_directory_iterator("res/Scenes")) {
-	// 	if (!dirEntry.is_regular_file()) continue; //skip directories, symlinks, etc
-	// 	std::filesystem::path file = dirEntry.path();
-	// 	std::string filename_noext = std::string(file.filename().string());
-	// 	filename_noext.replace(filename_noext.find(std::string(file.extension().string())),std::string(file.extension().string()).length(),std::string(""));
-
-	// 	if (std::string(file.extension().string()) == ".json") {
-	// 		// std::cout << "Scene Manager: Found file: " << filename_noext << file.extension().string() << "\n";
-	// 		m_menu->registerScene(filename_noext);
-	// 	}
-
-	// }
 	std::ifstream ifs(std::string("res/Scenes/load_order.json"));
 	json ld = json::parse(ifs);
 	for(auto& file : ld) {

@@ -6,7 +6,7 @@ using json = nlohmann::json;
 BossLevel1::BossLevel1(json cfg):cfg(cfg)
 {
 	max_enemy_count = 10;
-	boss = new Commander(50, 10, VectorMath::Vdirection::UP);
+	boss = new Commander(450, 10, VectorMath::Vdirection::UP);
 	boss_health = sf::Vector2f(boss->getHP(), 0.0f);
 	//Reserve Vectors
 	prepareContainers();
@@ -14,7 +14,7 @@ BossLevel1::BossLevel1(json cfg):cfg(cfg)
 	//Load 
 	loadTextures();
 	Scene::s_window->setView(*Scene::s_view);
-	player = new Player(100, 0.5f, 100.0f);
+	player = new Player(125, 0.5f, 100.0f);
 	//Set player Texture
 	player->setTexture(player_textures[0], sf::Vector2f(0.5f, 0.5f));
 	//create the camera
@@ -37,8 +37,8 @@ BossLevel1::BossLevel1(json cfg):cfg(cfg)
 	boss->setBulletParameters(10, 20);
 
 	// Minion Spawner
-	json spawner_cfg1 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":20,\"speed\":7,\"timer\":7.0,\"scale\":[0.3,0.3],\"rot_speed\":5.0,\"bullet\":{\"damage\":20,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_purple.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_purple.png\"]}}"_json;
-	json spawner_cfg2 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":30,\"speed\":7,\"timer\":7.0,\"scale\":[0.4,0.4],\"rot_speed\":1.0,\"bullet\":{\"damage\":10,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_red.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_red.png\"]}}"_json;
+	json spawner_cfg1 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":20,\"speed\":7,\"timer\":7.0,\"scale\":[0.4,0.4],\"rot_speed\":5.0,\"bullet\":{\"damage\":10,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_purple.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_purple.png\"]}}"_json;
+	json spawner_cfg2 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":30,\"speed\":7,\"timer\":7.0,\"scale\":[0.3,0.3],\"rot_speed\":1.0,\"bullet\":{\"damage\":5,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_red.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_red.png\"]}}"_json;
 	spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg1));
 	spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg2));
 	// spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
@@ -82,6 +82,14 @@ void BossLevel1::update(float delta_time)
 		}
 		
 		pSc->update();
+		//!need to call here because sometimes m_return is checked even after the player died
+		if (m_return) {
+			//! exit level
+			m_return = false;
+			Scene::s_view->zoom(1.0f / 1.8f);
+			Scene::s_window->setView(*Scene::s_view);
+			SceneManagement::goBackToMainMenu();
+		}
 
 	}
 	else {
@@ -94,13 +102,7 @@ void BossLevel1::update(float delta_time)
 		// SceneManagement::goBackToMainMenu();
 
 	}
-	if (m_return) {
-		//! exit level
-		m_return = false;
-		Scene::s_view->zoom(1.0f / 1.8f);
-		Scene::s_window->setView(*Scene::s_view);
-		SceneManagement::goBackToMainMenu();
-	}
+
 }
 
 void BossLevel1::render()

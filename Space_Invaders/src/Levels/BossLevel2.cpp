@@ -9,14 +9,14 @@ BossLevel2::BossLevel2(json cfg):cfg(cfg)
 	current_boss = 0;
 	max_enemy_count = 10;
 	boss.reserve(2);
-	boss.emplace_back(50, 10, VectorMath::Vdirection::UP,4.0f);
-	boss.emplace_back(50, 20, VectorMath::Vdirection::UP,2.0f);
+	boss.emplace_back(150, 10, VectorMath::Vdirection::UP,4.0f);
+	boss.emplace_back(250, 20, VectorMath::Vdirection::UP,2.0f);
 	boss_health = sf::Vector2f(boss.front().getHP()+boss.back().getHP(), 0.0f);
 	//Reserve Vectors
 	prepareContainers();
 	
 	// minion spawners
-	json spawner_cfg1 = "{\"spawn_type\":\"Attacker\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":20,\"speed\":1.0,\"timer\":3.0,\"scale\":[0.5,0.5],\"bullet\":{\"damage\":20,\"speed\":15,\"scale\":[0.5,0.5],\"textures\":[\"res/Sprites/projectiles/attacker_red_projectile.png\"]},\"textures\":[\"res/Sprites/enemies/attacker_red_1.png\",\"res/Sprites/enemies/attacker_red_2.png\"]}}"_json;
+	json spawner_cfg1 = "{\"spawn_type\":\"Attacker\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":20,\"speed\":5.0,\"timer\":3.0,\"scale\":[0.5,0.5],\"bullet\":{\"damage\":20,\"speed\":15,\"scale\":[0.5,0.5],\"textures\":[\"res/Sprites/projectiles/attacker_red_projectile.png\"]},\"textures\":[\"res/Sprites/enemies/attacker_red_1.png\",\"res/Sprites/enemies/attacker_red_2.png\"]}}"_json;
 	json spawner_cfg2 = "{\"spawn_type\":\"Attacker\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":30,\"speed\":5.0,\"timer\":3.0,\"scale\":[0.5,0.5],\"bullet\":{\"damage\":10,\"speed\":15,\"scale\":[0.5,0.5],\"textures\":[\"res/Sprites/projectiles/attacker_blue_projectile.png\"]},\"textures\":[\"res/Sprites/enemies/attacker_blue_1.png\",\"res/Sprites/enemies/attacker_blue_2.png\"]}}"_json;
 	spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg1));
 	spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg2));
@@ -24,7 +24,7 @@ BossLevel2::BossLevel2(json cfg):cfg(cfg)
 	//Load 
 	loadTextures();
 	Scene::s_window->setView(*Scene::s_view);
-	player = new Player(1000, 0.5f, 100.0f);
+	player = new Player(150, 0.5f, 100.0f);
 	//Set player Texture
 	player->setTexture(player_textures[0], sf::Vector2f(0.5f, 0.5f));
 	//create the camera
@@ -43,14 +43,14 @@ BossLevel2::BossLevel2(json cfg):cfg(cfg)
 	boss.front().setTexture(boss_texture[0], sf::Vector2f(1.0f, 1.0f));
 	boss.front().setPosition(VectorMath::getViewportLowerRightPos() - sf::Vector2f(-boss.front().getSize().x, Scene::s_view->getSize().y) / 2.0f);
 	boss.front().setProjectileTexture(boss_projectile_texture[0], sf::Vector2f(0.3f, 0.3f));
-	boss.front().setBulletParameters(1, 10);
+	boss.front().setBulletParameters(1, 20);
 
 	//Second boss
 	boss_texture[1].loadFromFile("res/Sprites/enemies/bosses/BossAttacker_green.png");
 	boss.back().setTexture(boss_texture[1], sf::Vector2f(1.0f, 1.0f));
 	boss.back().setPosition(VectorMath::getViewportLowerRightPos() - sf::Vector2f(-boss.back().getSize().x, Scene::s_view->getSize().y) / 2.0f);
 	boss.back().setProjectileTexture(boss_projectile_texture[1], sf::Vector2f(0.3f, 0.3f));
-	boss.back().setBulletParameters(1, 20);
+	boss.back().setBulletParameters(3, 30);
 
 
 	f_in = new Composit::Fade(s_window, s_view, false, 4);
@@ -100,6 +100,14 @@ void BossLevel2::update(float delta_time)
 		}
 		}
 		pSc->update();
+		//!need to call here because sometimes m_return is checked even after the player died
+		if (m_return) {
+			//! exit level
+			m_return = false;
+			Scene::s_view->zoom(1.0f / 1.8f);
+			Scene::s_window->setView(*Scene::s_view);
+			SceneManagement::goBackToMainMenu();
+		}
 
 	}
 	else {
@@ -112,13 +120,7 @@ void BossLevel2::update(float delta_time)
 		SceneManagement::goToGameOver();
 
 	}
-	if (m_return) {
-		//! exit level
-		m_return = false;
-		Scene::s_view->zoom(1.0f / 1.8f);
-		Scene::s_window->setView(*Scene::s_view);
-		SceneManagement::goBackToMainMenu();
-	}
+
 }
 
 void BossLevel2::render()
