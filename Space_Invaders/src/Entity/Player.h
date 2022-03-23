@@ -40,6 +40,7 @@ public:
 	bool canShoot();
 	//Buffs
 	void upgrade(int upgrade_lvl);
+	void upgradeHP(int upgrade_lvl);
 	void heal(float quantity);
 	void boostFireRate(float percent_increment);
 	void increaseBulletDamage(float increment);

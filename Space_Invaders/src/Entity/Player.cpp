@@ -111,9 +111,13 @@ bool Player::canShoot()
 void Player::upgrade(int upgrade_lvl)
 {
 	m_MaxHP 		= b_m_MaxHP 		*std::pow(1.25f, upgrade_lvl);
-	m_HP 			= b_m_HP			*std::pow(1.25f, upgrade_lvl);
+	
 	m_bullet_speed 	= b_m_bullet_speed	*std::pow(1.1f , upgrade_lvl);
 	m_bullet_damage = b_m_bullet_damage	*std::pow(1.1f , upgrade_lvl);
+}
+
+void Player::upgradeHP(int upgrade_lvl) {
+	m_HP 			= getHP()			*std::pow(1.25f, upgrade_lvl);
 }
 
 void Player::heal(float quantity)

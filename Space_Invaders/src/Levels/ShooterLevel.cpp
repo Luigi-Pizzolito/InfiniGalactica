@@ -2,7 +2,7 @@
 #include "MediaManager/SFXPlayer.h"
 #include "Entity/SimpleSpawner.h"
 #include <iostream>
-//todo: fix bug where player cannot take damage until score 90
+
 ShooterLevel::ShooterLevel(json cfg) :Level(),cfg(cfg)
 {
     auto lvlCfg = cfg["levelOptions"];
@@ -228,7 +228,8 @@ void ShooterLevel::updateEntities() {
 		for (int i = 0; i<upgrade_points_n; i++) {
 			if (player_score > upgrade_points[i]) {
 				tex_i=i+1;
-				// std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
+				player->upgradeHP(tex_i);
+				std::cout << "reached upgrade point: " << upgrade_points[i] << ", upgrades applied: " << tex_i <<"\n";
 			}
 		}
 		// std::cout << "seeting texture to: " << tex_i << "\n";
