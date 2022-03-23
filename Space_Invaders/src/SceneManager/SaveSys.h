@@ -19,6 +19,7 @@ class SaveSys {
         static std::string restoreState();
         static void clearState();
         static void saveLevel(std::string scene_name, size_t score);
+        static bool exists();
  };
 
 class PauseSc {

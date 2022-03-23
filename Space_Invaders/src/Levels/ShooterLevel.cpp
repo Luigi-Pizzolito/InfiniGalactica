@@ -97,6 +97,8 @@ void ShooterLevel::update(float delta_time)
 	}
 	else {
 		SFX::play(SFXlib::GameOver, 100.0f);
+		SaveSys::saveState(cfg["sceneName"]);
+
 		SceneManagement::goToGameOver();
 		// SceneManagement::goBackToMainMenu();
 	}

@@ -46,8 +46,10 @@ namespace SceneManagement {
 		title.setOrigin(sf::Vector2f((-Scene::s_view->getSize().x/2)+(title.getGlobalBounds().width/2), -Scene::s_view->getSize().y/5));
 		title.setFillColor(sf::Color::White);
 		//todo: use another while loop to get vertical spacing bounds for selection on smaller screens
-		selection.addOptions(std::string("Continue"));
-		selection.addOptions(std::vector<std::string> {"New Game", "Endless Mode", "Options", "Credits", "Exit"});
+		if (SaveSys::exists()) {
+			selection.addOptions(std::string("Continue"));
+		}
+		selection.addOptions(std::vector<std::string> {"New Game", /*"Endless Mode", "Options",*/ "Credits", "Exit"});
 
 		f_in = new Composit::Fade(s_window, s_view, false, 2);
 		f_in->trigger();
@@ -72,14 +74,16 @@ namespace SceneManagement {
 			} else
 			if (selec == "New Game") {
 				SaveSys::clearState();
+				// setScene(m_Scenes[0].first);
 				s_main_menu->nextScene();
 			} else
 			if (selec == "Endless Mode") {
 				// setScene(std::string("commanderlevel"));
-				setScene(std::string("novel1"));
+				// setScene(std::string("novel1"));
+				// setScene(std::string("gameover"));
 			} else
 			if (selec == "Options") {
-				setScene(std::string("gameover"));
+				// setScene(std::string("gameover"));
 			} else
 			if (selec == "Credits") {
 				setScene(std::string("credits"));
@@ -219,6 +223,8 @@ namespace SceneManagement {
 		if (m_sceneElement != &m_Scenes.back()) {
 			m_sceneElement++;//move to the next pair
 			std::ifstream ifs(std::string("res/Scenes/")+m_sceneElement->first+std::string(".json"));
+			Scene::s_view->setCenter(Scene::s_view->getSize().x/2, Scene::s_view->getSize().y / 2); //compensate for setCenter instead of setOffset func.
+			Scene::s_window->setView(*Scene::s_view);
 			json cfg = json::parse(ifs);
 			m_CurrentScenePtr = m_sceneElement->second(cfg);
 

@@ -66,8 +66,8 @@ void BossLevel1::update(float delta_time)
 			if (boss->getHP() <= 0) {
 				//? next lvl
 				//!placeholder for finishing the level
-				// Scene::s_view->zoom(1.0f/1.8f);
-				// Scene::s_window->setView(*Scene::s_view);
+				Scene::s_view->zoom(1.0f/1.8f);
+				Scene::s_window->setView(*Scene::s_view);
 				SaveSys::saveLevel(cfg["sceneName"], player_score);
 				m_finished = true; //? goto next level
 				// m_return = true;
@@ -86,6 +86,7 @@ void BossLevel1::update(float delta_time)
 		//!game over
 		Scene::s_view->zoom(1.0f/1.8f);
 		Scene::s_window->setView(*Scene::s_view);
+		SaveSys::saveState(cfg["sceneName"]);
 		SFX::play(SFXlib::GameOver, 100.0f);
 		SceneManagement::goToGameOver();
 		// SceneManagement::goBackToMainMenu();

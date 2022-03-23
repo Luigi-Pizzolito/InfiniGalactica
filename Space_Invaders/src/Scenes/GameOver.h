@@ -17,6 +17,7 @@ class GameOver: public SceneManagement::Scene {
         RadialStarField* rstarfield;
         sf::Font title_font;
         sf::Text title;
+        sf::Text sub;
 
         //Input bools
 

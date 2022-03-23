@@ -20,6 +20,8 @@ inline void SaveSys::write_vector_to_disk(std::vector<uint8_t> buffer, std::stri
 }
 
 
+bool SaveSys::exists() { return std::filesystem::exists(SAVE_F);}
+
 void SaveSys::newSave() {
     // load template json
     json j = SAVE_TEMPLT;
