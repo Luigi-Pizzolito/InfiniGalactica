@@ -1,0 +1,11 @@
+// level exit
+SaveSys::saveState(cfg["sceneName"]);
+
+// game over or when starting scene
+SaveSys::saveState(cfg["sceneName"]);
+
+// level pass
+SaveSys::saveLevel(cfg["sceneName"], score);
+
+// restore
+setScene(SaveSys::restoreState());

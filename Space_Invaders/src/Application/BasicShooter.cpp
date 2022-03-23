@@ -74,13 +74,12 @@ void ShooterGame::update()//reimplement for every level
 
 	//change this deltatime later
 	if (m_currentScene) {
-		m_currentScene->update(60.0f);
-
 		if (m_currentScene->isSceneFinished()) {
 			m_menu->nextScene();
+		} else {
+			m_currentScene->update(60.0f);
 		}
-
-		}
+	}
 }
 void ShooterGame::render()//reimplement for every level
 {
