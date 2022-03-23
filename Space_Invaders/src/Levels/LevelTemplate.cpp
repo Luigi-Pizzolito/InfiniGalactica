@@ -7,15 +7,7 @@ world_position(sf::Vector2f(0.0f,0.0f)),total_length(sf::Vector2f(0.0f, 0.0f))
 {
 	//set basic variables to their default state
 	// Initialize key press states
-	//Initialize the spawners
-	
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Enemy>(world_enemies,world_position,total_length));
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Furtive>(world_enemies, world_position, total_length));
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Attacker>(world_enemies, world_position, total_length));
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Starminator>(world_enemies, world_position, total_length));
-	// spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
 
-	item_spawners.emplace_back(new MemoryManagement::BaseItemSpawner(world_items));
 	//Initialize collectors
 	collectors.reserve(4);
 	collectors.emplace_back(new MemoryManagement::Collector<Enemy>(world_enemies));

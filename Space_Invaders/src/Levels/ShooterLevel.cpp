@@ -1,5 +1,6 @@
 #include "ShooterLevel.h"
 #include "MediaManager/SFXPlayer.h"
+#include "Entity/SimpleSpawner.h"
 #include <iostream>
 //todo: fix bug where player cannot take damage until score 90
 ShooterLevel::ShooterLevel(json cfg) :Level(),cfg(cfg)
@@ -24,6 +25,17 @@ ShooterLevel::ShooterLevel(json cfg) :Level(),cfg(cfg)
     }
 	//Set player Texture
 	player->setTexture(player_textures[(int)lvlCfg["player"]["texture_i"]], sf::Vector2f((float)lvlCfg["player"]["scale"][0],(float)lvlCfg["player"]["scale"][1]));
+	
+	
+	//Create the spawners
+	for (auto& spawner_cfg : lvlCfg["spawners"]["enemySpawners"]) {
+		spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg));
+	}
+	for (auto& spawner_cfg : lvlCfg["spawners"]["itemSpawners"]) {
+		ItemSpawner::addSpawner(item_spawners, world_items, world_position, total_length, spawner_cfg);
+	}
+	
+	
 	//create the camera
 	camera = new CameraFollowHorzScroll(Scene::s_window,Scene::s_view,player,sf::Vector2f(100.0f,0.0f), (bool)lvlCfg["camera"]["locked"]);
 	//create the starfield

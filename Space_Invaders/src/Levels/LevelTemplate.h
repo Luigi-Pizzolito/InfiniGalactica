@@ -17,6 +17,8 @@
 #include "SceneManager/SceneUtils/Composit.h"
 #include "SceneManager/SaveSys.h"
 
+#include "Entity/SimpleSpawner.h"
+
 class Level :public SceneManagement::Scene {
 protected:
 	//variables
@@ -37,8 +39,9 @@ protected:
 	uint8_t selected_slot;
 	//In the future subdivide this into enemy type1 type2
 	std::vector<Enemy*> world_enemies;
-	std::vector<MemoryManagement::BaseEnemySpawner*> spawners;
-	std::vector<MemoryManagement::BaseItemSpawner* > item_spawners;
+	// std::vector<MemoryManagement::BaseEnemySpawner*> spawners;
+	std::vector<SimpleSpawner*> spawners;
+	std::vector<BaseItemSpawner* > item_spawners;
 	//Projectiles
 	std::vector<PlayerBullet*> player_bullets;
 	std::vector<EnemyBullet*> world_enemy_bullets;

@@ -1,5 +1,8 @@
 #include "BossLevel1.h"
 #include "MediaManager/SFXPlayer.h"
+#include <json.hpp>
+using json = nlohmann::json;
+
 BossLevel1::BossLevel1(json cfg)
 {
 	boss = new Commander(50, 10, VectorMath::Vdirection::UP);
@@ -32,7 +35,12 @@ BossLevel1::BossLevel1(json cfg)
 	boss->setBulletParameters(10, 20);
 
 	// Minion Spawner
-	spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
+	//! transition this to new system
+	json spawner_cfg1 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":20,\"speed\":7,\"timer\":7.0,\"scale\":[0.3,0.3],\"rot_speed\":5.0,\"bullet\":{\"damage\":20,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_purple.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_purple.png\"]}}"_json;
+	json spawner_cfg2 = "{\"spawn_type\":\"Spinner\",\"spawn_range\":[0.0,0.0],\"member\":{\"health\":30,\"speed\":7,\"timer\":7.0,\"scale\":[0.4,0.4],\"rot_speed\":1.0,\"bullet\":{\"damage\":10,\"speed\":15,\"scale\":[0.4,0.4],\"textures\":[\"res/Sprites/projectiles/laser_ball_red.png\"]},\"textures\":[\"res/Sprites/enemies/spinner_red.png\"]}}"_json;
+	spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg1));
+	spawners.emplace_back(new SimpleSpawner(world_enemies,world_position,total_length, spawner_cfg2));
+	// spawners.emplace_back(new MemoryManagement::EnemySpawner<Spinner>(world_enemies, world_position, total_length));
 
 	f_in = new Composit::Fade(s_window, s_view, false, 4);
 	f_in->trigger();

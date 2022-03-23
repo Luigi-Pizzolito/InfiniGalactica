@@ -54,7 +54,7 @@ EnemyBullet::EnemyBullet(int damage, float speed, const sf::Vector2f& position, 
 
 EnemyBullet::~EnemyBullet()
 {
-	std::cout << "Destroyed" << std::endl;
+	// std::cout << "Destroyed" << std::endl;
 }
 
 DeviatedProjectile::DeviatedProjectile(int damage, float speed, const sf::Vector2f& position, const sf::Vector2f& direction,float deviation_angle)

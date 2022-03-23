@@ -1,0 +1,21 @@
+{
+    "spawn_type": "Enemy",
+    "spawn_range": [0.0, 100.0],
+    "member": {
+        "health": ,
+        "speed": ,
+        "timer": ,
+        "scale": [],
+        "bullet": {
+            "damage": ,
+            "speed": ,
+            "scale":, 
+            "textures": [
+                ""
+            ]
+        },
+        "textures": [
+            ""
+        ]
+    }
+}
