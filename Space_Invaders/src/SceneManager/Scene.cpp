@@ -80,10 +80,10 @@ namespace SceneManagement {
 				s_main_menu->nextScene();
 			} else
 			if (selec == "Test") {
-				// setScene(std::string("commanderlevel"));
-				// setScene(std::string("novel1"));
+				// setScene(std::string("bossLevel1"));
+				setScene(std::string("tutorial"));
 				// setScene(std::string("gameover"));
-				setScene(std::string("test"));
+				// setScene(std::string("test"));
 			} else
 			if (selec == "Options") {
 				// setScene(std::string("gameover"));

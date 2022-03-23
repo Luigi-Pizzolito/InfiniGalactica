@@ -1,5 +1,19 @@
 [
     {
+        "text": "",
+        "actor": "",
+        "actor_img": "",
+        "color": "",
+        "background": ""
+    },
+    {
+        "text": "",
+        "actor": "",
+        "actor_img": "",
+        "color": "",
+        "background": ""
+    },
+    {
         "text": "Hello darling, I am your spaceship's A.I.",
         "actor": "Spaceship AI",
         "actor_img": "res/Novel/Actors/miku.png",

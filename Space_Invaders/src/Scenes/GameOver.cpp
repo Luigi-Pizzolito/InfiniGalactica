@@ -23,7 +23,7 @@ GameOver::GameOver(json cfg) {
 	sub.setString("Press Enter to Continue");
 	sub.setFont(title_font);
 	sub.setCharacterSize(44.0f);
-	sub.setOrigin(sf::Vector2f((-Scene::s_view->getSize().x/2)+(title.getGlobalBounds().width/2), -Scene::s_view->getSize().y/2));
+	sub.setOrigin(sf::Vector2f((-Scene::s_view->getSize().x/2)+(sub.getGlobalBounds().width/2), -Scene::s_view->getSize().y/2));
 	sub.setFillColor(sf::Color::White);
 
 	// Background
