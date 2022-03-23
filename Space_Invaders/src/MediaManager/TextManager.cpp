@@ -21,7 +21,7 @@ void TextManager::loadScene()
 {
     // Load and parse JSON file
     std::ifstream ifs(file);
-    json j = json::parse(ifs);
+    j = json::parse(ifs);
     // std::cout << std::setw(4) << j << "\n\n";
 
     // Iterate over parsed JSON array and objects and copy data to class
@@ -110,7 +110,7 @@ void TextManager::draw()
 
 
 
-FSScrollTextManager::FSScrollTextManager(json obj, sf::RenderWindow *m_window, sf::View *m_view, bool *s_key) : m_window(m_window), m_view(m_view), s_key(s_key)
+FSScrollTextManager::FSScrollTextManager(json obj, sf::RenderWindow *m_window, sf::View *m_view, bool *s_key) : m_window(m_window), m_view(m_view), s_key(s_key), obj(obj)
 {
     // Load and set font
     font.loadFromFile("res/Novel/LanaPixel.ttf");
@@ -120,7 +120,7 @@ FSScrollTextManager::FSScrollTextManager(json obj, sf::RenderWindow *m_window, s
     fs_text.setLineSpacing(line_spacing);
 
     // Load current scene from JSON files
-    loadScene(obj);
+    loadScene();
 
     // Set initial position
     // t_pos = sf::Vector2f(-vert_margin*1.3f,-horz_margin);
@@ -131,7 +131,7 @@ FSScrollTextManager::FSScrollTextManager(json obj, sf::RenderWindow *m_window, s
 FSScrollTextManager::~FSScrollTextManager() {}
 
 
-void FSScrollTextManager::loadScene(json obj) {
+void FSScrollTextManager::loadScene() {
     // Load and parse JSON file
     // std::ifstream ifs(file);
     // json j = json::parse(ifs);

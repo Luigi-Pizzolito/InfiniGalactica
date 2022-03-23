@@ -15,6 +15,8 @@ class TextManager {
         sf::View* m_view;
         bool* s_key;
 
+        json j;
+
         // Internal vars storage
         std::vector<TextPanel> scenes_p;
         size_t scene_i = 0;
@@ -59,7 +61,8 @@ class FSScrollTextManager {
         const float hold_s_boost = 4.0f;
 
         // Internal utility methods
-        void loadScene(json obj);
+        void loadScene();
+        json obj;
         sf::String addLineWrap(sf::String string);
 
     public:

@@ -7,6 +7,7 @@
 NovelLevel::NovelLevel(json cfg):cfg(cfg)
 {
 	// Load Script
+	std::cout << "LOADED NOVEL SCRIPT\n";
 	text_panel = new TextManager(std::string("res/Novel/Scenes/")+std::string(cfg["novelScene"])+std::string(".json"), Scene::s_window, Scene::s_view, &key_space);
 
 	music = new MusicPlayer(std::string(cfg["music"]), true, 80.0f);

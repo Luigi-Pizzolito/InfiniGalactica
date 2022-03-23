@@ -76,7 +76,7 @@ namespace SceneManagement {
 			} else
 			if (selec == "Endless Mode") {
 				// setScene(std::string("commanderlevel"));
-				setScene(std::string("level1"));
+				setScene(std::string("novel1"));
 			} else
 			if (selec == "Options") {
 				setScene(std::string("gameover"));
