@@ -1,9 +1,9 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Incoming message: from Ross: more enemy ship approaches! stay on guard.",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "background": "res/Novel/Backgrounds/bg10.png"
     }
 ]

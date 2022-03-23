@@ -1,30 +1,28 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Ross is no more",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg18.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Transmission: No more enemies approaching.",
+        "actor": "Piltover Home-Planet",
+        "color": "FFFFFF",
+        "background": "res/Novel/Backgrounds/bg7.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Order is restored thanks to Haoyue and Rick.",
+        "actor": "Piltover Home-Planet",
+        "color": "FFFFFF",
+        "background": "res/Novel/Backgrounds/bg19.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "What about me?!",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "background": "res/Novel/Backgrounds/bg19.png"
     }
 ]

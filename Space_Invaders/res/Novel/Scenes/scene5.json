@@ -1,51 +1,51 @@
 [
+    
     {
-        "text": "",
+        "text": "*** gasps in disbelief ***",
         "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "color": "FFFFFF",
+        "background": "res/Novel/Backgrounds/bg14.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "That can't be... it's Ross and Zhao's ship; wrecked, all systems off.",
+        "actor": "Rick",
+        "actor_img": "res/Novel/Actors/Rick.png",
+        "color": "8CB74C",
+        "background": "res/Novel/Backgrounds/bg14.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Look Rick. A single escape pod has been activated.",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg14.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": ":O",
+        "actor": "Rick",
+        "actor_img": "res/Novel/Actors/Rick.png",
+        "color": "8CB74C",
+        "background": "res/Novel/Backgrounds/bg14.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Item recovered from wreckage: Analysing...",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "background": "res/Novel/Backgrounds/bg15.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": ".... result: Archive of Zhao's Brain and Thoughts.",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "background": "res/Novel/Backgrounds/bg15.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "He couldn't have, he would not have, left it..",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg15.png"
     }
 ]

@@ -35,7 +35,7 @@ BossLevel2::BossLevel2(json cfg):cfg(cfg)
 	r_starfield = new RadialStarField(Scene::s_window, Scene::s_view, 350, 8);
 	hud = new HUDPanel(Scene::s_window, Scene::s_view, player, &player_score, boss_health, boss_health, 0.8f);
 	//Music
-	music = new MusicPlayer("song5", true);
+	music = new MusicPlayer("song4", true);
 
 	pSc = new PauseSc(s_window, s_view, &paused, cfg["sceneName"]);
 	//First boss

@@ -1,17 +1,15 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Incoming Message: More Zaun ships visible on ground radar! Please hurry!!",
+        "actor": "Piltover Home-Planet",
+        "color": "FFFFFF",
+        "background": "res/Novel/Backgrounds/bg7.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "We'll take lead and leave first, follow closely.",
+        "actor": "Zhao Fengnian",
+        "color": "E8C06B",
+        "background": "res/Novel/Backgrounds/bg8.png"
     },
     {
         "text": "Hello darling, I am your spaceship's A.I.",
@@ -19,7 +17,7 @@
         "actor_img": "res/Novel/Actors/miku.png",
         "color": "47C8C1",
         "line": "Miku_L1",
-        "background": "res/Novel/Backgrounds/popipo.jpg"
+        "background": "res/Novel/Backgrounds/bg9.png"
     },
     {
         "text": "Move with A, W, S, D or the arrow keys",
@@ -27,7 +25,7 @@
         "actor_img": "res/Novel/Actors/miku.png",
         "color": "47C8C1",
         "line": "Miku_L2",
-        "background": "res/Novel/Backgrounds/ievan.jpg"
+        "background": "res/Novel/Backgrounds/bg9.png"
     },
     {
         "text": "Shoot with space bar or click",
@@ -35,7 +33,7 @@
         "actor_img": "res/Novel/Actors/miku.png",
         "color": "47C8C1",
         "line": "Miku_L3",
-        "background": "res/Novel/Backgrounds/popipo.jpg"
+        "background": "res/Novel/Backgrounds/bg9.png"
     },
     {
         "text": "Destroy all the enemies",
@@ -43,7 +41,7 @@
         "actor_img": "res/Novel/Actors/miku.png",
         "color": "47C8C1",
         "line": "Miku_L4",
-        "background": "res/Novel/Backgrounds/ievan.jpg"
+        "background": "res/Novel/Backgrounds/bg9.png"
     },
     {
         "text": "and most importantly: Don't dissapoint me.",
@@ -51,6 +49,6 @@
         "actor_img": "res/Novel/Actors/zatsune.png",
         "color": "B30400",
         "line": "Miku_L5",
-        "background": "res/Novel/Backgrounds/hagane.jpg"
+        "background": "res/Novel/Backgrounds/bg9.png"
     }
 ]

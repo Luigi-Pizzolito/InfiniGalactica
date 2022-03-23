@@ -38,7 +38,7 @@
             "nebulaNum": 1.9
         },
         "music": {
-            "song": "song6"
+            "song": "song7"
         },
         "spawners": {
             "enemySpawners": [
@@ -48,7 +48,7 @@
                     "member": {
                         "health": 20,
                         "speed": 2.0,
-                        "timer": 5.0,
+                        "timer": 3.0,
                         "scale": [0.4,0.4],
                         "bullet": {
                             "damage": 2,

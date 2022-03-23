@@ -1,51 +1,47 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "You are part of the Piltover, a symbiotic human alien empire developed centuries ago. This takes place after the exhiling of the Zaun, the untrustworthy alien race that once fought the Piltover for a hybrid empire.",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg1.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "You are Haoyue, the novoice commander of a starship fleet. You have been called in, there is an impending invasion, your time has come.",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg2.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "This is your crew:",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg2.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "An inspiring scientist, your long time friend, your most appreciated second hand.",
+        "actor": "Rick",
+        "color": "8CB74C",
+        "background": "res/Novel/Backgrounds/bg3.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Another fleet commander, that you've met since your time in the academy. Clever, and at times fierce",
+        "actor": "Ross",
+        "color": "FE8A27",
+        "background": "res/Novel/Backgrounds/bg4.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "A well established and leading Piltover scientist, pompous, but not too much.",
+        "actor": "Zhao Fengnian",
+        "color": "E8C06B",
+        "background": "res/Novel/Backgrounds/bg5.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "And then there's you: trying to accomplish great things, yet lacking the motivation to do so at times.",
+        "actor": "You (Haoyue)",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg6.png"
     }
 ]

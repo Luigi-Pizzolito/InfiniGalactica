@@ -51,7 +51,7 @@ namespace SceneManagement {
 		if (SaveSys::exists()) {
 			selection.addOptions(std::string("Continue"));
 		}
-		selection.addOptions(std::vector<std::string> {"New Game", /*"Endless Mode", "Options",*/ "Test", "Credits", "Exit"});
+		selection.addOptions(std::vector<std::string> {"New Game", /*"Endless Mode", "Options", "Test", */"Credits", "Exit"});
 
 		f_in = new Composit::Fade(s_window, s_view, false, 2);
 		f_in->trigger();
@@ -79,15 +79,15 @@ namespace SceneManagement {
 				// setScene(m_Scenes[0].first);
 				s_main_menu->nextScene();
 			} else
-			if (selec == "Test") {
+			// if (selec == "Test") {
 				// setScene(std::string("bossLevel1"));
-				setScene(std::string("tutorial"));
+				// setScene(std::string("tutorial"));
 				// setScene(std::string("gameover"));
 				// setScene(std::string("test"));
-			} else
-			if (selec == "Options") {
+			// } else
+			// if (selec == "Options") {
 				// setScene(std::string("gameover"));
-			} else
+			// } else
 			if (selec == "Credits") {
 				setScene(std::string("credits"));
 			}

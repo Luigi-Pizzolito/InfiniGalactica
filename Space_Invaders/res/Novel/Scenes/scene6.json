@@ -1,16 +1,16 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "(Transmission to Piltover): We have passed zone 2, yet I have encoutered signs of betrayal. Zhao's ship has been destroyed, Ross has escaped in a pod; the rest we can only assume.",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg16.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "I shall take vengence for Zhao.",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg16.png"
     }
 ]

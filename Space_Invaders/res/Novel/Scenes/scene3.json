@@ -1,37 +1,35 @@
 [
     {
-        "text": "",
+        "text": "Zone 1 defeated... you've made it. But not unscaved...",
         "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "color": "FFFFFF",
+        "background": "res/Novel/Backgrounds/bg12.png"
     },
     {
-        "text": "",
+        "text": "...communications lost with Ross and Zhao's ship.",
         "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "color": "FFFFFF",
+        "background": "res/Novel/Backgrounds/bg13.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Damnit! we must go back and find them!",
+        "actor": "You (Haoyue)",
+        "actor_img": "res/Novel/Actors/Haoyue.png",
+        "color": "373D93",
+        "background": "res/Novel/Backgrounds/bg12.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "No Haoyue! You can succeed on your own, we must not fail this mission.",
+        "actor": "Rick",
+        "actor_img": "res/Novel/Actors/Rick.png", 
+        "color": "8CB74C",
+        "background": "res/Novel/Backgrounds/bg12.png"
     }
     ,{
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "The Piltover depend on it, make Zhao proud.",
+        "actor": "Rick",
+        "actor_img": "res/Novel/Actors/Rick.png",
+        "color": "8CB74C",
+        "background": "res/Novel/Backgrounds/bg12.png"
     }
 ]

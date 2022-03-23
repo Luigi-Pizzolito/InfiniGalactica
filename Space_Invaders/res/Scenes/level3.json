@@ -34,11 +34,11 @@
             "locked": false
         },
         "starfield": {
-            "starNum": 45,
-            "nebulaNum": 1.4
+            "starNum": 30,
+            "nebulaNum": 1.0
         },
         "music": {
-            "song": "song6"
+            "song": "song2"
         },
         "spawners": {
             "enemySpawners": [

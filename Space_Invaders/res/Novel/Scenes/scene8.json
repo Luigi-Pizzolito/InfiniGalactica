@@ -1,16 +1,16 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "And so you have made it this far, never thought you could. Zhao's dead, I watched it in joy.I am the new ruler of the Zaun, founder of a revolution that will topple the Piltover. You  and your pathetic alliance.",
+        "actor": "Ross",
+        "actor_img": "res/Novel/Actors/Ross.png",
+        "color": "FE8A27",
+        "background": "res/Novel/Backgrounds/bg18.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Watch me anhialate you on my starship.",
+        "actor": "Ross",
+        "actor_img": "res/Novel/Actors/Ross.png",
+        "color": "FE8A27",
+        "background": "res/Novel/Backgrounds/bg18.png"
     }
 ]

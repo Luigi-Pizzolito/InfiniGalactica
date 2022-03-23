@@ -1,30 +1,30 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "I've finally got it! Archive booting...",
+        "actor": "Rick",
+        "actor_img": "res/Novel/Actors/Rick.png",
+        "color": "8CB74C",
+        "background": "res/Novel/Backgrounds/bg17.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Archived message from:  Zhao Fengnian.",
+        "actor": "Spaceship AI",
+        "actor_img": "res/Novel/Actors/miku.png",
+        "color": "47C8C1",
+        "background": "res/Novel/Backgrounds/bg17.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "There is only one way to make it; you must cripple the Zaun Sage III supercomputer cluster by injecting a data virus, it's the only way to bring down all their central systems and attack.",
+        "actor": "Zhao Fengnian",
+        "actor_img": "res/Novel/Actors/Zhao.png",
+        "color": "E8C06B",
+        "background": "res/Novel/Backgrounds/bg17-.png"
     },
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "I have faith in you to complete this mission, and in you Rick, in creating the virus; instructions attached.",
+        "actor": "Zhao Fengnian",
+        "actor_img": "res/Novel/Actors/Zhao.png",
+        "color": "E8C06B",
+        "background": "res/Novel/Backgrounds/bg17-.png"
     }
 ]

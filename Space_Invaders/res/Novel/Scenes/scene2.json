@@ -1,9 +1,8 @@
 [
     {
-        "text": "",
-        "actor": "",
-        "actor_img": "",
-        "color": "",
-        "background": ""
+        "text": "Ground radar systems detect Zaun ships from all directions!",
+        "actor": "Piltover Home-Planet",
+        "color": "FFFFFF",
+        "background": "res/Novel/Backgrounds/bg11.png"
     }
 ]
