@@ -71,6 +71,20 @@ sf::Vector2f VectorMath::getViewportLowerRightPos()
 
 }
 
+bool VectorMath::leftViewport(const sf::Vector2f& pos)
+{
+	sf::Vector2f top_left_pos = VectorMath::getViewPortTopLeftPos();
+	sf::Vector2f lower_right_pos = VectorMath::getViewportLowerRightPos();
+	//x axis
+	bool far_from_right_side = pos.x > lower_right_pos.x;
+	bool far_from_left_side = pos.x < top_left_pos.x;
+	//y axis
+	bool far_from_top = pos.y < top_left_pos.y ;
+	bool far_from_bottom = pos.y > lower_right_pos.y ;
+
+	return (far_from_right_side || far_from_left_side || far_from_top || far_from_bottom);
+}
+
 float VectorMath::degreeToRadians(float angle)
 {
 	return(angle * M_PI/180.0f);

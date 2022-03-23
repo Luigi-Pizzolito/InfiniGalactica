@@ -6,6 +6,8 @@ using json = nlohmann::json;
 
 #include "Levels/ShooterLevel.h"
 #include "Levels/BossLevel1.h"
+#include "Levels/BossLevel2.h"
+#include "Levels/BossLevel3.h"
 #include "Scenes/Credits.h"
 #include "Scenes/GameOver.h"
 #include "Scenes/NovelScene.h"
@@ -49,7 +51,7 @@ namespace SceneManagement {
 		if (SaveSys::exists()) {
 			selection.addOptions(std::string("Continue"));
 		}
-		selection.addOptions(std::vector<std::string> {"New Game", /*"Endless Mode", "Options",*/ "Credits", "Exit"});
+		selection.addOptions(std::vector<std::string> {"New Game", /*"Endless Mode", "Options",*/ "Test", "Credits", "Exit"});
 
 		f_in = new Composit::Fade(s_window, s_view, false, 2);
 		f_in->trigger();
@@ -77,10 +79,11 @@ namespace SceneManagement {
 				// setScene(m_Scenes[0].first);
 				s_main_menu->nextScene();
 			} else
-			if (selec == "Endless Mode") {
+			if (selec == "Test") {
 				// setScene(std::string("commanderlevel"));
 				// setScene(std::string("novel1"));
 				// setScene(std::string("gameover"));
+				setScene(std::string("test"));
 			} else
 			if (selec == "Options") {
 				// setScene(std::string("gameover"));
@@ -165,6 +168,12 @@ namespace SceneManagement {
 		}
 		if (cfg["sceneType"] == "bossLevel1") {
 			registerScenePassJSON<BossLevel1>(json_file);
+		} else
+		if (cfg["sceneType"] == "bossLevel2") {
+			registerScenePassJSON<BossLevel2>(json_file);
+		} else
+		if (cfg["sceneType"] == "bossLevel3") {
+			registerScenePassJSON<BossLevel3>(json_file);
 		}
 	}
 

@@ -18,6 +18,7 @@ namespace VectorMath {
 	sf::Vector2f getAABBCenter(const sf::Vector2f& center, const sf::Vector2f& size);
 	sf::Vector2f getViewPortTopLeftPos();
 	sf::Vector2f getViewportLowerRightPos();
+	bool leftViewport(const sf::Vector2f& pos);
 	float degreeToRadians(float angle);
 	float radiansToDegrees(float angle);
 	namespace Vdirection {

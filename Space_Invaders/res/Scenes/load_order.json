@@ -1,9 +1,10 @@
 [
-    "level1",
+    "test",
+    "bossLevel1",
+    "bossLevel2",
+    "bossLevel3",
     "novel1",
-    "commanderlevel",
     
-
-    "gameover",
-    "credits"
+    "credits",
+    "gameover"
 ]

@@ -14,6 +14,17 @@ void Projectile::move()
 {
 	m_sprite.move(m_dir * m_speed);
 }
+
+void Projectile::rotate(float rotation_speed)
+{
+	m_sprite.rotate(rotation_speed);
+}
+
+void Projectile::setSpeed(float speed)
+{
+	m_speed = speed;
+}
+
 void Projectile::setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec)
 {
 	m_sprite.setTexture(texture);

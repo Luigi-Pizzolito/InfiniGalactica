@@ -13,6 +13,8 @@ public:
 	Projectile(int damage,float speed,const sf::Vector2f& position,const sf::Vector2f& direction);
 	virtual ~Projectile();
 	virtual void move();
+	virtual void rotate(float rotation_speed);
+	virtual void setSpeed(float speed);
 	void setTexture(const sf::Texture& texture, const sf::Vector2f& scalevec);
 	int getDamage() const { return m_damage; }
 	const sf::Vector2f getSize()const;

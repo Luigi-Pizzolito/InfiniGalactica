@@ -42,10 +42,55 @@ protected:
 
 
 
-class CommanderStarnator :public Boss {
+class CommanderStarminator :public Boss {
+	enum class STATES :uint8_t {
+		IDLE = 0, MOVE, ATTACK
+	};
+protected:
+	Control::GameTimer bullet_timer;
+	STATES m_current_state;
+	Control::GameTimer m_state_changer;
+	int m_max_attack_num;
+	int m_current_attack_left;
+	bool can_shoot = false;
+	float m_rotation_angle;
+	int m_iteration;
+	sf::Vector2f m_target_pos_dir;
+public:
+	CommanderStarminator(int health, float speed, float rotation_speed, const sf::Vector2f& dir);
+	~CommanderStarminator();
+	EnemyBullet* spawnBullet(int bullet_index)override;
+	void updateStates()override;
+	void move()override;
+	bool canShoot()override;
+	void lookAt(const sf::Vector2f& target_pos)override;
+protected:
+	void setPoints()override;
 
 };
 
-class CommenderAttacker :public Boss {
+class CommanderAttacker :public Boss {
+	enum class STATES :uint8_t {
+		IDLE = 0, MOVE, ATTACK
+	};
+	STATES m_current_state;
+	Control::GameTimer m_state_changer;
+	int m_max_attack_num;
+	int m_current_attack_left;
+	bool can_shoot = false;
+	bool in_position = false;
+	bool ready = false;
 
+
+public:
+
+	CommanderAttacker(int health, float speed, const sf::Vector2f& dir,float timer_duration);
+	~CommanderAttacker();
+	EnemyBullet* spawnBullet(int bullet_index)override;
+	void updateStates()override;
+	void move()override;
+	bool canShoot()override;
+	bool isInPosition() { return in_position; }
+protected:
+	void setPoints()override;
 };
