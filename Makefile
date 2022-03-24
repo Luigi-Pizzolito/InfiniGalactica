@@ -44,6 +44,14 @@ debug:
 	@echo "\033[1;31mRunning Debug Project..........................\033[0m\033[2m\033[39;2m"
 	cd Space_Invaders; lldb ../$(ODIR)/$(PNAME)
 
+opt-build-run: $(SRCD)
+	@[ -d $(ODIR) ] || mkdir -p $(ODIR)
+	@echo "\033[0m\033[1;31mBuilding Project for Opt..........................\033[0m\033[2m"
+	$(CC) $^ -o $(ODIR)/$(PNAME)-opt -O3 -s -Wall -DNDEBUG $(CFLAGS) $(LIBS)
+	@echo "\033[0m\033[1;31mProject Compiled Successfully.\033[0m"
+	@echo "\033[1;31mRunning Opt Project..........................\033[0m\033[2m\033[39;2m"
+	cd Space_Invaders; ../$(ODIR)/$(PNAME)-opt 2> /dev/null
+
 .PHONY: clean
 
 clean:
